@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {}
+    "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {
+    "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+        "projectUniqueName": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
         "projectName": "SmartPowerElectricAPI",
-        "projectPath": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+        "projectPath": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
         "packagesPath": "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\obj\\",
+        "outputPath": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

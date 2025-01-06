@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5c3iCRCkuBWHQ6krLJrSDd6nXFk3IXeytMc+SDYzYNQL3iwR3WflV8cl1jiRvEvHTd3YpieSO99Gujq3iZUW4A==",
+  "dgSpecHash": "X//XkwOLRJaV/qK3+pXwIbQUWKJbFMJqNVA8HjX7AZQE0qkS70D4h+ctpWrv8BmL4C6meCpIKOH68oYUvozOHQ==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+  "projectFilePath": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
