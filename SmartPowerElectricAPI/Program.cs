@@ -3,6 +3,7 @@ using SmartPowerElectricAPI.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SmartPowerElectricAPI.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
+            ClockSkew = TimeSpan.Zero,
             IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = context =>
+            {
+                var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+                if (UsuarioController.IsTokenRevoked(token))
+                {
+                    context.Fail("Token inválido o revocado");
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
 
