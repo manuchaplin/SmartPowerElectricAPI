@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "X//XkwOLRJaV/qK3+pXwIbQUWKJbFMJqNVA8HjX7AZQE0qkS70D4h+ctpWrv8BmL4C6meCpIKOH68oYUvozOHQ==",
+  "dgSpecHash": "Rr+3h3//Z99zrCfzdlj1uUCJveF4C/z/tmjP7NBPrakMaNXEXahkJppartrVShouIaZM4sxwFLdwl6X6C4Up/w==",
   "success": true,
   "projectFilePath": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\entityframework\\6.5.1\\entityframework.6.5.1.nupkg.sha512",
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.20\\microsoft.aspnetcore.authentication.jwtbearer.7.0.20.nupkg.sha512",
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
