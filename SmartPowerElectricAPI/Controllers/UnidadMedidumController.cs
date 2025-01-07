@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 
@@ -8,12 +9,15 @@ namespace SmartPowerElectricAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UnidadMedidumController : ControllerBase
     {
         private readonly IUnidadMedidumRepository _unidadMedidumRepository;
-        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository)
+        private readonly IConfiguration _configuration;
+        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration)
         {
-            _unidadMedidumRepository=unidadMedidumRepository;
+            _unidadMedidumRepository = unidadMedidumRepository;
+            _configuration = configuration;
         }
         // GET: api/<UnidadMedidumController>
         [HttpGet("GetAllTest")]
