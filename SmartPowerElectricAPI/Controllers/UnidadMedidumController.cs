@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
+using SmartPowerElectricAPI.Utilities;
+using System.Linq.Expressions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,42 +16,114 @@ namespace SmartPowerElectricAPI.Controllers
     {
         private readonly IUnidadMedidumRepository _unidadMedidumRepository;
         private readonly IConfiguration _configuration;
-        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration)
+        private readonly ILogger _logger;
+        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration, ILogger logger)
         {
             _unidadMedidumRepository = unidadMedidumRepository;
             _configuration = configuration;
+            _logger = logger;
         }
-        // GET: api/<UnidadMedidumController>
-        [HttpGet("GetAllTest")]
-        public IActionResult GetAllTest()
+        [HttpPost("create")]       
+        public IActionResult Create([FromBody] UnidadMedidum unidadMedidum)
         {
-            List<UnidadMedidum> unidadMedida = _unidadMedidumRepository.Get().ToList();          
-            return Ok(unidadMedida);
+          
+            try
+            {                
+                List<Expression<Func<UnidadMedidum, bool>>> where = new List<Expression<Func<UnidadMedidum, bool>>>();
+                where.Add(x => x.UMedida == unidadMedidum.UMedida);
+                UnidadMedidum unidadMed = _unidadMedidumRepository.Get(where).FirstOrDefault();
+
+                if (unidadMed == null)
+                {                   
+                    _unidadMedidumRepository.Insert(unidadMedidum);
+
+                    return Ok(unidadMedidum);
+                }
+                else
+                {
+                    return BadRequest("La unidad de medida ya existe");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        // GET api/<UnidadMedidumController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpDelete("{id}")]       
+        public IActionResult Delete(int id)
         {
-            return "value";
+            try
+            {
+                List<Expression<Func<UnidadMedidum, bool>>> where = new List<Expression<Func<UnidadMedidum, bool>>>();
+                where.Add(x => x.Id == id);
+                UnidadMedidum unidadMedidum = _unidadMedidumRepository.Get(where).FirstOrDefault();
+                if (unidadMedidum != null)
+                {
+                    _unidadMedidumRepository.Delete(id);
+
+                    return Ok("Eliminado correctamente");
+                }
+                else
+                {
+                    return BadRequest("No existente");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-        // POST api/<UnidadMedidumController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("edit")]      
+        public IActionResult Edit([FromBody] UnidadMedidum unidadMedidum)
         {
+            try
+            {
+                List<Expression<Func<UnidadMedidum, bool>>> where = new List<Expression<Func<UnidadMedidum, bool>>>();
+                where.Add(x => x.Id == unidadMedidum.Id);
+                UnidadMedidum unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
+
+                if (unidadMedSearch != null)
+                {
+                    _unidadMedidumRepository.Update(unidadMedidum);
+
+                    return Ok(unidadMedidum);
+                }
+                else
+                {
+                    return BadRequest("Unidad de medida no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-        // PUT api/<UnidadMedidumController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("list")]        
+        public IActionResult List()
         {
+            try
+            {
+                List<UnidadMedidum> unidadMedidas = new List<UnidadMedidum>();
+                unidadMedidas = _unidadMedidumRepository.Get().ToList();
+
+                return Ok(unidadMedidas);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-        // DELETE api/<UnidadMedidumController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

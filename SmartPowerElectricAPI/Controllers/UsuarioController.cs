@@ -101,7 +101,7 @@ namespace SmartPowerElectricAPI.Controllers
 
         [HttpPost("create")]
         [Authorize]
-        public IActionResult CreateUser([FromBody] Usuario usuario)//
+        public IActionResult Create([FromBody] Usuario usuario)
         {
             //Usuario usuario = new Usuario();
 
@@ -137,10 +137,9 @@ namespace SmartPowerElectricAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        // DELETE api/<UsuarioController>/5
+       
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try
@@ -172,33 +171,55 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        //// GET: api/<UsuarioController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-                         
-        //// GET api/<UsuarioController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpPost("edit")]
+        [Authorize]
+        public IActionResult Edit([FromBody] Usuario usuario) 
+        {
+            try
+            {
+                List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
+                where.Add(x => x.Usuario1 == usuario.Usuario1 && x.Password == EncryptHelper.GetSHA1(usuario.Password));
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                Usuario usuariosearch = _usuarioRepository.Get(where).FirstOrDefault();
 
-        //// POST api/<UsuarioController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+                if (usuariosearch != null)
+                {
+                    usuario.Password = EncryptHelper.GetSHA1(usuario.Password);
+                    _usuarioRepository.Update(usuario);
 
-        //// PUT api/<UsuarioController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+                    return Ok(usuario);
+                }
+                else
+                {
+                    return BadRequest("El usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+          
+        }
 
-       
+        [HttpGet("list")]
+        [Authorize]
+        public IActionResult List()
+        {
+            try
+            {
+                List<Usuario> usuarios = new List<Usuario>();
+                usuarios= _usuarioRepository.Get().ToList();
+
+                return Ok(usuarios);
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+      
     }
 
     public class LoginRequest
