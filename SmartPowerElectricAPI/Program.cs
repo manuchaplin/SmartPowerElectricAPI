@@ -51,6 +51,7 @@ builder.Services.AddControllers();
 //        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 //        options.JsonSerializerOptions.WriteIndented = true;
 //    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -59,6 +60,7 @@ builder.Services.AddScoped<IUnidadMedidumRepository, UnidadMedidumRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ITipoMaterialRepository, TipoMaterialRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+builder.Services.AddScoped<ITrabajadorRepository, TrabajadorRepository>();
 builder.Services.AddDbContext<SmartPowerElectricContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();

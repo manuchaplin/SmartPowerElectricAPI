@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartPowerElectricAPI.Models;
+using SmartPowerElectricAPI.Repository;
 
 namespace SmartPowerElectricAPI.Controllers
 {
@@ -13,6 +15,8 @@ namespace SmartPowerElectricAPI.Controllers
     [ApiController]
     public class TrabajadorController : ControllerBase
     {
+        #region async Test
+        //Funciones async Test
         //private readonly SmartPowerElectricContext _context;
 
         //public TrabajadorController(SmartPowerElectricContext context)
@@ -119,5 +123,120 @@ namespace SmartPowerElectricAPI.Controllers
         //{
         //    return (_context.Trabajadors?.Any(e => e.Id == id)).GetValueOrDefault();
         //}
+        #endregion
+
+        private readonly ITrabajadorRepository _trabajadorRepository;
+        public TrabajadorController(ITrabajadorRepository trabajadorRepository) {
+            _trabajadorRepository = trabajadorRepository;
+        }
+
+        [HttpPost("create")]
+        public IActionResult Create([FromBody] Trabajador trabajador)
+        {
+
+            try
+            {
+                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
+                where.Add(x => x.Nombre.ToLower() == trabajador.Nombre.ToLower());
+                where.Add(x => x.Apellido.ToLower() == trabajador.Apellido.ToLower());
+                Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
+
+                if (trabajadorSearch == null)
+                {
+                    trabajador.FechaCreacion = DateTime.Now;
+                    _trabajadorRepository.Insert(trabajador);
+
+                    return Ok(trabajador);
+                }
+                else
+                {
+                    return BadRequest("El trabajador ya existe");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
+                where.Add(x => x.Id == id);
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                Trabajador trabajador = _trabajadorRepository.Get(where).FirstOrDefault();
+                if (trabajador != null)
+                {
+                    trabajador.FechaEliminado = DateTime.Now;
+                    trabajador.Eliminado = true;
+                    _trabajadorRepository.Update(trabajador);
+
+                    return Ok("Eliminado correctamente");
+                }
+                else
+                {
+                    return BadRequest("No existente");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPost("edit")]
+        public IActionResult Edit([FromBody] Trabajador trabajador)
+        {
+            try
+            {
+                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
+                where.Add(x => x.Id == trabajador.Id);
+                Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
+
+                if (trabajadorSearch != null)
+                {
+                    _trabajadorRepository.Update(trabajador);
+
+                    return Ok(trabajador);
+                }
+                else
+                {
+                    return BadRequest("Trabajador no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("list")]
+        public IActionResult List()
+        {
+            try
+            {
+                List<Trabajador> trabajadores = new List<Trabajador>();
+                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                trabajadores = _trabajadorRepository.Get(where).ToList();
+
+                return Ok(trabajadores);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

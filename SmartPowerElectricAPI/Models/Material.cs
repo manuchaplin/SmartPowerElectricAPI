@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPowerElectricAPI.Models;
 
-public class Material
+public partial class Material
 {
     [Key]
     public int Id { get; set; }

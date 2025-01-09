@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -116,13 +116,13 @@ namespace SmartPowerElectricAPI.Controllers
         {
             try
             {
-                //List<Material> materials = new List<Material>();
-                //List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                //where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
-                //var materials = _materialRepository.Get(where, "IdTipoMaterialNavigation");
+                List<Material> materials = new List<Material>();
+                List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                materials = _materialRepository.Get(where).ToList();
 
 
-                 var materials = _context.Material.Include(x => x.TipoMaterial).Include(x => x.UnidadMedida).ToList();
+                //var materials = _context.Material.Include(x => x.TipoMaterial).Include(x => x.UnidadMedida).ToList();//Probar con Yannia Luego
 
                 return Ok(materials);
 
