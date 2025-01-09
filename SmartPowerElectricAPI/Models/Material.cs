@@ -15,6 +15,12 @@ public partial class Material
 
     public int IdUnidadMedida { get; set; }
 
+    public DateTime? FechaCreacion { get; set; }
+
+    public DateTime? FechaEliminado { get; set; }
+
+    public bool? Eliminado { get; set; }
+
     public virtual TipoMaterial IdTipoMaterialNavigation { get; set; } = null!;
 
     public virtual UnidadMedidum IdUnidadMedidaNavigation { get; set; } = null!;

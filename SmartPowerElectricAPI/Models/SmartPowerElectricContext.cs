@@ -29,7 +29,7 @@ public partial class SmartPowerElectricContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\SmartPowerElectric;Database=SmartPowerElectric;User Id=smartPower;Password=1234");
+        => optionsBuilder.UseSqlServer("Server=(localdb)\\SmartPowerElectric;Database=SmartPowerElectric;User Id=smartPower;Password=12345;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,6 +57,13 @@ public partial class SmartPowerElectricContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+            entity.Property(e => e.Eliminado).HasColumnName("eliminado");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasColumnName("fechaCreacion");
+            entity.Property(e => e.FechaEliminado)
+                .HasColumnType("datetime")
+                .HasColumnName("fechaEliminado");
             entity.Property(e => e.IdTipoMaterial).HasColumnName("idTipoMaterial");
             entity.Property(e => e.IdUnidadMedida).HasColumnName("idUnidadMedida");
             entity.Property(e => e.Precio).HasColumnName("precio");

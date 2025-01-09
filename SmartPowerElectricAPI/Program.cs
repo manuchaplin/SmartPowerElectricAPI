@@ -49,6 +49,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUnidadMedidumRepository, UnidadMedidumRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ITipoMaterialRepository, TipoMaterialRepository>();
+builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddDbContext<SmartPowerElectricContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();
