@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartPowerElectricAPI.Models;
 
-public partial class TipoMaterial
-{   
+public class TipoMaterial
+{
+    [Key]
     public int Id { get; set; }
-  
+    [Required]
     public string Nombre { get; set; } = null!;
 
     public DateTime? FechaCreacion { get; set; }
@@ -16,5 +17,5 @@ public partial class TipoMaterial
 
     public bool? Eliminado { get; set; }
 
-    public virtual ICollection<Material> Materials { get; set; } = new List<Material>();
+    public virtual ICollection<Material> Materials { get; set; }
 }

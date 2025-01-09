@@ -51,7 +51,7 @@ namespace SmartPowerElectricAPI.Controllers
 
             // Valida las credenciales del usuario (puedes consultar una base de datos aquí)
             List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
-            where.Add(x => x.Usuario1 == request.Username && x.Password == EncryptHelper.GetSHA1(request.Password));
+            where.Add(x => x.Username == request.Username && x.Password == EncryptHelper.GetSHA1(request.Password));
             where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
             Usuario usuario= _usuarioRepository.Get(where).FirstOrDefault();
 
@@ -101,7 +101,7 @@ namespace SmartPowerElectricAPI.Controllers
 
         [HttpPost("create")]
         [Authorize]
-        public IActionResult Create([FromBody] Usuario usuario)
+        public IActionResult Create([FromBody] Usuario usuario)//
         {
             //Usuario usuario = new Usuario();
 
@@ -109,12 +109,13 @@ namespace SmartPowerElectricAPI.Controllers
             //usuario.Apellido = "Mon";
             //usuario.Email = "manuchaplin@gmail.com";
             //usuario.Telefono = 645779423;
-            //usuario.Usuario1 = "manuel.mon";
+            //usuario.Username = "manuel.mon";
             //usuario.Password = EncryptHelper.GetSHA1("12345");
+            //_usuarioRepository.Insert(usuario);
             try
             {
                 List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
-                where.Add(x => x.Usuario1 == usuario.Usuario1 && x.Password == EncryptHelper.GetSHA1(usuario.Password));
+                where.Add(x => x.Username == usuario.Username && x.Password == EncryptHelper.GetSHA1(usuario.Password));
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 Usuario usuariosearch = _usuarioRepository.Get(where).FirstOrDefault();
 
@@ -130,9 +131,10 @@ namespace SmartPowerElectricAPI.Controllers
                 {
                     return BadRequest("El usuario ya existe");
                 }
-               
 
-            }catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -178,7 +180,7 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
-                where.Add(x => x.Usuario1 == usuario.Usuario1 && x.Password == EncryptHelper.GetSHA1(usuario.Password));
+                where.Add(x => x.Username == usuario.Username && x.Password == EncryptHelper.GetSHA1(usuario.Password));
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 Usuario usuariosearch = _usuarioRepository.Get(where).FirstOrDefault();
 

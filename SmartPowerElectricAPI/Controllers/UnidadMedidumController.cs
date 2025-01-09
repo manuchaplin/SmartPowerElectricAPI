@@ -24,14 +24,14 @@ namespace SmartPowerElectricAPI.Controllers
             _logger = logger;
         }
         [HttpPost("create")]       
-        public IActionResult Create([FromBody] UnidadMedidum unidadMedidum)
+        public IActionResult Create([FromBody] UnidadMedida unidadMedidum)
         {
           
             try
             {                
-                List<Expression<Func<UnidadMedidum, bool>>> where = new List<Expression<Func<UnidadMedidum, bool>>>();
+                List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
                 where.Add(x => x.UMedida == unidadMedidum.UMedida);
-                UnidadMedidum unidadMed = _unidadMedidumRepository.Get(where).FirstOrDefault();
+                UnidadMedida unidadMed = _unidadMedidumRepository.Get(where).FirstOrDefault();
 
                 if (unidadMed == null)
                 {                   
@@ -57,9 +57,9 @@ namespace SmartPowerElectricAPI.Controllers
         {
             try
             {
-                List<Expression<Func<UnidadMedidum, bool>>> where = new List<Expression<Func<UnidadMedidum, bool>>>();
+                List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
                 where.Add(x => x.Id == id);
-                UnidadMedidum unidadMedidum = _unidadMedidumRepository.Get(where).FirstOrDefault();
+                UnidadMedida unidadMedidum = _unidadMedidumRepository.Get(where).FirstOrDefault();
                 if (unidadMedidum != null)
                 {
                     _unidadMedidumRepository.Delete(id);
@@ -81,13 +81,13 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("edit")]      
-        public IActionResult Edit([FromBody] UnidadMedidum unidadMedidum)
+        public IActionResult Edit([FromBody] UnidadMedida unidadMedidum)
         {
             try
             {
-                List<Expression<Func<UnidadMedidum, bool>>> where = new List<Expression<Func<UnidadMedidum, bool>>>();
+                List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
                 where.Add(x => x.Id == unidadMedidum.Id);
-                UnidadMedidum unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
+                UnidadMedida unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
 
                 if (unidadMedSearch != null)
                 {
@@ -112,7 +112,7 @@ namespace SmartPowerElectricAPI.Controllers
         {
             try
             {
-                List<UnidadMedidum> unidadMedidas = new List<UnidadMedidum>();
+                List<UnidadMedida> unidadMedidas = new List<UnidadMedida>();
                 unidadMedidas = _unidadMedidumRepository.Get().ToList();
 
                 return Ok(unidadMedidas);

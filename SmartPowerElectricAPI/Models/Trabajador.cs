@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartPowerElectricAPI.Models;
 
-public partial class Trabajador
+public class Trabajador
 {
+    [Key]
     public int Id { get; set; }
-
+    [Required]
     public string Nombre { get; set; } = null!;
-
+    [Required]
     public string Apellido { get; set; } = null!;
 
     public string? Especialidad { get; set; }

@@ -122,7 +122,7 @@ namespace SmartPowerElectricAPI.Controllers
                 //var materials = _materialRepository.Get(where, "IdTipoMaterialNavigation");
 
 
-                 var materials = _context.Materials.Include(x => x.TipoMaterial).Include(x => x.UnidadMedidum).ToList();
+                 var materials = _context.Material.Include(x => x.TipoMaterial).Include(x => x.UnidadMedida).ToList();
 
                 return Ok(materials);
 
