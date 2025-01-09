@@ -21,7 +21,7 @@ public partial class Material
 
     public bool? Eliminado { get; set; }
 
-    public virtual TipoMaterial IdTipoMaterialNavigation { get; set; } = null!;
+    public virtual TipoMaterial TipoMaterial { get; set; }
 
-    public virtual UnidadMedidum IdUnidadMedidaNavigation { get; set; } = null!;
+    public virtual UnidadMedidum UnidadMedidum { get; set; }
 }

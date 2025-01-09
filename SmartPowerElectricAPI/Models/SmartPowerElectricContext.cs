@@ -68,12 +68,12 @@ public partial class SmartPowerElectricContext : DbContext
             entity.Property(e => e.IdUnidadMedida).HasColumnName("idUnidadMedida");
             entity.Property(e => e.Precio).HasColumnName("precio");
 
-            entity.HasOne(d => d.IdTipoMaterialNavigation).WithMany(p => p.Materials)
+            entity.HasOne(d => d.TipoMaterial).WithMany(p => p.Materials)
                 .HasForeignKey(d => d.IdTipoMaterial)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Material_TipoMaterial");
 
-            entity.HasOne(d => d.IdUnidadMedidaNavigation).WithMany(p => p.Materials)
+            entity.HasOne(d => d.UnidadMedidum).WithMany(p => p.Materials)
                 .HasForeignKey(d => d.IdUnidadMedida)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Material_UnidadMedida");

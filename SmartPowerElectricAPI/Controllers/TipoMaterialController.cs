@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using System.Linq.Expressions;
@@ -9,6 +10,7 @@ namespace SmartPowerElectricAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TipoMaterialController : ControllerBase
     {
         private ITipoMaterialRepository _tipoMaterialRepository;
