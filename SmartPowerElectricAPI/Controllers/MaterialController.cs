@@ -11,7 +11,7 @@ namespace SmartPowerElectricAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MaterialController : ControllerBase
     {
         private readonly IMaterialRepository _materialRepository;
