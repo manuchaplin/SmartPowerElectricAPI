@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartPowerElectricAPI.Models;
 
-public partial class Usuario
+public class Usuario
 {
+    [Key]
     public int Id { get; set; }
-
+    [Required]
     public string Nombre { get; set; } = null!;
-
+    [Required]
     public string Apellido { get; set; } = null!;
-
+    [Required]
     public string Email { get; set; } = null!;
-
-    public string Usuario1 { get; set; } = null!;
-
+    [Required]
+    public string Username { get; set; } = null!;
+    [Required]
     public string Password { get; set; } = null!;
 
     public int? Telefono { get; set; }

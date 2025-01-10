@@ -1,21 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPowerElectricAPI.Models;
 
 public partial class Material
 {
+    [Key]
     public int Id { get; set; }
 
     public double? Precio { get; set; }
 
     public double? Cantidad { get; set; }
-
+    [Required]
+    [ForeignKey("TipoMaterial")]
     public int IdTipoMaterial { get; set; }
-
+    [Required]
+    [ForeignKey("UnidadMedida")]
     public int IdUnidadMedida { get; set; }
 
-    public virtual TipoMaterial IdTipoMaterialNavigation { get; set; } = null!;
+    public DateTime? FechaCreacion { get; set; }
 
-    public virtual UnidadMedidum IdUnidadMedidaNavigation { get; set; } = null!;
+    public DateTime? FechaEliminado { get; set; }
+
+    public bool? Eliminado { get; set; }
+
+    public virtual TipoMaterial TipoMaterial { get; set; }
+
+    public virtual UnidadMedida UnidadMedida { get; set; }
 }

@@ -2,7 +2,7 @@
 
 namespace SmartPowerElectricAPI.Repository
 {
-    public interface IUnidadMedidumRepository : IGenericRepository<UnidadMedidum>
+    public interface IUnidadMedidumRepository : IGenericRepository<UnidadMedida>
     {
     }
 }
