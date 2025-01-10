@@ -1,0 +1,828 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SmartPowerElectricAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Cliente/create": {
+      "post": {
+        "tags": [
+          "Cliente"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Cliente"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Cliente/{id}": {
+      "delete": {
+        "tags": [
+          "Cliente"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Cliente/edit": {
+      "post": {
+        "tags": [
+          "Cliente"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Cliente"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Cliente/list": {
+      "get": {
+        "tags": [
+          "Cliente"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Material/create": {
+      "post": {
+        "tags": [
+          "Material"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Material"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Material/{id}": {
+      "delete": {
+        "tags": [
+          "Material"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Material/edit": {
+      "post": {
+        "tags": [
+          "Material"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Material"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Material/list": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TipoMaterial/create": {
+      "post": {
+        "tags": [
+          "TipoMaterial"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/TipoMaterial"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TipoMaterial/{id}": {
+      "delete": {
+        "tags": [
+          "TipoMaterial"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TipoMaterial/edit": {
+      "post": {
+        "tags": [
+          "TipoMaterial"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/TipoMaterial"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TipoMaterial/list": {
+      "get": {
+        "tags": [
+          "TipoMaterial"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Trabajador/create": {
+      "post": {
+        "tags": [
+          "Trabajador"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Trabajador"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Trabajador/{id}": {
+      "delete": {
+        "tags": [
+          "Trabajador"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Trabajador/edit": {
+      "post": {
+        "tags": [
+          "Trabajador"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Trabajador"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Trabajador/list": {
+      "get": {
+        "tags": [
+          "Trabajador"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UnidadMedidum/create": {
+      "post": {
+        "tags": [
+          "UnidadMedidum"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UnidadMedida"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UnidadMedidum/{id}": {
+      "delete": {
+        "tags": [
+          "UnidadMedidum"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UnidadMedidum/edit": {
+      "post": {
+        "tags": [
+          "UnidadMedidum"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UnidadMedida"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UnidadMedidum/list": {
+      "get": {
+        "tags": [
+          "UnidadMedidum"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/logout": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/login": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/create": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/{id}": {
+      "delete": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/edit": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuario/list": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Cliente": {
+      "required": [
+        "email",
+        "nombre"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "email": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "telefono": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LoginRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Material": {
+      "required": [
+        "idTipoMaterial",
+        "idUnidadMedida"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "precio": {
+          "format": "double",
+          "type": "number"
+        },
+        "cantidad": {
+          "format": "double",
+          "type": "number"
+        },
+        "idTipoMaterial": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idUnidadMedida": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "tipoMaterial": {
+          "$ref": "#/definitions/TipoMaterial"
+        },
+        "unidadMedida": {
+          "$ref": "#/definitions/UnidadMedida"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TipoMaterial": {
+      "required": [
+        "nombre"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Material"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Trabajador": {
+      "required": [
+        "apellido",
+        "nombre"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "apellido": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "especialidad": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "telefono": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "seguridadSocial": {
+          "type": "string"
+        },
+        "fechaInicioContrato": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaFinContrato": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "cobroxHora": {
+          "format": "double",
+          "type": "number"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UnidadMedida": {
+      "required": [
+        "uMedida"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "uMedida": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Material"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Usuario": {
+      "required": [
+        "apellido",
+        "email",
+        "nombre",
+        "password",
+        "username"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "apellido": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "email": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "username": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "password": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "telefono": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

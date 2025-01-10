@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "ty1zlxKCCii3N78Q5S+CTBGE4enjhK1loW0ueZRepEQ=",
+  "Source": "SmartPowerElectricAPI",
+  "BasePath": "_content/SmartPowerElectricAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

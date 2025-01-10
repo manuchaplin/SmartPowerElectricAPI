@@ -27,8 +27,14 @@ public class SmartPowerElectricContext : DbContext
 
     public virtual DbSet<Usuario> Usuario { get; set; }
 
+    //local
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Server=(localdb)\\SmartPowerElectric;Database=SmartPowerElectric;User Id=smartPower;Password=12345;TrustServerCertificate=True;");
+
+    //Pro
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\SmartPowerElectric;Database=SmartPowerElectric;User Id=smartPower;Password=12345;TrustServerCertificate=True;");
-  
+      => optionsBuilder.UseSqlServer("Server=smartpowerelectric.database.windows.net;Database=SmartPowerElectric;User Id=smartPower;Password=Sp.*95072728906;TrustServerCertificate=True;");
+
 }

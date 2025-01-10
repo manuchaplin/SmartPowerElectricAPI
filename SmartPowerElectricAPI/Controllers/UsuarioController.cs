@@ -99,8 +99,7 @@ namespace SmartPowerElectricAPI.Controllers
 
 
 
-        [HttpPost("create")]
-        [Authorize]
+        [HttpPost("create")]       
         public IActionResult Create([FromBody] Usuario usuario)//
         {
             //Usuario usuario = new Usuario();
