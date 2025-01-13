@@ -578,8 +578,7 @@
           "type": "string"
         },
         "telefono": {
-          "format": "int32",
-          "type": "integer"
+          "type": "string"
         },
         "fechaCreacion": {
           "format": "date-time",
@@ -714,8 +713,7 @@
           "type": "string"
         },
         "telefono": {
-          "format": "int32",
-          "type": "integer"
+          "type": "string"
         },
         "direccion": {
           "type": "string"
@@ -807,8 +805,7 @@
           "type": "string"
         },
         "telefono": {
-          "format": "int32",
-          "type": "integer"
+          "type": "string"
         },
         "fechaCreacion": {
           "format": "date-time",

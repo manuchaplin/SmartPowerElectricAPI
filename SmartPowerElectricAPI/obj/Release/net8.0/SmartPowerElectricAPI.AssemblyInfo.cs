@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartPowerElectricAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+392ef18877981e15baf433bcd3ae658a5f4564db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cb03eabf950cb7940bc5133acb3b2e7349ab56a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartPowerElectricAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartPowerElectricAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

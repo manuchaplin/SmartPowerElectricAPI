@@ -19,7 +19,7 @@ public class Usuario
     [Required]
     public string Password { get; set; } = null!;
 
-    public int? Telefono { get; set; }
+    public string? Telefono { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 

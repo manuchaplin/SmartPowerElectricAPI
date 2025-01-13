@@ -15,7 +15,7 @@ public class Cliente
     [Required]
     public string Email { get; set; } = null!;
 
-    public int? Telefono { get; set; }
+    public string? Telefono { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 
