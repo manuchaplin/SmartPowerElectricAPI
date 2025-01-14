@@ -4,6 +4,7 @@ using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using SmartPowerElectricAPI.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -68,7 +69,7 @@ namespace SmartPowerElectricAPI.Controllers
                     material.Eliminado = true;
                     _materialRepository.Update(material);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
@@ -84,20 +85,26 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit([FromBody] Material material)
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id,[FromBody] MaterialDTO materialDTO)
         {
             try
             {
                 List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                where.Add(x => x.Id == material.Id);
+                where.Add(x => x.Id == id);
                 Material materialSearch = _materialRepository.Get(where).FirstOrDefault();
 
                 if (materialSearch != null)
                 {
-                    _materialRepository.Update(material);
+                    if (materialDTO.Precio!=null)materialSearch.Precio=materialDTO.Precio;
+                    if (materialDTO.Cantidad != null)materialSearch.Cantidad = materialDTO.Cantidad;
+                    if (materialDTO.IdTipoMaterial != null)materialSearch.IdTipoMaterial = (int)materialDTO.IdTipoMaterial;
+                    if (materialDTO.IdUnidadMedida != null)materialSearch.IdUnidadMedida = (int)materialDTO.IdUnidadMedida;
+                    if (materialDTO.FechaCreacion != null)materialSearch.FechaCreacion = materialDTO.FechaCreacion;                    
 
-                    return Ok(material);
+                    _materialRepository.Update(materialSearch);
+
+                    return Ok(materialSearch);
                 }
                 else
                 {

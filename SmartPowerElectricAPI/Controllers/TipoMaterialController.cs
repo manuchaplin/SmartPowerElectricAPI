@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using System.Linq.Expressions;
@@ -64,7 +65,7 @@ namespace SmartPowerElectricAPI.Controllers
                     tipoMaterial.Eliminado = true;
                     _tipoMaterialRepository.Update(tipoMaterial);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
@@ -80,20 +81,23 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit([FromBody] TipoMaterial tipoMaterial)
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id,[FromBody] TipoMaterialDTO tipoMaterialDTO)
         {
             try
             {
                 List<Expression<Func<TipoMaterial, bool>>> where = new List<Expression<Func<TipoMaterial, bool>>>();
-                where.Add(x => x.Id == tipoMaterial.Id);
+                where.Add(x => x.Id == id);
                 TipoMaterial tipoMaterialSearch = _tipoMaterialRepository.Get(where).FirstOrDefault();
 
                 if (tipoMaterialSearch != null)
                 {
-                    _tipoMaterialRepository.Update(tipoMaterial);
+                    if (tipoMaterialDTO.Nombre != null) tipoMaterialSearch.Nombre = tipoMaterialDTO.Nombre;
+                    if (tipoMaterialDTO.FechaCreacion != null) tipoMaterialSearch.FechaCreacion = tipoMaterialDTO.FechaCreacion;
 
-                    return Ok(tipoMaterial);
+                    _tipoMaterialRepository.Update(tipoMaterialSearch);
+
+                    return Ok(tipoMaterialSearch);
                 }
                 else
                 {

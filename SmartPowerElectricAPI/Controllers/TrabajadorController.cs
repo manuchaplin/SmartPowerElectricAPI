@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 
@@ -176,7 +177,7 @@ namespace SmartPowerElectricAPI.Controllers
                     trabajador.Eliminado = true;
                     _trabajadorRepository.Update(trabajador);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
@@ -192,20 +193,32 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit([FromBody] Trabajador trabajador)
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id,[FromBody] TrabajadorDTO trabajadorDTO)
         {
             try
             {
                 List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
-                where.Add(x => x.Id == trabajador.Id);
+                where.Add(x => x.Id == id);
                 Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
 
                 if (trabajadorSearch != null)
                 {
-                    _trabajadorRepository.Update(trabajador);
+                    if (trabajadorDTO.Nombre != null) trabajadorSearch.Nombre = trabajadorDTO.Nombre;
+                    if (trabajadorDTO.Apellido != null) trabajadorSearch.Apellido = trabajadorDTO.Apellido;
+                    if (trabajadorDTO.Especialidad != null) trabajadorSearch.Especialidad = trabajadorDTO.Especialidad;
+                    if (trabajadorDTO.Email != null) trabajadorSearch.Email = trabajadorDTO.Email;
+                    if (trabajadorDTO.Telefono != null) trabajadorSearch.Telefono = trabajadorDTO.Telefono;
+                    if (trabajadorDTO.Direccion != null) trabajadorSearch.Direccion = trabajadorDTO.Direccion;
+                    if (trabajadorDTO.SeguridadSocial != null) trabajadorSearch.SeguridadSocial = trabajadorDTO.SeguridadSocial;
+                    if (trabajadorDTO.FechaInicioContrato != null) trabajadorSearch.FechaInicioContrato = trabajadorDTO.FechaInicioContrato;
+                    if (trabajadorDTO.FechaFinContrato != null) trabajadorSearch.FechaFinContrato = trabajadorDTO.FechaFinContrato;
+                    if (trabajadorDTO.CobroxHora != null) trabajadorSearch.CobroxHora = trabajadorDTO.CobroxHora;
+                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion = trabajadorDTO.FechaCreacion;                
 
-                    return Ok(trabajador);
+                    _trabajadorRepository.Update(trabajadorSearch);
+
+                    return Ok(trabajadorSearch);
                 }
                 else
                 {

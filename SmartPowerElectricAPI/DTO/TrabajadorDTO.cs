@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmartPowerElectricAPI.Models;
+namespace SmartPowerElectricAPI.DTO;
 
-public class Trabajador
+public class TrabajadorDTO
 {
-    [Key]
-    public int Id { get; set; }
-    [Required]
-    public string Nombre { get; set; } = null!;
-    [Required]
-    public string Apellido { get; set; } = null!;
+   
+    public string? Nombre { get; set; } = null!;
+
+    public string? Apellido { get; set; } = null!;
 
     public string? Especialidad { get; set; }
 
@@ -34,8 +32,4 @@ public class Trabajador
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
-
-
-
-    public string fechaAlta { get { return FechaCreacion?.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty; } }
 }

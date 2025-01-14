@@ -29,4 +29,7 @@ public partial class Material
     public virtual TipoMaterial TipoMaterial { get; set; }
 
     public virtual UnidadMedida UnidadMedida { get; set; }
+
+
+    public string fechaAlta { get { return FechaCreacion?.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty; } }
 }

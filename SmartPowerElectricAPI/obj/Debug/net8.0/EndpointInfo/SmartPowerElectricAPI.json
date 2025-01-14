@@ -57,28 +57,37 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Cliente/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Cliente"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cliente"
+                "$ref": "#/components/schemas/ClienteDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cliente"
+                "$ref": "#/components/schemas/ClienteDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Cliente"
+                "$ref": "#/components/schemas/ClienteDTO"
               }
             }
           }
@@ -154,28 +163,37 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Material/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Material"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Material"
+                "$ref": "#/components/schemas/MaterialDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Material"
+                "$ref": "#/components/schemas/MaterialDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Material"
+                "$ref": "#/components/schemas/MaterialDTO"
               }
             }
           }
@@ -251,28 +269,37 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/TipoMaterial/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "TipoMaterial"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoMaterial"
+                "$ref": "#/components/schemas/TipoMaterialDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoMaterial"
+                "$ref": "#/components/schemas/TipoMaterialDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoMaterial"
+                "$ref": "#/components/schemas/TipoMaterialDTO"
               }
             }
           }
@@ -348,28 +375,37 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Trabajador/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Trabajador"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Trabajador"
+                "$ref": "#/components/schemas/TrabajadorDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Trabajador"
+                "$ref": "#/components/schemas/TrabajadorDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Trabajador"
+                "$ref": "#/components/schemas/TrabajadorDTO"
               }
             }
           }
@@ -445,28 +481,37 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/UnidadMedidum/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "UnidadMedidum"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnidadMedida"
+                "$ref": "#/components/schemas/UnidadMedidaDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnidadMedida"
+                "$ref": "#/components/schemas/UnidadMedidaDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UnidadMedida"
+                "$ref": "#/components/schemas/UnidadMedidaDTO"
               }
             }
           }
@@ -533,6 +578,18 @@
         }
       }
     },
+    "/api/Usuario/validateToken": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Usuario/create": {
       "post": {
         "tags": [
@@ -585,32 +642,62 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Usuario/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioDTO"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -657,8 +744,48 @@
             "type": "string"
           },
           "telefono": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaEliminado": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eliminado": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaAlta": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClienteDTO": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
             "nullable": true
           },
           "fechaCreacion": {
@@ -740,6 +867,51 @@
           },
           "unidadMedida": {
             "$ref": "#/components/schemas/UnidadMedida"
+          },
+          "fechaAlta": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MaterialDTO": {
+        "type": "object",
+        "properties": {
+          "precio": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "cantidad": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "idTipoMaterial": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idUnidadMedida": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaEliminado": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eliminado": {
+            "type": "boolean",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -778,6 +950,35 @@
               "$ref": "#/components/schemas/Material"
             },
             "nullable": true
+          },
+          "fechaAlta": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TipoMaterialDTO": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaEliminado": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eliminado": {
+            "type": "boolean",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -810,8 +1011,75 @@
             "nullable": true
           },
           "telefono": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "seguridadSocial": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaInicioContrato": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFinContrato": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cobroxHora": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaEliminado": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eliminado": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaAlta": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrabajadorDTO": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "especialidad": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
             "nullable": true
           },
           "direccion": {
@@ -878,6 +1146,16 @@
         },
         "additionalProperties": false
       },
+      "UnidadMedidaDTO": {
+        "type": "object",
+        "properties": {
+          "uMedida": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Usuario": {
         "required": [
           "apellido",
@@ -913,8 +1191,56 @@
             "type": "string"
           },
           "telefono": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaEliminado": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eliminado": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaAlta": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsuarioDTO": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
             "nullable": true
           },
           "fechaCreacion": {

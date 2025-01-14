@@ -22,4 +22,7 @@ public class Cliente
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
+
+
+    public string fechaAlta { get { return FechaCreacion?.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty; } }
 }

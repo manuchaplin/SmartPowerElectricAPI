@@ -12,4 +12,5 @@ public class UnidadMedida
     public string UMedida { get; set; } = null!;
 
     public virtual ICollection<Material> Materials { get; set; }
+
 }

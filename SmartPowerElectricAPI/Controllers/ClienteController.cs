@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 
@@ -69,7 +70,7 @@ namespace SmartPowerElectricAPI.Controllers
                     cliente.Eliminado = true;
                     _clienteRepository.Update(cliente);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
@@ -85,20 +86,27 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit([FromBody] Cliente cliente)
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id,[FromBody] ClienteDTO clienteDTO)
         {
             try
             {
                 List<Expression<Func<Cliente, bool>>> where = new List<Expression<Func<Cliente, bool>>>();
-                where.Add(x => x.Id == cliente.Id);
+                where.Add(x => x.Id == id);
                 Cliente clienteSearch = _clienteRepository.Get(where).FirstOrDefault();
 
                 if (clienteSearch != null)
                 {
-                    _clienteRepository.Update(cliente);
+                    if (clienteDTO.Nombre != null) clienteSearch.Nombre = clienteDTO.Nombre;
+                    if (clienteDTO.Direccion != null) clienteSearch.Direccion = clienteDTO.Direccion;
+                    if (clienteDTO.Email != null) clienteSearch.Email = clienteDTO.Email;
+                    if (clienteDTO.Telefono != null) clienteSearch.Telefono = clienteDTO.Telefono;
+                    if (clienteDTO.FechaCreacion != null) clienteSearch.FechaCreacion = clienteDTO.FechaCreacion;
 
-                    return Ok(cliente);
+
+                    _clienteRepository.Update(clienteSearch);
+
+                    return Ok(clienteSearch);
                 }
                 else
                 {

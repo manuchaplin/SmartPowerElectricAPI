@@ -50,10 +50,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Cliente/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Cliente"
         ],
@@ -64,10 +62,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Cliente"
+              "$ref": "#/definitions/ClienteDTO"
             }
           }
         ],
@@ -135,10 +140,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Material/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Material"
         ],
@@ -149,10 +152,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Material"
+              "$ref": "#/definitions/MaterialDTO"
             }
           }
         ],
@@ -220,10 +230,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/TipoMaterial/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "TipoMaterial"
         ],
@@ -234,10 +242,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/TipoMaterial"
+              "$ref": "#/definitions/TipoMaterialDTO"
             }
           }
         ],
@@ -305,10 +320,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Trabajador/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Trabajador"
         ],
@@ -319,10 +332,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Trabajador"
+              "$ref": "#/definitions/TrabajadorDTO"
             }
           }
         ],
@@ -390,10 +410,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/UnidadMedidum/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "UnidadMedidum"
         ],
@@ -404,10 +422,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/UnidadMedida"
+              "$ref": "#/definitions/UnidadMedidaDTO"
             }
           }
         ],
@@ -468,6 +493,18 @@
         }
       }
     },
+    "/api/Usuario/validateToken": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Usuario/create": {
       "post": {
         "tags": [
@@ -513,10 +550,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Usuario/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Usuario"
         ],
@@ -527,11 +562,37 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Usuario"
+              "$ref": "#/definitions/UsuarioDTO"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -575,6 +636,39 @@
         },
         "email": {
           "minLength": 1,
+          "type": "string"
+        },
+        "telefono": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "fechaAlta": {
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "ClienteDTO": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "email": {
           "type": "string"
         },
         "telefono": {
@@ -649,6 +743,43 @@
         },
         "unidadMedida": {
           "$ref": "#/definitions/UnidadMedida"
+        },
+        "fechaAlta": {
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "MaterialDTO": {
+      "type": "object",
+      "properties": {
+        "precio": {
+          "format": "double",
+          "type": "number"
+        },
+        "cantidad": {
+          "format": "double",
+          "type": "number"
+        },
+        "idTipoMaterial": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idUnidadMedida": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -683,6 +814,30 @@
           "items": {
             "$ref": "#/definitions/Material"
           }
+        },
+        "fechaAlta": {
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "TipoMaterialDTO": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -704,6 +859,60 @@
         },
         "apellido": {
           "minLength": 1,
+          "type": "string"
+        },
+        "especialidad": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "telefono": {
+          "type": "string"
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "seguridadSocial": {
+          "type": "string"
+        },
+        "fechaInicioContrato": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaFinContrato": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "cobroxHora": {
+          "format": "double",
+          "type": "number"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "fechaAlta": {
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "TrabajadorDTO": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "apellido": {
           "type": "string"
         },
         "especialidad": {
@@ -770,6 +979,15 @@
       },
       "additionalProperties": false
     },
+    "UnidadMedidaDTO": {
+      "type": "object",
+      "properties": {
+        "uMedida": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "Usuario": {
       "required": [
         "apellido",
@@ -802,6 +1020,45 @@
         },
         "password": {
           "minLength": 1,
+          "type": "string"
+        },
+        "telefono": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "fechaAlta": {
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "UsuarioDTO": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "apellido": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
           "type": "string"
         },
         "telefono": {

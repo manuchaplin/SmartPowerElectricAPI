@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using SmartPowerElectricAPI.Utilities;
@@ -97,7 +98,43 @@ namespace SmartPowerElectricAPI.Controllers
         }
         #endregion
 
+        [HttpGet("validateToken")]
+        [Authorize]
+        public IActionResult ValidateToken()
+        {
+            var claveSecreta = "EstaEsUnaClaveMuySeguraYDe32Caracteres"; // La misma clave utilizada para firmar el token
+            var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveSecreta));
+            var handler = new JwtSecurityTokenHandler();
 
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+
+            string token = authorizationHeader.Split("Bearer ")[1];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized("Token no proporcionado o formato invalido");
+            }
+            string asd = _configuration["Jwt:Issuer"];
+            try
+            {
+                handler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _configuration["Jwt:Issuer"],//capturar variables del setting
+                    ValidAudience = _configuration["Jwt:Audience"],
+                    IssuerSigningKey = clave
+                }, out SecurityToken securityToken);
+
+                return Ok(new { mensaje = "Token válido" }); // El token es válido
+            }
+            catch (Exception)
+            {
+                return Unauthorized(new { mensaje = "Token inválido" }); // El token no es válido
+            }
+        }
 
         [HttpPost("create")]       
         public IActionResult Create([FromBody] Usuario usuario)//
@@ -156,7 +193,7 @@ namespace SmartPowerElectricAPI.Controllers
 
                     _usuarioRepository.Update(usuario);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
@@ -172,23 +209,31 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("edit")]
+        [HttpPut("{id}")]
         [Authorize]
-        public IActionResult Edit([FromBody] Usuario usuario) 
+        public IActionResult Edit(int id,[FromBody] UsuarioDTO usuarioDTO) 
         {
             try
             {
                 List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
-                where.Add(x => x.Username == usuario.Username && x.Password == EncryptHelper.GetSHA1(usuario.Password));
-                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                where.Add(x=>x.Id==id);
+                //where.Add(x => x.Username == usuario.Username && x.Password == EncryptHelper.GetSHA1(usuario.Password));
+                //where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 Usuario usuariosearch = _usuarioRepository.Get(where).FirstOrDefault();
 
                 if (usuariosearch != null)
                 {
-                    usuario.Password = EncryptHelper.GetSHA1(usuario.Password);
-                    _usuarioRepository.Update(usuario);
+                    if (usuarioDTO.Nombre != null) usuariosearch.Nombre = usuarioDTO.Nombre;
+                    if (usuarioDTO.Apellido != null) usuariosearch.Apellido = usuarioDTO.Apellido;
+                    if (usuarioDTO.Email != null) usuariosearch.Email = usuarioDTO.Email;
+                    if (usuarioDTO.Username != null) usuariosearch.Username = usuarioDTO.Username;
+                    if (usuarioDTO.Password != null) usuariosearch.Password = EncryptHelper.GetSHA1(usuarioDTO.Password); ;
+                    if (usuarioDTO.Telefono != null) usuariosearch.Telefono = usuarioDTO.Telefono;
+                    if (usuarioDTO.FechaCreacion != null) usuariosearch.FechaCreacion = usuarioDTO.FechaCreacion;
+                
+                    _usuarioRepository.Update(usuariosearch);
 
-                    return Ok(usuario);
+                    return Ok(usuariosearch);
                 }
                 else
                 {
@@ -200,6 +245,27 @@ namespace SmartPowerElectricAPI.Controllers
                 return BadRequest(ex.Message);
             }
           
+        }
+
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public IActionResult getUserByID(int id)
+        {
+            try
+            {
+                Usuario usuario = new Usuario();
+                usuario = _usuarioRepository.GetByID(id);
+
+                if (usuario == null)return NotFound();
+
+                return Ok(usuario);
+
+            }
+            catch (Exception ex) { 
+            return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpGet("list")]

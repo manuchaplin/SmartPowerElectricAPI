@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using SmartPowerElectricAPI.Utilities;
@@ -64,7 +65,7 @@ namespace SmartPowerElectricAPI.Controllers
                 {
                     _unidadMedidumRepository.Delete(id);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
@@ -80,20 +81,22 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("edit")]      
-        public IActionResult Edit([FromBody] UnidadMedida unidadMedidum)
+        [HttpPut("{id}")]      
+        public IActionResult Edit(int id,[FromBody] UnidadMedidaDTO unidadMedidumDTO)
         {
             try
             {
                 List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
-                where.Add(x => x.Id == unidadMedidum.Id);
+                where.Add(x => x.Id == id);
                 UnidadMedida unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
 
                 if (unidadMedSearch != null)
                 {
-                    _unidadMedidumRepository.Update(unidadMedidum);
+                    if (unidadMedidumDTO.UMedida!=null)unidadMedSearch.UMedida = unidadMedidumDTO.UMedida;
 
-                    return Ok(unidadMedidum);
+                    _unidadMedidumRepository.Update(unidadMedSearch);
+
+                    return Ok(unidadMedSearch);
                 }
                 else
                 {
