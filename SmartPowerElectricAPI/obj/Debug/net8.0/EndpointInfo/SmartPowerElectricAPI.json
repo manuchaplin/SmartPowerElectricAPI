@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cliente"
+                "$ref": "#/components/schemas/ClienteDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cliente"
+                "$ref": "#/components/schemas/ClienteDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Cliente"
+                "$ref": "#/components/schemas/ClienteDTO"
               }
             }
           }
@@ -120,17 +120,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Material"
+                "$ref": "#/components/schemas/MaterialDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Material"
+                "$ref": "#/components/schemas/MaterialDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Material"
+                "$ref": "#/components/schemas/MaterialDTO"
               }
             }
           }
@@ -226,17 +226,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoMaterial"
+                "$ref": "#/components/schemas/TipoMaterialDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoMaterial"
+                "$ref": "#/components/schemas/TipoMaterialDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoMaterial"
+                "$ref": "#/components/schemas/TipoMaterialDTO"
               }
             }
           }
@@ -720,50 +720,6 @@
   },
   "components": {
     "schemas": {
-      "Cliente": {
-        "required": [
-          "email",
-          "nombre"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nombre": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "direccion": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "telefono": {
-            "type": "string",
-            "nullable": true
-          },
-          "fechaCreacion": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaEliminado": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "eliminado": {
-            "type": "boolean",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "ClienteDTO": {
         "type": "object",
         "properties": {
@@ -790,12 +746,10 @@
           },
           "fechaCreacion": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "fechaEliminado": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "eliminado": {
@@ -820,10 +774,6 @@
         "additionalProperties": false
       },
       "Material": {
-        "required": [
-          "idTipoMaterial",
-          "idUnidadMedida"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -842,11 +792,13 @@
           },
           "idTipoMaterial": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "idUnidadMedida": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "fechaCreacion": {
             "type": "string",
@@ -867,11 +819,6 @@
           },
           "unidadMedida": {
             "$ref": "#/components/schemas/UnidadMedida"
-          },
-          "fechaAlta": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -906,12 +853,10 @@
           },
           "fechaCreacion": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "fechaEliminado": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "eliminado": {
@@ -955,11 +900,6 @@
               "$ref": "#/components/schemas/Material"
             },
             "nullable": true
-          },
-          "fechaAlta": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -978,12 +918,10 @@
           },
           "fechaCreacion": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "fechaEliminado": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "eliminado": {
@@ -1147,11 +1085,6 @@
           "eliminado": {
             "type": "boolean",
             "nullable": true
-          },
-          "fechaAlta": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false

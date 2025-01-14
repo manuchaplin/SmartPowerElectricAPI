@@ -45,8 +45,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "cliente",
-        "Type": "SmartPowerElectricAPI.Models.Cliente",
+        "Name": "clienteDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ClienteDTO",
         "IsRequired": true
       }
     ],
@@ -108,8 +108,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "material",
-        "Type": "SmartPowerElectricAPI.Models.Material",
+        "Name": "materialDTO",
+        "Type": "SmartPowerElectricAPI.DTO.MaterialDTO",
         "IsRequired": true
       }
     ],
@@ -171,8 +171,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "tipoMaterial",
-        "Type": "SmartPowerElectricAPI.Models.TipoMaterial",
+        "Name": "tipoMaterialDTO",
+        "Type": "SmartPowerElectricAPI.DTO.TipoMaterialDTO",
         "IsRequired": true
       }
     ],

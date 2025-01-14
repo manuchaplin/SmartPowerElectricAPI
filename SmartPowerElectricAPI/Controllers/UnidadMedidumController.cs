@@ -25,31 +25,33 @@ namespace SmartPowerElectricAPI.Controllers
             _logger = logger;
         }
         [HttpPost("create")]       
-        public IActionResult Create([FromBody] UnidadMedida unidadMedidum)
+        public IActionResult Create([FromBody] UnidadMedidaDTO unidadMedidumDTO)
         {
           
             try
             {                
                 List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
-                where.Add(x => x.UMedida == unidadMedidum.UMedida);
-                UnidadMedida unidadMed = _unidadMedidumRepository.Get(where).FirstOrDefault();
+                where.Add(x => x.UMedida.ToLower() == unidadMedidumDTO.UMedida.ToLower());
+                UnidadMedida unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
 
-                if (unidadMed == null)
-                {                   
-                    _unidadMedidumRepository.Insert(unidadMedidum);
+                if (unidadMedSearch == null)
+                {
+                    UnidadMedida unidadMedida=unidadMedidumDTO.ToEntity();
+                    unidadMedida.FechaCreacion = DateTime.Now;
+                    _unidadMedidumRepository.Insert(unidadMedida);
 
-                    return Ok(unidadMedidum);
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("La unidad de medida ya existe");
+                    return Conflict(new { message = "La unidad de medida ya existe" });
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -63,20 +65,22 @@ namespace SmartPowerElectricAPI.Controllers
                 UnidadMedida unidadMedidum = _unidadMedidumRepository.Get(where).FirstOrDefault();
                 if (unidadMedidum != null)
                 {
-                    _unidadMedidumRepository.Delete(id);
+                    unidadMedidum.FechaEliminado = DateTime.Now;
+                    unidadMedidum.Eliminado = true;
+                    _unidadMedidumRepository.Update(unidadMedidum);
 
                     return Ok();
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -93,19 +97,20 @@ namespace SmartPowerElectricAPI.Controllers
                 if (unidadMedSearch != null)
                 {
                     if (unidadMedidumDTO.UMedida!=null)unidadMedSearch.UMedida = unidadMedidumDTO.UMedida;
+                    if (unidadMedidumDTO.FechaCreacion != null) unidadMedSearch.FechaCreacion = string.IsNullOrWhiteSpace(unidadMedidumDTO.FechaCreacion) ? null : DateTime.ParseExact(unidadMedidumDTO.FechaCreacion, "MM-dd-yyyy", null);
 
                     _unidadMedidumRepository.Update(unidadMedSearch);
 
-                    return Ok(unidadMedSearch);
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("Unidad de medida no encontrada");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -116,14 +121,18 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<UnidadMedida> unidadMedidas = new List<UnidadMedida>();
-                unidadMedidas = _unidadMedidumRepository.Get().ToList();
+                List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                unidadMedidas = _unidadMedidumRepository.Get(where).ToList();
 
-                return Ok(unidadMedidas);
+                List<UnidadMedidaDTO> unidadMedidaDTOs = unidadMedidas.Select(UnidadMedidaDTO.FromEntity).ToList();
+
+                return Ok(unidadMedidaDTOs);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }

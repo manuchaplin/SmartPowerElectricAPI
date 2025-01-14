@@ -24,7 +24,7 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] Material material)
+        public IActionResult Create([FromBody] MaterialDTO materialDTO)
         {
             try
             {
@@ -34,23 +34,24 @@ namespace SmartPowerElectricAPI.Controllers
                 //where.Add(x => x.Email.ToLower() == cliente.Email.ToLower());
                 //Material materialSearch = _clienteRepository.Get(where).FirstOrDefault();
 
-                //if (clienteSearch == null)
+                //if (materialSearch == null)
                 //{
+                Material material=materialDTO.ToEntity();
                 material.FechaCreacion = DateTime.Now;
                 _materialRepository.Insert(material);
 
-                return Ok(material);
+                return Ok();
                 //}
                 //else
                 //{
-                //    return BadRequest("El cliente ya existe");
+                //    return Conflict(new { message="El cliente ya existe"});
                 //}
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -73,14 +74,14 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -100,20 +101,20 @@ namespace SmartPowerElectricAPI.Controllers
                     if (materialDTO.Cantidad != null)materialSearch.Cantidad = materialDTO.Cantidad;
                     if (materialDTO.IdTipoMaterial != null)materialSearch.IdTipoMaterial = (int)materialDTO.IdTipoMaterial;
                     if (materialDTO.IdUnidadMedida != null)materialSearch.IdUnidadMedida = (int)materialDTO.IdUnidadMedida;
-                    if (materialDTO.FechaCreacion != null)materialSearch.FechaCreacion = materialDTO.FechaCreacion;                    
+                    if (materialDTO.FechaCreacion != null) materialSearch.FechaCreacion = string.IsNullOrWhiteSpace(materialDTO.FechaCreacion) ? null : DateTime.ParseExact(materialDTO.FechaCreacion, "MM-dd-yyyy", null);
 
                     _materialRepository.Update(materialSearch);
 
-                    return Ok(materialSearch);
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("Cliente no encontrado");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -128,15 +129,15 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 materials = _materialRepository.Get(where).ToList();
 
-
                 //var materials = _context.Material.Include(x => x.TipoMaterial).Include(x => x.UnidadMedida).ToList();//Probar con Yannia Luego
+                List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
 
-                return Ok(materials);
+                return Ok(materialDTOs);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }

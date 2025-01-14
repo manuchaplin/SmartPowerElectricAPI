@@ -13,12 +13,12 @@ public partial class Material
     public double? Precio { get; set; }
 
     public double? Cantidad { get; set; }
-    [Required]
+    
     [ForeignKey("TipoMaterial")]
-    public int IdTipoMaterial { get; set; }
-    [Required]
+    public int? IdTipoMaterial { get; set; }
+   
     [ForeignKey("UnidadMedida")]
-    public int IdUnidadMedida { get; set; }
+    public int? IdUnidadMedida { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 
@@ -30,6 +30,5 @@ public partial class Material
 
     public virtual UnidadMedida UnidadMedida { get; set; }
 
-
-    public string fechaAlta { get { return FechaCreacion?.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty; } }
+    
 }

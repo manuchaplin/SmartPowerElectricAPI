@@ -152,14 +152,14 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("El trabajador ya existe");
+                    return Conflict(new { message= "El trabajador ya existe" });
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -182,14 +182,14 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -215,7 +215,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (trabajadorDTO.FechaInicioContrato != null) trabajadorSearch.FechaInicioContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaInicioContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaInicioContrato, "MM-dd-yyyy", null);
                     if (trabajadorDTO.FechaFinContrato != null) trabajadorSearch.FechaFinContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaFinContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaFinContrato, "MM-dd-yyyy", null);
                     if (trabajadorDTO.CobroxHora != null) trabajadorSearch.CobroxHora = trabajadorDTO.CobroxHora;
-                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion  = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "MM-dd-yyyy", null); ;
+                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion  = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "MM-dd-yyyy", null);
 
                     _trabajadorRepository.Update(trabajadorSearch);
 
@@ -223,12 +223,12 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("Trabajador no encontrado");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -250,7 +250,7 @@ namespace SmartPowerElectricAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }

@@ -25,33 +25,34 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] Cliente cliente)
+        public IActionResult Create([FromBody] ClienteDTO clienteDTO)
         {
 
             try
             {
                 List<Expression<Func<Cliente, bool>>> where = new List<Expression<Func<Cliente, bool>>>();
-                where.Add(x => x.Nombre.ToLower() == cliente.Nombre.ToLower());
-                where.Add(x => x.Email.ToLower() == cliente.Email.ToLower());                
+                where.Add(x => x.Nombre.ToLower() == clienteDTO.Nombre.ToLower());
+                where.Add(x => x.Email.ToLower() == clienteDTO.Email.ToLower());                
                 Cliente clienteSearch = _clienteRepository.Get(where).FirstOrDefault();
 
                 if (clienteSearch == null)
                 {
+                    Cliente cliente= clienteDTO.ToEntity();
                     cliente.FechaCreacion=DateTime.Now;
                     _clienteRepository.Insert(cliente);
 
-                    return Ok(cliente);
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("El cliente ya existe");
+                    return Conflict(new {message="El cliente ya existe"});
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -74,14 +75,14 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -101,7 +102,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (clienteDTO.Direccion != null) clienteSearch.Direccion = clienteDTO.Direccion;
                     if (clienteDTO.Email != null) clienteSearch.Email = clienteDTO.Email;
                     if (clienteDTO.Telefono != null) clienteSearch.Telefono = clienteDTO.Telefono;
-                    if (clienteDTO.FechaCreacion != null) clienteSearch.FechaCreacion = clienteDTO.FechaCreacion;
+                    if (clienteDTO.FechaCreacion != null) clienteSearch.FechaCreacion = string.IsNullOrWhiteSpace(clienteDTO.FechaCreacion) ? null : DateTime.ParseExact(clienteDTO.FechaCreacion, "MM-dd-yyyy", null);
 
 
                     _clienteRepository.Update(clienteSearch);
@@ -110,12 +111,12 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("Cliente no encontrado");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -130,12 +131,14 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 clientes = _clienteRepository.Get(where).ToList();
 
-                return Ok(clientes);
+                List<ClienteDTO> clienteDTOs = clientes.Select(ClienteDTO.FromEntity).ToList();
+
+                return Ok(clienteDTOs);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }

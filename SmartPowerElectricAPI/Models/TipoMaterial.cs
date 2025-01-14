@@ -16,9 +16,8 @@ public class TipoMaterial
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
-
+    
     public virtual ICollection<Material> Materials { get; set; }
 
-
-    public string fechaAlta { get { return FechaCreacion?.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty; } }
+   
 }

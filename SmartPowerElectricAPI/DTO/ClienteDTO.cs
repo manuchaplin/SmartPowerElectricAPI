@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartPowerElectricAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,9 +16,37 @@ public class ClienteDTO
 
     public string? Telefono { get; set; }
 
-    public DateTime? FechaCreacion { get; set; }
+    public string? FechaCreacion { get; set; }
 
-    public DateTime? FechaEliminado { get; set; }
+    public string? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
+
+
+    // Constructor para mapear desde Cliente
+    public static ClienteDTO FromEntity(Cliente cliente)
+    {
+        return new ClienteDTO
+        {
+            Id = cliente.Id,
+            Nombre = cliente.Nombre,
+            Direccion = cliente.Direccion,            
+            Email = cliente.Email,
+            Telefono = cliente.Telefono,                             
+            FechaCreacion = cliente.FechaCreacion?.ToString("MM-dd-yyyy"),
+        };
+    }
+
+    // Constructor para mapear desde ClienteDTO
+    public Cliente ToEntity()
+    {
+        return new Cliente
+        {
+            Nombre = this.Nombre,
+            Direccion = this.Direccion,
+            Email = this.Email,            
+            Telefono = this.Telefono,
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null: DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),          
+        };
+    }
 }

@@ -55,10 +55,11 @@ public class TrabajadorDTO
         };
     }
 
+    // Constructor para mapear desde TrabajadorDTO
     public Trabajador ToEntity()
     {
         return new Trabajador
-        {
+        {           
             Nombre = this.Nombre,
             Apellido = this.Apellido,
             Especialidad = this.Especialidad,
@@ -66,15 +67,9 @@ public class TrabajadorDTO
             Telefono = this.Telefono,
             Direccion = this.Direccion,
             SeguridadSocial = this.SeguridadSocial,
-            FechaInicioContrato = string.IsNullOrWhiteSpace(this.FechaInicioContrato)
-                ? null
-                : DateTime.ParseExact(this.FechaInicioContrato, "MM-dd-yyyy", null),
-            FechaFinContrato = string.IsNullOrWhiteSpace(this.FechaFinContrato)
-                ? null
-                : DateTime.ParseExact(this.FechaFinContrato, "MM-dd-yyyy", null),
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)
-                ? null
-                : DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),
+            FechaInicioContrato = string.IsNullOrWhiteSpace(this.FechaInicioContrato) ? null : DateTime.ParseExact(this.FechaInicioContrato, "MM-dd-yyyy", null),
+            FechaFinContrato = string.IsNullOrWhiteSpace(this.FechaFinContrato) ? null: DateTime.ParseExact(this.FechaFinContrato, "MM-dd-yyyy", null),
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),
             CobroxHora = this.CobroxHora
         };
     }
