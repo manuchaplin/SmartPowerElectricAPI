@@ -7,8 +7,8 @@ namespace SmartPowerElectricAPI.DTO;
 
 public partial class MaterialDTO
 {
-   
 
+    public int? Id { get; set; }
     public double? Precio { get; set; }
 
     public double? Cantidad { get; set; }

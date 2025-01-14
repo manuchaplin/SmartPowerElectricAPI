@@ -234,8 +234,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "trabajador",
-        "Type": "SmartPowerElectricAPI.Models.Trabajador",
+        "Name": "trabajadorDTO",
+        "Type": "SmartPowerElectricAPI.DTO.TrabajadorDTO",
         "IsRequired": true
       }
     ],

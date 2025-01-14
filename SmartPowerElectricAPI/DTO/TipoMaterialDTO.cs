@@ -6,8 +6,8 @@ namespace SmartPowerElectricAPI.DTO;
 
 public class TipoMaterialDTO
 {
-    
-    
+
+    public int? Id { get; set; }
     public string? Nombre { get; set; } = null!;
 
     public DateTime? FechaCreacion { get; set; }

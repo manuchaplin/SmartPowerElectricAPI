@@ -132,22 +132,23 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] Trabajador trabajador)
+        public IActionResult Create([FromBody] TrabajadorDTO trabajadorDTO)
         {
 
             try
             {
                 List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
-                where.Add(x => x.Nombre.ToLower() == trabajador.Nombre.ToLower());
-                where.Add(x => x.Apellido.ToLower() == trabajador.Apellido.ToLower());
+                where.Add(x => x.Nombre.ToLower() == trabajadorDTO.Nombre.ToLower());
+                where.Add(x => x.Apellido.ToLower() == trabajadorDTO.Apellido.ToLower());
                 Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
 
                 if (trabajadorSearch == null)
                 {
+                    Trabajador trabajador= trabajadorDTO.ToEntity();
                     trabajador.FechaCreacion = DateTime.Now;
                     _trabajadorRepository.Insert(trabajador);
 
-                    return Ok(trabajador);
+                    return Ok();
                 }
                 else
                 {
@@ -211,14 +212,14 @@ namespace SmartPowerElectricAPI.Controllers
                     if (trabajadorDTO.Telefono != null) trabajadorSearch.Telefono = trabajadorDTO.Telefono;
                     if (trabajadorDTO.Direccion != null) trabajadorSearch.Direccion = trabajadorDTO.Direccion;
                     if (trabajadorDTO.SeguridadSocial != null) trabajadorSearch.SeguridadSocial = trabajadorDTO.SeguridadSocial;
-                    if (trabajadorDTO.FechaInicioContrato != null) trabajadorSearch.FechaInicioContrato = trabajadorDTO.FechaInicioContrato;
-                    if (trabajadorDTO.FechaFinContrato != null) trabajadorSearch.FechaFinContrato = trabajadorDTO.FechaFinContrato;
+                    if (trabajadorDTO.FechaInicioContrato != null) trabajadorSearch.FechaInicioContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaInicioContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaInicioContrato, "MM-dd-yyyy", null);
+                    if (trabajadorDTO.FechaFinContrato != null) trabajadorSearch.FechaFinContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaFinContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaFinContrato, "MM-dd-yyyy", null);
                     if (trabajadorDTO.CobroxHora != null) trabajadorSearch.CobroxHora = trabajadorDTO.CobroxHora;
-                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion = trabajadorDTO.FechaCreacion;                
+                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion  = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "MM-dd-yyyy", null); ;
 
                     _trabajadorRepository.Update(trabajadorSearch);
 
-                    return Ok(trabajadorSearch);
+                    return Ok();
                 }
                 else
                 {
@@ -242,7 +243,9 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 trabajadores = _trabajadorRepository.Get(where).ToList();
 
-                return Ok(trabajadores);
+                List<TrabajadorDTO> trabajadorDTOs=trabajadores.Select(TrabajadorDTO.FromEntity).ToList();
+
+                return Ok(trabajadorDTOs);
 
             }
             catch (Exception ex)

@@ -6,6 +6,7 @@ namespace SmartPowerElectricAPI.DTO;
 
 public class UnidadMedidaDTO
 {
+    public int? Id { get; set; }
     public string? UMedida { get; set; } = null!;
  
 }
