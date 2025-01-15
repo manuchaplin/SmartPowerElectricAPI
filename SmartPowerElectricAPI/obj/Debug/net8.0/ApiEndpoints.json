@@ -297,8 +297,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "unidadMedidum",
-        "Type": "SmartPowerElectricAPI.Models.UnidadMedida",
+        "Name": "unidadMedidumDTO",
+        "Type": "SmartPowerElectricAPI.DTO.UnidadMedidaDTO",
         "IsRequired": true
       }
     ],
@@ -376,8 +376,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "SmartPowerElectricAPI.Models.Usuario",
+        "Name": "usuarioDTO",
+        "Type": "SmartPowerElectricAPI.DTO.UsuarioDTO",
         "IsRequired": true
       }
     ],

@@ -438,17 +438,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnidadMedida"
+                "$ref": "#/components/schemas/UnidadMedidaDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnidadMedida"
+                "$ref": "#/components/schemas/UnidadMedidaDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UnidadMedida"
+                "$ref": "#/components/schemas/UnidadMedidaDTO"
               }
             }
           }
@@ -599,17 +599,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioDTO"
               }
             }
           }
@@ -773,56 +773,6 @@
         },
         "additionalProperties": false
       },
-      "Material": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "precio": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "cantidad": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "idTipoMaterial": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "idUnidadMedida": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "fechaCreacion": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaEliminado": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "eliminado": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "tipoMaterial": {
-            "$ref": "#/components/schemas/TipoMaterial"
-          },
-          "unidadMedida": {
-            "$ref": "#/components/schemas/UnidadMedida"
-          }
-        },
-        "additionalProperties": false
-      },
       "MaterialDTO": {
         "type": "object",
         "properties": {
@@ -861,44 +811,6 @@
           },
           "eliminado": {
             "type": "boolean",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "TipoMaterial": {
-        "required": [
-          "nombre"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nombre": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "fechaCreacion": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaEliminado": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "eliminado": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "materials": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Material"
-            },
             "nullable": true
           }
         },
@@ -995,30 +907,6 @@
         },
         "additionalProperties": false
       },
-      "UnidadMedida": {
-        "required": [
-          "uMedida"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "uMedida": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "materials": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Material"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "UnidadMedidaDTO": {
         "type": "object",
         "properties": {
@@ -1030,56 +918,13 @@
           "uMedida": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Usuario": {
-        "required": [
-          "apellido",
-          "email",
-          "nombre",
-          "password",
-          "username"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nombre": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "apellido": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "email": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "username": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "password": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "telefono": {
-            "type": "string",
-            "nullable": true
           },
           "fechaCreacion": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "fechaEliminado": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "eliminado": {
@@ -1123,12 +968,10 @@
           },
           "fechaCreacion": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "fechaEliminado": {
             "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "eliminado": {

@@ -38,7 +38,7 @@ namespace SmartPowerElectricAPI.Controllers
 
             // Agrega el token a la lista de revocados
             TokenBlacklist.Add(token);
-            return Ok("Sesión cerrada correctamente.");
+            return Ok();
         }
 
         public static bool IsTokenRevoked(string token)
@@ -102,7 +102,7 @@ namespace SmartPowerElectricAPI.Controllers
         [Authorize]
         public IActionResult ValidateToken()
         {
-            var claveSecreta = "EstaEsUnaClaveMuySeguraYDe32Caracteres"; // La misma clave utilizada para firmar el token
+            var claveSecreta = _configuration["Jwt:Key"];//"EstaEsUnaClaveMuySeguraYDe32Caracteres"; // La misma clave utilizada para firmar el token
             var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveSecreta));
             var handler = new JwtSecurityTokenHandler();
 
@@ -137,26 +137,18 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create")]       
-        public IActionResult Create([FromBody] Usuario usuario)//
-        {
-            //Usuario usuario = new Usuario();
-
-            //usuario.Nombre = "Manuel";
-            //usuario.Apellido = "Mon";
-            //usuario.Email = "manuchaplin@gmail.com";
-            //usuario.Telefono = 645779423;
-            //usuario.Username = "manuel.mon";
-            //usuario.Password = EncryptHelper.GetSHA1("12345");
-            //_usuarioRepository.Insert(usuario);
+        public IActionResult Create([FromBody] UsuarioDTO usuarioDTO)
+        {            
             try
             {
                 List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
-                where.Add(x => x.Username == usuario.Username && x.Password == EncryptHelper.GetSHA1(usuario.Password));
-                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                where.Add(x => x.Username.ToLower() == usuarioDTO.Username.ToLower() || (x.Nombre.ToLower()==usuarioDTO.Nombre.ToLower() && x.Apellido.ToLower()==usuarioDTO.Apellido.ToLower()));
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);             
                 Usuario usuariosearch = _usuarioRepository.Get(where).FirstOrDefault();
 
                 if (usuariosearch == null)
                 {
+                    Usuario usuario = usuarioDTO.ToEntity();
                     usuario.FechaCreacion = DateTime.Now;
                     usuario.Password = EncryptHelper.GetSHA1(usuario.Password);
                     _usuarioRepository.Insert(usuario);
@@ -165,14 +157,14 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("El usuario ya existe");
+                    return Conflict(new { message = "El Usuario ya existe" });
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
        
@@ -197,14 +189,14 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
            
 
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -216,9 +208,7 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
-                where.Add(x=>x.Id==id);
-                //where.Add(x => x.Username == usuario.Username && x.Password == EncryptHelper.GetSHA1(usuario.Password));
-                //where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                where.Add(x=>x.Id==id);               
                 Usuario usuariosearch = _usuarioRepository.Get(where).FirstOrDefault();
 
                 if (usuariosearch != null)
@@ -229,20 +219,20 @@ namespace SmartPowerElectricAPI.Controllers
                     if (usuarioDTO.Username != null) usuariosearch.Username = usuarioDTO.Username;
                     if (usuarioDTO.Password != null) usuariosearch.Password = EncryptHelper.GetSHA1(usuarioDTO.Password); ;
                     if (usuarioDTO.Telefono != null) usuariosearch.Telefono = usuarioDTO.Telefono;
-                    if (usuarioDTO.FechaCreacion != null) usuariosearch.FechaCreacion = usuarioDTO.FechaCreacion;
-                
+                    if (usuarioDTO.FechaCreacion != null) usuariosearch.FechaCreacion = string.IsNullOrWhiteSpace(usuarioDTO.FechaCreacion) ? null : DateTime.ParseExact(usuarioDTO.FechaCreacion, "MM-dd-yyyy", null);
+
                     _usuarioRepository.Update(usuariosearch);
 
                     return Ok(usuariosearch);
                 }
                 else
                 {
-                    return BadRequest("El usuario no encontrado");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
           
         }
@@ -262,8 +252,8 @@ namespace SmartPowerElectricAPI.Controllers
                 return Ok(usuario);
 
             }
-            catch (Exception ex) { 
-            return BadRequest(ex.Message);
+            catch (Exception ex) {
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -275,14 +265,18 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<Usuario> usuarios = new List<Usuario>();
-                usuarios= _usuarioRepository.Get().ToList();
+                List<Expression<Func<Usuario, bool>>> where = new List<Expression<Func<Usuario, bool>>>();
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                usuarios = _usuarioRepository.Get(where).ToList();
+
+                List<UsuarioDTO> usuarioDTOs = usuarios.Select(UsuarioDTO.FromEntity).ToList();
 
                 return Ok(usuarios);
 
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
