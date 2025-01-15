@@ -19,6 +19,8 @@ public partial class Material
    
     [ForeignKey("UnidadMedida")]
     public int? IdUnidadMedida { get; set; }
+    [ForeignKey("Proyecto")]
+    public int? IdProyecto { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 
@@ -29,6 +31,7 @@ public partial class Material
     public virtual TipoMaterial TipoMaterial { get; set; }
 
     public virtual UnidadMedida UnidadMedida { get; set; }
+    public virtual Proyecto Proyecto { get; set; }
 
     
 }

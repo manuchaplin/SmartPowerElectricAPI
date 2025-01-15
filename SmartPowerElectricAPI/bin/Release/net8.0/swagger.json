@@ -185,6 +185,96 @@
         }
       }
     },
+    "/api/Proyecto/create": {
+      "post": {
+        "tags": [
+          "Proyecto"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProyectoDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Proyecto/{id}": {
+      "delete": {
+        "tags": [
+          "Proyecto"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Proyecto"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProyectoDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Proyecto/list": {
+      "get": {
+        "tags": [
+          "Proyecto"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/TipoMaterial/create": {
       "post": {
         "tags": [
@@ -682,6 +772,10 @@
           "format": "int32",
           "type": "integer"
         },
+        "idProyecto": {
+          "format": "int32",
+          "type": "integer"
+        },
         "fechaCreacion": {
           "type": "string"
         },
@@ -690,6 +784,60 @@
         },
         "eliminado": {
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProyectoDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "descripcion": {
+          "type": "string"
+        },
+        "fechaInicio": {
+          "type": "string"
+        },
+        "fechaFin": {
+          "type": "string"
+        },
+        "idCliente": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "horasEstimadas": {
+          "format": "double",
+          "type": "number"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "materialDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialDTO"
+          }
+        },
+        "trabajadorDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TrabajadorDTO"
+          }
         }
       },
       "additionalProperties": false

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPowerElectricAPI.Models;
 
@@ -11,9 +12,11 @@ using SmartPowerElectricAPI.Models;
 namespace SmartPowerElectricAPI.Migrations
 {
     [DbContext(typeof(SmartPowerElectricContext))]
-    partial class SmartPowerElectricContextModelSnapshot : ModelSnapshot
+    [Migration("20250115151900_Proyecto")]
+    partial class Proyecto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,9 +154,6 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("horasEstimadas")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

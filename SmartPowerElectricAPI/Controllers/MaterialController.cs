@@ -101,6 +101,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (materialDTO.Cantidad != null)materialSearch.Cantidad = materialDTO.Cantidad;
                     if (materialDTO.IdTipoMaterial != null)materialSearch.IdTipoMaterial = (int)materialDTO.IdTipoMaterial;
                     if (materialDTO.IdUnidadMedida != null)materialSearch.IdUnidadMedida = (int)materialDTO.IdUnidadMedida;
+                    if (materialDTO.IdProyecto != null)materialSearch.IdProyecto = (int)materialDTO.IdProyecto;
                     if (materialDTO.FechaCreacion != null) materialSearch.FechaCreacion = string.IsNullOrWhiteSpace(materialDTO.FechaCreacion) ? null : DateTime.ParseExact(materialDTO.FechaCreacion, "MM-dd-yyyy", null);
 
                     _materialRepository.Update(materialSearch);

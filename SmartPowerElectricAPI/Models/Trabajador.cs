@@ -35,5 +35,7 @@ public class Trabajador
 
     public bool? Eliminado { get; set; }
 
-  
+    public virtual ICollection<Proyecto> Proyectos { get; set; } 
+
+
 }

@@ -126,6 +126,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "Delete",
+    "RelativePath": "api/Proyecto/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "Edit",
+    "RelativePath": "api/Proyecto/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "proyectoDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ProyectoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "Create",
+    "RelativePath": "api/Proyecto/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "proyectoDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ProyectoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "List",
+    "RelativePath": "api/Proyecto/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartPowerElectricAPI.Controllers.TipoMaterialController",
     "Method": "Delete",
     "RelativePath": "api/TipoMaterial/{id}",
