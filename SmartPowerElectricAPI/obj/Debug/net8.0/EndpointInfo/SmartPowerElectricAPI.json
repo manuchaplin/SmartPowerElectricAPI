@@ -1176,6 +1176,10 @@
           "eliminado": {
             "type": "boolean",
             "nullable": true
+          },
+          "protegido": {
+            "type": "boolean",
+            "nullable": true
           }
         },
         "additionalProperties": false
