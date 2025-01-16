@@ -77,8 +77,8 @@ namespace SmartPowerElectricAPI.Controllers
             var claims = new[]
             {
             new Claim(JwtRegisteredClaimNames.Sub, username),
-            new Claim(JwtRegisteredClaimNames.Sub, nombre),
-            new Claim(JwtRegisteredClaimNames.Sub, apellido),
+            new Claim("Nombre", nombre),
+            new Claim("Apellido", apellido),
             new Claim(ClaimTypes.Role, "Usuario"),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
@@ -94,7 +94,7 @@ namespace SmartPowerElectricAPI.Controllers
                 issuer: jwtConfig["Issuer"],
                 audience: jwtConfig["Audience"],
                 claims: claims,               
-                signingCredentials: creds);;
+                signingCredentials: creds);
          
 
             return new JwtSecurityTokenHandler().WriteToken(token);
