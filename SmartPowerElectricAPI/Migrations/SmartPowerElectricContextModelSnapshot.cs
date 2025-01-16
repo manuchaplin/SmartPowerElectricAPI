@@ -17,10 +17,25 @@ namespace SmartPowerElectricAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.20")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ProyectoTrabajador", b =>
+                {
+                    b.Property<int>("ProyectosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrabajadoresId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProyectosId", "TrabajadoresId");
+
+                    b.HasIndex("TrabajadoresId");
+
+                    b.ToTable("ProyectoTrabajador");
+                });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Cliente", b =>
                 {
@@ -50,8 +65,8 @@ namespace SmartPowerElectricAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Telefono")
-                        .HasColumnType("int");
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -78,10 +93,13 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Property<DateTime?>("FechaEliminado")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdTipoMaterial")
+                    b.Property<int?>("IdProyecto")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdUnidadMedida")
+                    b.Property<int?>("IdTipoMaterial")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdUnidadMedida")
                         .HasColumnType("int");
 
                     b.Property<double?>("Precio")
@@ -89,11 +107,59 @@ namespace SmartPowerElectricAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdProyecto");
+
                     b.HasIndex("IdTipoMaterial");
 
                     b.HasIndex("IdUnidadMedida");
 
                     b.ToTable("Material");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Eliminado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdCliente")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("horasEstimadas")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCliente");
+
+                    b.ToTable("Proyecto");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.TipoMaterial", b =>
@@ -168,8 +234,8 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Property<string>("SeguridadSocial")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Telefono")
-                        .HasColumnType("int");
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -183,6 +249,15 @@ namespace SmartPowerElectricAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("Eliminado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminado")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UMedida")
                         .IsRequired()
@@ -226,8 +301,11 @@ namespace SmartPowerElectricAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Telefono")
-                        .HasColumnType("int");
+                    b.Property<bool?>("Protegido")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -238,23 +316,59 @@ namespace SmartPowerElectricAPI.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("SmartPowerElectricAPI.Models.Material", b =>
+            modelBuilder.Entity("ProyectoTrabajador", b =>
                 {
-                    b.HasOne("SmartPowerElectricAPI.Models.TipoMaterial", "TipoMaterial")
-                        .WithMany("Materials")
-                        .HasForeignKey("IdTipoMaterial")
+                    b.HasOne("SmartPowerElectricAPI.Models.Proyecto", null)
+                        .WithMany()
+                        .HasForeignKey("ProyectosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartPowerElectricAPI.Models.UnidadMedida", "UnidadMedida")
-                        .WithMany("Materials")
-                        .HasForeignKey("IdUnidadMedida")
+                    b.HasOne("SmartPowerElectricAPI.Models.Trabajador", null)
+                        .WithMany()
+                        .HasForeignKey("TrabajadoresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Material", b =>
+                {
+                    b.HasOne("SmartPowerElectricAPI.Models.Proyecto", "Proyecto")
+                        .WithMany("Materials")
+                        .HasForeignKey("IdProyecto");
+
+                    b.HasOne("SmartPowerElectricAPI.Models.TipoMaterial", "TipoMaterial")
+                        .WithMany("Materials")
+                        .HasForeignKey("IdTipoMaterial");
+
+                    b.HasOne("SmartPowerElectricAPI.Models.UnidadMedida", "UnidadMedida")
+                        .WithMany("Materials")
+                        .HasForeignKey("IdUnidadMedida");
+
+                    b.Navigation("Proyecto");
 
                     b.Navigation("TipoMaterial");
 
                     b.Navigation("UnidadMedida");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
+                {
+                    b.HasOne("SmartPowerElectricAPI.Models.Cliente", "Cliente")
+                        .WithMany("Proyectos")
+                        .HasForeignKey("IdCliente");
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Cliente", b =>
+                {
+                    b.Navigation("Proyectos");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
+                {
+                    b.Navigation("Materials");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.TipoMaterial", b =>

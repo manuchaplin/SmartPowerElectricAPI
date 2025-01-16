@@ -20,7 +20,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Cliente"
+              "$ref": "#/definitions/ClienteDTO"
             }
           }
         ],
@@ -50,10 +50,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Cliente/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Cliente"
         ],
@@ -64,10 +62,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Cliente"
+              "$ref": "#/definitions/ClienteDTO"
             }
           }
         ],
@@ -105,7 +110,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Material"
+              "$ref": "#/definitions/MaterialDTO"
             }
           }
         ],
@@ -135,10 +140,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Material/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Material"
         ],
@@ -149,10 +152,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Material"
+              "$ref": "#/definitions/MaterialDTO"
             }
           }
         ],
@@ -167,6 +177,115 @@
       "get": {
         "tags": [
           "Material"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Proyecto/create": {
+      "post": {
+        "tags": [
+          "Proyecto"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProyectoDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Proyecto/{id}": {
+      "delete": {
+        "tags": [
+          "Proyecto"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Proyecto"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProyectoDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Proyecto"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Proyecto/list": {
+      "get": {
+        "tags": [
+          "Proyecto"
         ],
         "responses": {
           "200": {
@@ -190,7 +309,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/TipoMaterial"
+              "$ref": "#/definitions/TipoMaterialDTO"
             }
           }
         ],
@@ -220,10 +339,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/TipoMaterial/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "TipoMaterial"
         ],
@@ -234,10 +351,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/TipoMaterial"
+              "$ref": "#/definitions/TipoMaterialDTO"
             }
           }
         ],
@@ -275,7 +399,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Trabajador"
+              "$ref": "#/definitions/TrabajadorDTO"
             }
           }
         ],
@@ -305,10 +429,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Trabajador/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Trabajador"
         ],
@@ -319,10 +441,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Trabajador"
+              "$ref": "#/definitions/TrabajadorDTO"
             }
           }
         ],
@@ -360,7 +489,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/UnidadMedida"
+              "$ref": "#/definitions/UnidadMedidaDTO"
             }
           }
         ],
@@ -390,10 +519,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/UnidadMedidum/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "UnidadMedidum"
         ],
@@ -404,10 +531,17 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/UnidadMedida"
+              "$ref": "#/definitions/UnidadMedidaDTO"
             }
           }
         ],
@@ -468,6 +602,18 @@
         }
       }
     },
+    "/api/Usuario/validateToken": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Usuario/create": {
       "post": {
         "tags": [
@@ -483,7 +629,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Usuario"
+              "$ref": "#/definitions/UsuarioDTO"
             }
           }
         ],
@@ -513,10 +659,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Usuario/edit": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "Usuario"
         ],
@@ -527,11 +671,37 @@
         ],
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Usuario"
+              "$ref": "#/definitions/UsuarioDTO"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -555,11 +725,7 @@
     }
   },
   "definitions": {
-    "Cliente": {
-      "required": [
-        "email",
-        "nombre"
-      ],
+    "ClienteDTO": {
       "type": "object",
       "properties": {
         "id": {
@@ -567,26 +733,21 @@
           "type": "integer"
         },
         "nombre": {
-          "minLength": 1,
           "type": "string"
         },
         "direccion": {
           "type": "string"
         },
         "email": {
-          "minLength": 1,
           "type": "string"
         },
         "telefono": {
-          "format": "int32",
-          "type": "integer"
+          "type": "string"
         },
         "fechaCreacion": {
-          "format": "date-time",
           "type": "string"
         },
         "fechaEliminado": {
-          "format": "date-time",
           "type": "string"
         },
         "eliminado": {
@@ -607,11 +768,7 @@
       },
       "additionalProperties": false
     },
-    "Material": {
-      "required": [
-        "idTipoMaterial",
-        "idUnidadMedida"
-      ],
+    "MaterialDTO": {
       "type": "object",
       "properties": {
         "id": {
@@ -634,30 +791,23 @@
           "format": "int32",
           "type": "integer"
         },
+        "idProyecto": {
+          "format": "int32",
+          "type": "integer"
+        },
         "fechaCreacion": {
-          "format": "date-time",
           "type": "string"
         },
         "fechaEliminado": {
-          "format": "date-time",
           "type": "string"
         },
         "eliminado": {
           "type": "boolean"
-        },
-        "tipoMaterial": {
-          "$ref": "#/definitions/TipoMaterial"
-        },
-        "unidadMedida": {
-          "$ref": "#/definitions/UnidadMedida"
         }
       },
       "additionalProperties": false
     },
-    "TipoMaterial": {
-      "required": [
-        "nombre"
-      ],
+    "ProyectoDTO": {
       "type": "object",
       "properties": {
         "id": {
@@ -665,34 +815,53 @@
           "type": "integer"
         },
         "nombre": {
-          "minLength": 1,
           "type": "string"
         },
+        "direccion": {
+          "type": "string"
+        },
+        "descripcion": {
+          "type": "string"
+        },
+        "fechaInicio": {
+          "type": "string"
+        },
+        "fechaFin": {
+          "type": "string"
+        },
+        "idCliente": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "horasEstimadas": {
+          "format": "double",
+          "type": "number"
+        },
         "fechaCreacion": {
-          "format": "date-time",
           "type": "string"
         },
         "fechaEliminado": {
-          "format": "date-time",
           "type": "string"
         },
         "eliminado": {
           "type": "boolean"
         },
-        "materials": {
+        "materialDTOs": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Material"
+            "$ref": "#/definitions/MaterialDTO"
+          }
+        },
+        "trabajadorDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TrabajadorDTO"
           }
         }
       },
       "additionalProperties": false
     },
-    "Trabajador": {
-      "required": [
-        "apellido",
-        "nombre"
-      ],
+    "TipoMaterialDTO": {
       "type": "object",
       "properties": {
         "id": {
@@ -700,11 +869,31 @@
           "type": "integer"
         },
         "nombre": {
-          "minLength": 1,
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TrabajadorDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
           "type": "string"
         },
         "apellido": {
-          "minLength": 1,
           "type": "string"
         },
         "especialidad": {
@@ -714,8 +903,7 @@
           "type": "string"
         },
         "telefono": {
-          "format": "int32",
-          "type": "integer"
+          "type": "string"
         },
         "direccion": {
           "type": "string"
@@ -724,11 +912,9 @@
           "type": "string"
         },
         "fechaInicioContrato": {
-          "format": "date-time",
           "type": "string"
         },
         "fechaFinContrato": {
-          "format": "date-time",
           "type": "string"
         },
         "cobroxHora": {
@@ -736,11 +922,9 @@
           "type": "number"
         },
         "fechaCreacion": {
-          "format": "date-time",
           "type": "string"
         },
         "fechaEliminado": {
-          "format": "date-time",
           "type": "string"
         },
         "eliminado": {
@@ -749,10 +933,7 @@
       },
       "additionalProperties": false
     },
-    "UnidadMedida": {
-      "required": [
-        "uMedida"
-      ],
+    "UnidadMedidaDTO": {
       "type": "object",
       "properties": {
         "id": {
@@ -760,26 +941,21 @@
           "type": "integer"
         },
         "uMedida": {
-          "minLength": 1,
           "type": "string"
         },
-        "materials": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Material"
-          }
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false
     },
-    "Usuario": {
-      "required": [
-        "apellido",
-        "email",
-        "nombre",
-        "password",
-        "username"
-      ],
+    "UsuarioDTO": {
       "type": "object",
       "properties": {
         "id": {
@@ -787,38 +963,33 @@
           "type": "integer"
         },
         "nombre": {
-          "minLength": 1,
           "type": "string"
         },
         "apellido": {
-          "minLength": 1,
           "type": "string"
         },
         "email": {
-          "minLength": 1,
           "type": "string"
         },
         "username": {
-          "minLength": 1,
           "type": "string"
         },
         "password": {
-          "minLength": 1,
           "type": "string"
         },
         "telefono": {
-          "format": "int32",
-          "type": "integer"
+          "type": "string"
         },
         "fechaCreacion": {
-          "format": "date-time",
           "type": "string"
         },
         "fechaEliminado": {
-          "format": "date-time",
           "type": "string"
         },
         "eliminado": {
+          "type": "boolean"
+        },
+        "protegido": {
           "type": "boolean"
         }
       },

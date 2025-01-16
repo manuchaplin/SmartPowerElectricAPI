@@ -17,7 +17,7 @@ public class Trabajador
 
     public string? Email { get; set; }
 
-    public int? Telefono { get; set; }
+    public string? Telefono { get; set; }
 
     public string? Direccion { get; set; }
 
@@ -34,4 +34,8 @@ public class Trabajador
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
+
+    public virtual ICollection<Proyecto> Proyectos { get; set; } 
+
+
 }

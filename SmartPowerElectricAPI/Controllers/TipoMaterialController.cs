@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using System.Linq.Expressions;
@@ -20,32 +21,33 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] TipoMaterial tipoMaterial)
+        public IActionResult Create([FromBody] TipoMaterialDTO tipoMaterialDTO)
         {
 
             try
             {
                 List<Expression<Func<TipoMaterial, bool>>> where = new List<Expression<Func<TipoMaterial, bool>>>();
-                where.Add(x => x.Nombre.ToLower() == tipoMaterial.Nombre.ToLower());
+                where.Add(x => x.Nombre.ToLower() == tipoMaterialDTO.Nombre.ToLower());
                 TipoMaterial tipoMaterialSearch = _tipoMaterialRepository.Get(where).FirstOrDefault();
 
                 if (tipoMaterialSearch == null)
                 {
+                    TipoMaterial tipoMaterial= tipoMaterialDTO.ToEntity();
                     tipoMaterial.FechaCreacion = DateTime.Now;
                     _tipoMaterialRepository.Insert(tipoMaterial);
 
-                    return Ok(tipoMaterial);
+                    return Ok();
                 }
                 else
-                {
-                    return BadRequest("El tipo material ya existe");
+                {                    
+                    return Conflict(new { message = "El tipo material ya existe" });
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -64,45 +66,48 @@ namespace SmartPowerElectricAPI.Controllers
                     tipoMaterial.Eliminado = true;
                     _tipoMaterialRepository.Update(tipoMaterial);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit([FromBody] TipoMaterial tipoMaterial)
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id,[FromBody] TipoMaterialDTO tipoMaterialDTO)
         {
             try
             {
                 List<Expression<Func<TipoMaterial, bool>>> where = new List<Expression<Func<TipoMaterial, bool>>>();
-                where.Add(x => x.Id == tipoMaterial.Id);
+                where.Add(x => x.Id == id);
                 TipoMaterial tipoMaterialSearch = _tipoMaterialRepository.Get(where).FirstOrDefault();
 
                 if (tipoMaterialSearch != null)
                 {
-                    _tipoMaterialRepository.Update(tipoMaterial);
+                    if (tipoMaterialDTO.Nombre != null) tipoMaterialSearch.Nombre = tipoMaterialDTO.Nombre;
+                    if (tipoMaterialDTO.FechaCreacion != null) tipoMaterialSearch.FechaCreacion = string.IsNullOrWhiteSpace(tipoMaterialDTO.FechaCreacion) ? null : DateTime.ParseExact(tipoMaterialDTO.FechaCreacion, "yyyy-MM-dd", null);
 
-                    return Ok(tipoMaterial);
+                    _tipoMaterialRepository.Update(tipoMaterialSearch);
+
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("Tipo de Material no encontrado");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -117,12 +122,14 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 tipoMaterials = _tipoMaterialRepository.Get(where).ToList();
 
-                return Ok(tipoMaterials);
+                List<TipoMaterialDTO> tipoMaterialDTOs= tipoMaterials.Select(TipoMaterialDTO.FromEntity).ToList();
+
+                return Ok(tipoMaterialDTOs);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }

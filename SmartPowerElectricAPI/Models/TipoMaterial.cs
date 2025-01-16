@@ -16,6 +16,8 @@ public class TipoMaterial
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
-
+    
     public virtual ICollection<Material> Materials { get; set; }
+
+   
 }

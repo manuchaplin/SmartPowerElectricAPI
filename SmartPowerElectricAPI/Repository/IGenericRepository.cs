@@ -6,6 +6,7 @@ namespace SmartPowerElectricAPI.Repository
     public interface IGenericRepository<TEntity>
     {
         TEntity GetByID(object id);
+        TEntity GetByID(object id, string includeProperties = null);
         void Insert(TEntity entity);
         void InsertMassive(List<TEntity> entities);
         void Save();

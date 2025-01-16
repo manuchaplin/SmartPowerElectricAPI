@@ -17,15 +17,20 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.ClienteController",
-    "Method": "Create",
-    "RelativePath": "api/Cliente/create",
-    "HttpMethod": "POST",
+    "Method": "Edit",
+    "RelativePath": "api/Cliente/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "cliente",
-        "Type": "SmartPowerElectricAPI.Models.Cliente",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "clienteDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ClienteDTO",
         "IsRequired": true
       }
     ],
@@ -33,15 +38,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.ClienteController",
-    "Method": "Edit",
-    "RelativePath": "api/Cliente/edit",
+    "Method": "Create",
+    "RelativePath": "api/Cliente/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "cliente",
-        "Type": "SmartPowerElectricAPI.Models.Cliente",
+        "Name": "clienteDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ClienteDTO",
         "IsRequired": true
       }
     ],
@@ -75,15 +80,20 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
-    "Method": "Create",
-    "RelativePath": "api/Material/create",
-    "HttpMethod": "POST",
+    "Method": "Edit",
+    "RelativePath": "api/Material/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "material",
-        "Type": "SmartPowerElectricAPI.Models.Material",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "materialDTO",
+        "Type": "SmartPowerElectricAPI.DTO.MaterialDTO",
         "IsRequired": true
       }
     ],
@@ -91,15 +101,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
-    "Method": "Edit",
-    "RelativePath": "api/Material/edit",
+    "Method": "Create",
+    "RelativePath": "api/Material/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "material",
-        "Type": "SmartPowerElectricAPI.Models.Material",
+        "Name": "materialDTO",
+        "Type": "SmartPowerElectricAPI.DTO.MaterialDTO",
         "IsRequired": true
       }
     ],
@@ -109,6 +119,85 @@
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
     "Method": "List",
     "RelativePath": "api/Material/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "Delete",
+    "RelativePath": "api/Proyecto/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "Edit",
+    "RelativePath": "api/Proyecto/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "proyectoDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ProyectoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "GetById",
+    "RelativePath": "api/Proyecto/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "Create",
+    "RelativePath": "api/Proyecto/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "proyectoDTO",
+        "Type": "SmartPowerElectricAPI.DTO.ProyectoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "List",
+    "RelativePath": "api/Proyecto/list",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -133,15 +222,20 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.TipoMaterialController",
-    "Method": "Create",
-    "RelativePath": "api/TipoMaterial/create",
-    "HttpMethod": "POST",
+    "Method": "Edit",
+    "RelativePath": "api/TipoMaterial/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "tipoMaterial",
-        "Type": "SmartPowerElectricAPI.Models.TipoMaterial",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipoMaterialDTO",
+        "Type": "SmartPowerElectricAPI.DTO.TipoMaterialDTO",
         "IsRequired": true
       }
     ],
@@ -149,15 +243,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.TipoMaterialController",
-    "Method": "Edit",
-    "RelativePath": "api/TipoMaterial/edit",
+    "Method": "Create",
+    "RelativePath": "api/TipoMaterial/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "tipoMaterial",
-        "Type": "SmartPowerElectricAPI.Models.TipoMaterial",
+        "Name": "tipoMaterialDTO",
+        "Type": "SmartPowerElectricAPI.DTO.TipoMaterialDTO",
         "IsRequired": true
       }
     ],
@@ -191,15 +285,20 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.TrabajadorController",
-    "Method": "Create",
-    "RelativePath": "api/Trabajador/create",
-    "HttpMethod": "POST",
+    "Method": "Edit",
+    "RelativePath": "api/Trabajador/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "trabajador",
-        "Type": "SmartPowerElectricAPI.Models.Trabajador",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "trabajadorDTO",
+        "Type": "SmartPowerElectricAPI.DTO.TrabajadorDTO",
         "IsRequired": true
       }
     ],
@@ -207,15 +306,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.TrabajadorController",
-    "Method": "Edit",
-    "RelativePath": "api/Trabajador/edit",
+    "Method": "Create",
+    "RelativePath": "api/Trabajador/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "trabajador",
-        "Type": "SmartPowerElectricAPI.Models.Trabajador",
+        "Name": "trabajadorDTO",
+        "Type": "SmartPowerElectricAPI.DTO.TrabajadorDTO",
         "IsRequired": true
       }
     ],
@@ -249,15 +348,20 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.UnidadMedidumController",
-    "Method": "Create",
-    "RelativePath": "api/UnidadMedidum/create",
-    "HttpMethod": "POST",
+    "Method": "Edit",
+    "RelativePath": "api/UnidadMedidum/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "unidadMedidum",
-        "Type": "SmartPowerElectricAPI.Models.UnidadMedida",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "unidadMedidumDTO",
+        "Type": "SmartPowerElectricAPI.DTO.UnidadMedidaDTO",
         "IsRequired": true
       }
     ],
@@ -265,15 +369,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.UnidadMedidumController",
-    "Method": "Edit",
-    "RelativePath": "api/UnidadMedidum/edit",
+    "Method": "Create",
+    "RelativePath": "api/UnidadMedidum/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "unidadMedidum",
-        "Type": "SmartPowerElectricAPI.Models.UnidadMedida",
+        "Name": "unidadMedidumDTO",
+        "Type": "SmartPowerElectricAPI.DTO.UnidadMedidaDTO",
         "IsRequired": true
       }
     ],
@@ -307,15 +411,20 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.UsuarioController",
-    "Method": "Create",
-    "RelativePath": "api/Usuario/create",
-    "HttpMethod": "POST",
+    "Method": "Edit",
+    "RelativePath": "api/Usuario/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "SmartPowerElectricAPI.Models.Usuario",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "usuarioDTO",
+        "Type": "SmartPowerElectricAPI.DTO.UsuarioDTO",
         "IsRequired": true
       }
     ],
@@ -323,15 +432,31 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.UsuarioController",
-    "Method": "Edit",
-    "RelativePath": "api/Usuario/edit",
+    "Method": "GetById",
+    "RelativePath": "api/Usuario/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.UsuarioController",
+    "Method": "Create",
+    "RelativePath": "api/Usuario/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "SmartPowerElectricAPI.Models.Usuario",
+        "Name": "usuarioDTO",
+        "Type": "SmartPowerElectricAPI.DTO.UsuarioDTO",
         "IsRequired": true
       }
     ],
@@ -368,6 +493,16 @@
     "Method": "Logout",
     "RelativePath": "api/Usuario/logout",
     "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.UsuarioController",
+    "Method": "ValidateToken",
+    "RelativePath": "api/Usuario/validateToken",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],

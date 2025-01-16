@@ -4,6 +4,7 @@ using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using SmartPowerElectricAPI.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,7 +24,7 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] Material material)
+        public IActionResult Create([FromBody] MaterialDTO materialDTO)
         {
             try
             {
@@ -33,23 +34,24 @@ namespace SmartPowerElectricAPI.Controllers
                 //where.Add(x => x.Email.ToLower() == cliente.Email.ToLower());
                 //Material materialSearch = _clienteRepository.Get(where).FirstOrDefault();
 
-                //if (clienteSearch == null)
+                //if (materialSearch == null)
                 //{
+                Material material=materialDTO.ToEntity();
                 material.FechaCreacion = DateTime.Now;
                 _materialRepository.Insert(material);
 
-                return Ok(material);
+                return Ok();
                 //}
                 //else
                 //{
-                //    return BadRequest("El cliente ya existe");
+                //    return Conflict(new { message="El cliente ya existe"});
                 //}
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -68,45 +70,52 @@ namespace SmartPowerElectricAPI.Controllers
                     material.Eliminado = true;
                     _materialRepository.Update(material);
 
-                    return Ok("Eliminado correctamente");
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("No existente");
+                    return NotFound();
                 }
 
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit([FromBody] Material material)
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id,[FromBody] MaterialDTO materialDTO)
         {
             try
             {
                 List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                where.Add(x => x.Id == material.Id);
+                where.Add(x => x.Id == id);
                 Material materialSearch = _materialRepository.Get(where).FirstOrDefault();
 
                 if (materialSearch != null)
                 {
-                    _materialRepository.Update(material);
+                    if (materialDTO.Precio!=null)materialSearch.Precio=materialDTO.Precio;
+                    if (materialDTO.Cantidad != null)materialSearch.Cantidad = materialDTO.Cantidad;
+                    if (materialDTO.IdTipoMaterial != null)materialSearch.IdTipoMaterial = (int)materialDTO.IdTipoMaterial;
+                    if (materialDTO.IdUnidadMedida != null)materialSearch.IdUnidadMedida = (int)materialDTO.IdUnidadMedida;
+                    if (materialDTO.IdProyecto != null)materialSearch.IdProyecto = (int)materialDTO.IdProyecto;
+                    if (materialDTO.FechaCreacion != null) materialSearch.FechaCreacion = string.IsNullOrWhiteSpace(materialDTO.FechaCreacion) ? null : DateTime.ParseExact(materialDTO.FechaCreacion, "yyyy-MM-dd", null);
 
-                    return Ok(material);
+                    _materialRepository.Update(materialSearch);
+
+                    return Ok();
                 }
                 else
                 {
-                    return BadRequest("Cliente no encontrado");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -121,15 +130,15 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 materials = _materialRepository.Get(where).ToList();
 
-
                 //var materials = _context.Material.Include(x => x.TipoMaterial).Include(x => x.UnidadMedida).ToList();//Probar con Yannia Luego
+                List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
 
-                return Ok(materials);
+                return Ok(materialDTOs);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
