@@ -48,10 +48,10 @@ public class TrabajadorDTO
             Telefono = trabajador.Telefono,
             Direccion = trabajador.Direccion,
             SeguridadSocial = trabajador.SeguridadSocial,
-            FechaInicioContrato = trabajador.FechaInicioContrato?.ToString("MM-dd-yyyy"),
-            FechaFinContrato = trabajador.FechaFinContrato?.ToString("MM-dd-yyyy"),
+            FechaInicioContrato = trabajador.FechaInicioContrato?.ToString("yyyy-MM-dd"),
+            FechaFinContrato = trabajador.FechaFinContrato?.ToString("yyyy-MM-dd"),
             CobroxHora = trabajador.CobroxHora,
-            FechaCreacion = trabajador.FechaCreacion?.ToString("MM-dd-yyyy"),
+            FechaCreacion = trabajador.FechaCreacion?.ToString("yyyy-MM-dd"),
         };
     }
 
@@ -67,9 +67,9 @@ public class TrabajadorDTO
             Telefono = this.Telefono,
             Direccion = this.Direccion,
             SeguridadSocial = this.SeguridadSocial,
-            FechaInicioContrato = string.IsNullOrWhiteSpace(this.FechaInicioContrato) ? null : DateTime.ParseExact(this.FechaInicioContrato, "MM-dd-yyyy", null),
-            FechaFinContrato = string.IsNullOrWhiteSpace(this.FechaFinContrato) ? null: DateTime.ParseExact(this.FechaFinContrato, "MM-dd-yyyy", null),
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),
+            FechaInicioContrato = string.IsNullOrWhiteSpace(this.FechaInicioContrato) ? null : DateTime.ParseExact(this.FechaInicioContrato, "yyyy-MM-dd", null),
+            FechaFinContrato = string.IsNullOrWhiteSpace(this.FechaFinContrato) ? null: DateTime.ParseExact(this.FechaFinContrato, "yyyy-MM-dd", null),
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),
             CobroxHora = this.CobroxHora
         };
     }

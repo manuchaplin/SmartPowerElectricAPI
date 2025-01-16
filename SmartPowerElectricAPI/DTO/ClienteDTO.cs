@@ -33,7 +33,7 @@ public class ClienteDTO
             Direccion = cliente.Direccion,            
             Email = cliente.Email,
             Telefono = cliente.Telefono,                             
-            FechaCreacion = cliente.FechaCreacion?.ToString("MM-dd-yyyy"),
+            FechaCreacion = cliente.FechaCreacion?.ToString("yyyy-MM-dd"),
         };
     }
 
@@ -46,7 +46,7 @@ public class ClienteDTO
             Direccion = this.Direccion,
             Email = this.Email,            
             Telefono = this.Telefono,
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null: DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),          
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null: DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),          
         };
     }
 }

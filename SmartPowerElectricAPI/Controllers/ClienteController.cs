@@ -102,7 +102,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (clienteDTO.Direccion != null) clienteSearch.Direccion = clienteDTO.Direccion;
                     if (clienteDTO.Email != null) clienteSearch.Email = clienteDTO.Email;
                     if (clienteDTO.Telefono != null) clienteSearch.Telefono = clienteDTO.Telefono;
-                    if (clienteDTO.FechaCreacion != null) clienteSearch.FechaCreacion = string.IsNullOrWhiteSpace(clienteDTO.FechaCreacion) ? null : DateTime.ParseExact(clienteDTO.FechaCreacion, "MM-dd-yyyy", null);
+                    if (clienteDTO.FechaCreacion != null) clienteSearch.FechaCreacion = string.IsNullOrWhiteSpace(clienteDTO.FechaCreacion) ? null : DateTime.ParseExact(clienteDTO.FechaCreacion, "yyyy-MM-dd", null);
 
 
                     _clienteRepository.Update(clienteSearch);

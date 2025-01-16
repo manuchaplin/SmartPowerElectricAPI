@@ -26,5 +26,7 @@ public class Usuario
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
+
+    public bool? Protegido { get; set; }
   
 }

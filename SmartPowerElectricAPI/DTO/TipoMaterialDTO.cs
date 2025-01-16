@@ -24,7 +24,7 @@ public class TipoMaterialDTO
         {
             Id = tipoMaterial.Id,
             Nombre = tipoMaterial.Nombre,       
-            FechaCreacion = tipoMaterial.FechaCreacion?.ToString("MM-dd-yyyy")
+            FechaCreacion = tipoMaterial.FechaCreacion?.ToString("yyyy-MM-dd")
         };
     }
 
@@ -34,7 +34,7 @@ public class TipoMaterialDTO
         return new TipoMaterial
         {
             Nombre = this.Nombre,
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),
         
         };
     }

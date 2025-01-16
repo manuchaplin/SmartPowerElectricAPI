@@ -261,6 +261,25 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Proyecto"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Proyecto/list": {
@@ -968,6 +987,9 @@
           "type": "string"
         },
         "eliminado": {
+          "type": "boolean"
+        },
+        "protegido": {
           "type": "boolean"
         }
       },

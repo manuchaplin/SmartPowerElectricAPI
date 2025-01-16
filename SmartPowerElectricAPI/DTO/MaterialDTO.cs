@@ -36,7 +36,7 @@ public partial class MaterialDTO
             IdTipoMaterial = material.IdTipoMaterial,
             IdUnidadMedida = material.IdUnidadMedida,
             IdProyecto = material.IdProyecto,          
-            FechaCreacion = material.FechaCreacion?.ToString("MM-dd-yyyy")
+            FechaCreacion = material.FechaCreacion?.ToString("yyyy-MM-dd")
         };
     }
 
@@ -50,7 +50,7 @@ public partial class MaterialDTO
             IdTipoMaterial = this.IdTipoMaterial,
             IdUnidadMedida = this.IdUnidadMedida,
             IdProyecto = this.IdProyecto,           
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null)
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null)
            
         };
     }

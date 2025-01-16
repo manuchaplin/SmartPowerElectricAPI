@@ -102,9 +102,9 @@ namespace SmartPowerElectricAPI.Controllers
                     if (proyectoDTO.Descripcion != null) proyectoSearch.Descripcion = proyectoDTO.Descripcion;                    
                     if (proyectoDTO.horasEstimadas != null) proyectoSearch.horasEstimadas = proyectoDTO.horasEstimadas;                    
                     if (proyectoDTO.IdCliente != null) proyectoSearch.IdCliente = proyectoDTO.IdCliente;                    
-                    if (proyectoDTO.FechaInicio != null) proyectoSearch.FechaInicio = string.IsNullOrWhiteSpace(proyectoDTO.FechaInicio) ? null : DateTime.ParseExact(proyectoDTO.FechaInicio, "MM-dd-yyyy", null);
-                    if (proyectoDTO.FechaFin != null) proyectoSearch.FechaFin = string.IsNullOrWhiteSpace(proyectoDTO.FechaFin) ? null : DateTime.ParseExact(proyectoDTO.FechaFin, "MM-dd-yyyy", null);
-                    if (proyectoDTO.FechaCreacion != null) proyectoSearch.FechaCreacion = string.IsNullOrWhiteSpace(proyectoDTO.FechaCreacion) ? null : DateTime.ParseExact(proyectoDTO.FechaCreacion, "MM-dd-yyyy", null);
+                    if (proyectoDTO.FechaInicio != null) proyectoSearch.FechaInicio = string.IsNullOrWhiteSpace(proyectoDTO.FechaInicio) ? null : DateTime.ParseExact(proyectoDTO.FechaInicio, "yyyy-MM-dd", null);
+                    if (proyectoDTO.FechaFin != null) proyectoSearch.FechaFin = string.IsNullOrWhiteSpace(proyectoDTO.FechaFin) ? null : DateTime.ParseExact(proyectoDTO.FechaFin, "yyyy-MM-dd", null);
+                    if (proyectoDTO.FechaCreacion != null) proyectoSearch.FechaCreacion = string.IsNullOrWhiteSpace(proyectoDTO.FechaCreacion) ? null : DateTime.ParseExact(proyectoDTO.FechaCreacion, "yyyy-MM-dd", null);
 
 
                     _proyectoRepository.Update(proyectoSearch);
@@ -143,6 +143,31 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+
+            try
+            {
+                Proyecto proyecto = new Proyecto();
+                proyecto = _proyectoRepository.GetByID(id, "Trabajadores,Materials");
+
+                if (proyecto == null) return NotFound();
+
+                ProyectoDTO proyectoDTO = ProyectoDTO.FromEntity(proyecto);
+
+
+                return Ok(proyectoDTO);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
 
         }
 

@@ -97,7 +97,7 @@ namespace SmartPowerElectricAPI.Controllers
                 if (unidadMedSearch != null)
                 {
                     if (unidadMedidumDTO.UMedida!=null)unidadMedSearch.UMedida = unidadMedidumDTO.UMedida;
-                    if (unidadMedidumDTO.FechaCreacion != null) unidadMedSearch.FechaCreacion = string.IsNullOrWhiteSpace(unidadMedidumDTO.FechaCreacion) ? null : DateTime.ParseExact(unidadMedidumDTO.FechaCreacion, "MM-dd-yyyy", null);
+                    if (unidadMedidumDTO.FechaCreacion != null) unidadMedSearch.FechaCreacion = string.IsNullOrWhiteSpace(unidadMedidumDTO.FechaCreacion) ? null : DateTime.ParseExact(unidadMedidumDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _unidadMedidumRepository.Update(unidadMedSearch);
 

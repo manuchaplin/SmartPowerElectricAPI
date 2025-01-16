@@ -164,6 +164,22 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
+    "Method": "GetById",
+    "RelativePath": "api/Proyecto/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.ProyectoController",
     "Method": "Create",
     "RelativePath": "api/Proyecto/create",
     "HttpMethod": "POST",
@@ -416,7 +432,7 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.UsuarioController",
-    "Method": "getUserByID",
+    "Method": "GetById",
     "RelativePath": "api/Usuario/{id}",
     "HttpMethod": "GET",
     "IsController": true,

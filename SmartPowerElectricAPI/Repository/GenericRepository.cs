@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq.Expressions;
 
+
 namespace SmartPowerElectricAPI.Repository
 {
     public class GenericRepository<TEntity> : IDisposable, IGenericRepository<TEntity> where TEntity : class
@@ -309,6 +310,24 @@ namespace SmartPowerElectricAPI.Repository
         public virtual TEntity GetByID(object id)
         {
             return dbSet.Find(id);
+        }
+
+        public virtual TEntity GetByID(object id, string includeProperties=null)
+        {
+            IQueryable<TEntity> entity = dbSet;
+            entity.Append(dbSet.Find(id));
+          
+
+             if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProperty in includeProperties.Split
+                             (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    entity = entity.Include(includeProperty);
+                }
+            }
+
+            return entity.FirstOrDefault();
         }
 
         /// <summary>

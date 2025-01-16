@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SmartPowerElectricAPI.DTO;
+using SmartPowerElectricAPI.Migrations;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using SmartPowerElectricAPI.Utilities;
@@ -96,7 +97,6 @@ namespace SmartPowerElectricAPI.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        #endregion
 
         [HttpGet("validateToken")]
         [Authorize]
@@ -135,6 +135,9 @@ namespace SmartPowerElectricAPI.Controllers
                 return Unauthorized(new { mensaje = "Token inválido" }); // El token no es válido
             }
         }
+        #endregion
+
+
 
         [HttpPost("create")]       
         public IActionResult Create([FromBody] UsuarioDTO usuarioDTO)
@@ -180,12 +183,18 @@ namespace SmartPowerElectricAPI.Controllers
                 Usuario usuario = _usuarioRepository.Get(where).FirstOrDefault();
                 if (usuario!=null)
                 {
+                    if (usuario.Protegido==true)
+                    {
+                        return Forbid();
+                    }
+                   
                     usuario.FechaEliminado = DateTime.Now;
                     usuario.Eliminado = true;
 
                     _usuarioRepository.Update(usuario);
-
                     return Ok();
+                                      
+                   
                 }
                 else
                 {
@@ -219,7 +228,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (usuarioDTO.Username != null) usuariosearch.Username = usuarioDTO.Username;
                     if (usuarioDTO.Password != null) usuariosearch.Password = EncryptHelper.GetSHA1(usuarioDTO.Password); ;
                     if (usuarioDTO.Telefono != null) usuariosearch.Telefono = usuarioDTO.Telefono;
-                    if (usuarioDTO.FechaCreacion != null) usuariosearch.FechaCreacion = string.IsNullOrWhiteSpace(usuarioDTO.FechaCreacion) ? null : DateTime.ParseExact(usuarioDTO.FechaCreacion, "MM-dd-yyyy", null);
+                    if (usuarioDTO.FechaCreacion != null) usuariosearch.FechaCreacion = string.IsNullOrWhiteSpace(usuarioDTO.FechaCreacion) ? null : DateTime.ParseExact(usuarioDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _usuarioRepository.Update(usuariosearch);
 
@@ -240,7 +249,7 @@ namespace SmartPowerElectricAPI.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public IActionResult getUserByID(int id)
+        public IActionResult GetById(int id)
         {
             try
             {
@@ -249,7 +258,9 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (usuario == null)return NotFound();
 
-                return Ok(usuario);
+                UsuarioDTO usuarioDTO = UsuarioDTO.FromEntity(usuario);
+
+                return Ok(usuarioDTO);
 
             }
             catch (Exception ex) {

@@ -22,7 +22,7 @@ public class UnidadMedidaDTO
         {
             Id = unidadMedida.Id,
             UMedida = unidadMedida.UMedida,
-            FechaCreacion = unidadMedida.FechaCreacion?.ToString("MM-dd-yyyy"),
+            FechaCreacion = unidadMedida.FechaCreacion?.ToString("yyyy-MM-dd"),
         };
     }
 
@@ -32,7 +32,7 @@ public class UnidadMedidaDTO
         return new UnidadMedida
         {
             UMedida = this.UMedida,
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null)
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null)
         };
     }
 

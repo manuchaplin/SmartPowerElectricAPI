@@ -94,7 +94,7 @@ namespace SmartPowerElectricAPI.Controllers
                 if (tipoMaterialSearch != null)
                 {
                     if (tipoMaterialDTO.Nombre != null) tipoMaterialSearch.Nombre = tipoMaterialDTO.Nombre;
-                    if (tipoMaterialDTO.FechaCreacion != null) tipoMaterialSearch.FechaCreacion = string.IsNullOrWhiteSpace(tipoMaterialDTO.FechaCreacion) ? null : DateTime.ParseExact(tipoMaterialDTO.FechaCreacion, "MM-dd-yyyy", null);
+                    if (tipoMaterialDTO.FechaCreacion != null) tipoMaterialSearch.FechaCreacion = string.IsNullOrWhiteSpace(tipoMaterialDTO.FechaCreacion) ? null : DateTime.ParseExact(tipoMaterialDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _tipoMaterialRepository.Update(tipoMaterialSearch);
 

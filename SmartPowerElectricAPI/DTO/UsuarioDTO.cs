@@ -26,6 +26,7 @@ public class UsuarioDTO
     public string? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
+    public bool? Protegido { get; set; }
 
 
     // Constructor para mapear desde Usuario
@@ -40,7 +41,7 @@ public class UsuarioDTO
             Username = usuario.Username,
             Password = usuario.Password,
             Telefono = usuario.Telefono,
-            FechaCreacion = usuario.FechaCreacion?.ToString("MM-dd-yyyy"),
+            FechaCreacion = usuario.FechaCreacion?.ToString("yyyy-MM-dd"),
         };
     }
 
@@ -55,7 +56,7 @@ public class UsuarioDTO
             Username = this.Username,
             Password=this.Password,
             Telefono = this.Telefono,
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "MM-dd-yyyy", null),
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),
         };
     }
 }
