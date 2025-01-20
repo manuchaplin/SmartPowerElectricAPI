@@ -132,7 +132,7 @@ namespace SmartPowerElectricAPI.Controllers
                 List<Expression<Func<Proyecto, bool>>> where = new List<Expression<Func<Proyecto, bool>>>();            
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 //proyectos = _proyectoRepository.Get(where, "Trabajadores,Materials").ToList();//Para saber los trabajadores,y materiales asociados al proyecto
-                proyectos = _proyectoRepository.Get(where).ToList();
+                proyectos = _proyectoRepository.Get(where,"Cliente").ToList();
 
                 List<ProyectoDTO> proyectoDTOs = proyectos.Select(ProyectoDTO.FromEntity).ToList();
 

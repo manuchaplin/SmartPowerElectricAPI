@@ -981,6 +981,10 @@
             "format": "int32",
             "nullable": true
           },
+          "nombreCLiente": {
+            "type": "string",
+            "nullable": true
+          },
           "horasEstimadas": {
             "type": "number",
             "format": "double",

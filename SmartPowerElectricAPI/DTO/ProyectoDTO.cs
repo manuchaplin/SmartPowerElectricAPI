@@ -15,6 +15,7 @@ public class ProyectoDTO
     public string? FechaInicio { get; set; }
     public string? FechaFin { get; set; }    
     public int? IdCliente { get; set; }
+    public string? NombreCLiente { get; set; }
     public double? horasEstimadas { get; set; }
     public string? FechaCreacion { get; set; }
     public string? FechaEliminado { get; set; }
@@ -34,6 +35,7 @@ public class ProyectoDTO
             Descripcion = proyecto.Descripcion,
             horasEstimadas = proyecto.horasEstimadas,
             IdCliente = proyecto.IdCliente,
+            NombreCLiente = proyecto.Cliente!=null ? proyecto.Cliente.Nombre : null,
             FechaInicio = proyecto.FechaInicio?.ToString("yyyy-MM-dd"),
             FechaFin = proyecto.FechaFin?.ToString("yyyy-MM-dd"),
             FechaCreacion = proyecto.FechaCreacion?.ToString("yyyy-MM-dd"),
