@@ -59,7 +59,7 @@ namespace SmartPowerElectricAPI.Controllers
 
             if (usuario!=null)
             {
-                var token = GenerarTokenJWT(request.Username);
+                var token = GenerarTokenJWT(request.Username,usuario.Nombre,usuario.Apellido);
                 return Ok(new { Token = token });
             }
             else
@@ -69,7 +69,7 @@ namespace SmartPowerElectricAPI.Controllers
           
         }
 
-        private string GenerarTokenJWT(string username)
+        private string GenerarTokenJWT(string username,string nombre,string apellido)
         {
             var jwtConfig = _configuration.GetSection("Jwt");
 
@@ -77,6 +77,8 @@ namespace SmartPowerElectricAPI.Controllers
             var claims = new[]
             {
             new Claim(JwtRegisteredClaimNames.Sub, username),
+            new Claim("Nombre", nombre),
+            new Claim("Apellido", apellido),
             new Claim(ClaimTypes.Role, "Usuario"),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
@@ -92,7 +94,7 @@ namespace SmartPowerElectricAPI.Controllers
                 issuer: jwtConfig["Issuer"],
                 audience: jwtConfig["Audience"],
                 claims: claims,               
-                signingCredentials: creds);;
+                signingCredentials: creds);
          
 
             return new JwtSecurityTokenHandler().WriteToken(token);

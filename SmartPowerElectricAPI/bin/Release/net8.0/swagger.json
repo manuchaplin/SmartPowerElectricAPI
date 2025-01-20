@@ -833,6 +833,9 @@
           "format": "int32",
           "type": "integer"
         },
+        "nombreCLiente": {
+          "type": "string"
+        },
         "horasEstimadas": {
           "format": "double",
           "type": "number"
