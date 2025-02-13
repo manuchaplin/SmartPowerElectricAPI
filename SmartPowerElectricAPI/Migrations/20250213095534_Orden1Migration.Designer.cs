@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPowerElectricAPI.Models;
 
@@ -11,9 +12,11 @@ using SmartPowerElectricAPI.Models;
 namespace SmartPowerElectricAPI.Migrations
 {
     [DbContext(typeof(SmartPowerElectricContext))]
-    partial class SmartPowerElectricContextModelSnapshot : ModelSnapshot
+    [Migration("20250213095534_Orden1Migration")]
+    partial class Orden1Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,19 +25,19 @@ namespace SmartPowerElectricAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OrdenTrabajador", b =>
+            modelBuilder.Entity("ProyectoTrabajador", b =>
                 {
-                    b.Property<int>("OrdensId")
+                    b.Property<int>("ProyectosId")
                         .HasColumnType("int");
 
                     b.Property<int>("TrabajadoresId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrdensId", "TrabajadoresId");
+                    b.HasKey("ProyectosId", "TrabajadoresId");
 
                     b.HasIndex("TrabajadoresId");
 
-                    b.ToTable("OrdenTrabajador");
+                    b.ToTable("ProyectoTrabajador");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Cliente", b =>
@@ -358,11 +361,11 @@ namespace SmartPowerElectricAPI.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("OrdenTrabajador", b =>
+            modelBuilder.Entity("ProyectoTrabajador", b =>
                 {
-                    b.HasOne("SmartPowerElectricAPI.Models.Orden", null)
+                    b.HasOne("SmartPowerElectricAPI.Models.Proyecto", null)
                         .WithMany()
-                        .HasForeignKey("OrdensId")
+                        .HasForeignKey("ProyectosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

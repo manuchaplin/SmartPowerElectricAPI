@@ -111,10 +111,21 @@
         }
       }
     },
-    "/api/Material/create": {
+    "/api/Material/create{idOrden}": {
       "post": {
         "tags": [
           "Material"
+        ],
+        "parameters": [
+          {
+            "name": "idOrden",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -205,10 +216,232 @@
         }
       }
     },
-    "/api/Material/list": {
+    "/api/Material/list{id}": {
       "get": {
         "tags": [
           "Material"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/create{idProyecto}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "idProyecto",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/{id}": {
+      "delete": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/list{id}": {
+      "get": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/{idOrden},{idTrabajador}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "idOrden",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idTrabajador",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "idOrden",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idTrabajador",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -928,7 +1161,7 @@
             "format": "int32",
             "nullable": true
           },
-          "idProyecto": {
+          "idOrden": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -943,6 +1176,86 @@
           },
           "eliminado": {
             "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdenDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "numeroOrden": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ordenFinalizada": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "costeManoObra": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "cobrado": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "horasEstimadas": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "idProyecto": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "materialDTOs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MaterialDTO"
+            },
+            "nullable": true
+          },
+          "trabajadorDTOs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrabajadorDTO"
+            },
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaEliminado": {
+            "type": "string",
+            "nullable": true
+          },
+          "eliminado": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "costeMateriales": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "costeTotal": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "faltanteCobrar": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           }
         },
@@ -1002,17 +1315,10 @@
             "type": "boolean",
             "nullable": true
           },
-          "materialDTOs": {
+          "ordenDTOs": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MaterialDTO"
-            },
-            "nullable": true
-          },
-          "trabajadorDTOs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TrabajadorDTO"
+              "$ref": "#/components/schemas/OrdenDTO"
             },
             "nullable": true
           }
