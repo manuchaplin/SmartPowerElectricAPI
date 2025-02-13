@@ -216,14 +216,14 @@
         }
       }
     },
-    "/api/Material/list{id}": {
+    "/api/Material/list{idOrden}": {
       "get": {
         "tags": [
           "Material"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "idOrden",
             "in": "path",
             "required": true,
             "schema": {
@@ -365,14 +365,14 @@
         }
       }
     },
-    "/api/Orden/list{id}": {
+    "/api/Orden/list{idProyecto}": {
       "get": {
         "tags": [
           "Orden"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "idProyecto",
             "in": "path",
             "required": true,
             "schema": {

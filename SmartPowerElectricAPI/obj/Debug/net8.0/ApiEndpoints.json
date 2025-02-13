@@ -123,13 +123,13 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
     "Method": "List",
-    "RelativePath": "api/Material/list{id}",
+    "RelativePath": "api/Material/list{idOrden}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idOrden",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -255,13 +255,13 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
     "Method": "List",
-    "RelativePath": "api/Orden/list{id}",
+    "RelativePath": "api/Orden/list{idProyecto}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idProyecto",
         "Type": "System.Int32",
         "IsRequired": true
       }
