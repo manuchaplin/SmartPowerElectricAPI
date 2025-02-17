@@ -95,7 +95,7 @@
         }
       }
     },
-    "/api/Material/create": {
+    "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
           "Material"
@@ -106,6 +106,13 @@
           "application/*+json"
         ],
         "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
           {
             "in": "body",
             "name": "body",
@@ -173,10 +180,200 @@
         }
       }
     },
-    "/api/Material/list": {
+    "/api/Orden/create/{idProyecto}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idProyecto",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/OrdenDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/{id}": {
+      "delete": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orden"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/OrdenDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/listMaterials/{idOrden}": {
       "get": {
         "tags": [
-          "Material"
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/listTrabajadores/{idOrden}": {
+      "get": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/{idOrden},{idTrabajador}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/SendMail/{idOrden}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
         ],
         "responses": {
           "200": {
@@ -791,7 +988,7 @@
           "format": "int32",
           "type": "integer"
         },
-        "idProyecto": {
+        "idOrden": {
           "format": "int32",
           "type": "integer"
         },
@@ -803,6 +1000,72 @@
         },
         "eliminado": {
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrdenDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numeroOrden": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ordenFinalizada": {
+          "type": "boolean"
+        },
+        "costeManoObra": {
+          "format": "double",
+          "type": "number"
+        },
+        "cobrado": {
+          "format": "double",
+          "type": "number"
+        },
+        "horasEstimadas": {
+          "format": "double",
+          "type": "number"
+        },
+        "idProyecto": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "materialDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialDTO"
+          }
+        },
+        "trabajadorDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TrabajadorDTO"
+          }
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        },
+        "costeMateriales": {
+          "format": "double",
+          "type": "number"
+        },
+        "costeTotal": {
+          "format": "double",
+          "type": "number"
+        },
+        "faltanteCobrar": {
+          "format": "double",
+          "type": "number"
         }
       },
       "additionalProperties": false
@@ -849,16 +1112,10 @@
         "eliminado": {
           "type": "boolean"
         },
-        "materialDTOs": {
+        "ordenDTOs": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/MaterialDTO"
-          }
-        },
-        "trabajadorDTOs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TrabajadorDTO"
+            "$ref": "#/definitions/OrdenDTO"
           }
         }
       },

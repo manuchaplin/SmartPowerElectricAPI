@@ -20,8 +20,8 @@ public class ProyectoDTO
     public string? FechaCreacion { get; set; }
     public string? FechaEliminado { get; set; }
     public bool? Eliminado { get; set; }
-    public List<MaterialDTO>? materialDTOs { get; set; }
-    public List<TrabajadorDTO>? trabajadorDTOs { get; set; }
+    public List<OrdenDTO>? ordenDTOs { get; set; }
+  
 
 
     // Constructor para mapear desde Proyecto
@@ -39,8 +39,8 @@ public class ProyectoDTO
             FechaInicio = proyecto.FechaInicio?.ToString("yyyy-MM-dd"),
             FechaFin = proyecto.FechaFin?.ToString("yyyy-MM-dd"),
             FechaCreacion = proyecto.FechaCreacion?.ToString("yyyy-MM-dd"),
-            materialDTOs = proyecto.Materials != null ? proyecto.Materials.Select(MaterialDTO.FromEntity).ToList() :null,
-            trabajadorDTOs = proyecto.Trabajadores != null ? proyecto.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList() : null
+            ordenDTOs = proyecto.Ordens != null ? proyecto.Ordens.Select(OrdenDTO.FromEntity).ToList() : null,
+          
         };
     }
 

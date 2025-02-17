@@ -254,5 +254,6 @@ namespace SmartPowerElectricAPI.Controllers
             }
 
         }
+      
     }
 }

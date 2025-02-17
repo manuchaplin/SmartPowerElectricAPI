@@ -312,22 +312,25 @@ namespace SmartPowerElectricAPI.Repository
             return dbSet.Find(id);
         }
 
-        public virtual TEntity GetByID(object id, string includeProperties=null)
+        public virtual TEntity GetByID(object id, string includeProperties = null)
         {
-            IQueryable<TEntity> entity = dbSet;
-            entity.Append(dbSet.Find(id));
-          
+            // Buscar la entidad por ID
+            var entity = dbSet.Find(id);
 
-             if (!string.IsNullOrEmpty(includeProperties))
+            // Si no se encuentra, devolver null (o lanzar una excepción si prefieres)
+            if (entity == null) return null;
+
+            // Si se especifican propiedades a incluir (carga de relaciones)
+            if (!string.IsNullOrEmpty(includeProperties))
             {
-                foreach (var includeProperty in includeProperties.Split
-                             (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    entity = entity.Include(includeProperty);
+                    // Se debe realizar el Include solo cuando se está trabajando con una consulta
+                    entity = dbSet.Include(includeProperty).FirstOrDefault(e => e.Equals(entity));
                 }
             }
 
-            return entity.FirstOrDefault();
+            return entity;
         }
 
         /// <summary>

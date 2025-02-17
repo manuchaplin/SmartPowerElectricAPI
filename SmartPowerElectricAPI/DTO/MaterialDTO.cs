@@ -17,7 +17,7 @@ public partial class MaterialDTO
     public int? IdTipoMaterial { get; set; }
 
     public int? IdUnidadMedida { get; set; }
-    public int? IdProyecto { get; set; }
+    public int? IdOrden { get; set; }
 
     public string? FechaCreacion { get; set; }
 
@@ -34,8 +34,8 @@ public partial class MaterialDTO
             Precio = material.Precio,
             Cantidad = material.Cantidad,
             IdTipoMaterial = material.IdTipoMaterial,
-            IdUnidadMedida = material.IdUnidadMedida,
-            IdProyecto = material.IdProyecto,          
+            IdUnidadMedida = material.IdUnidadMedida,                   
+            IdOrden = material.IdOrden,
             FechaCreacion = material.FechaCreacion?.ToString("yyyy-MM-dd")
         };
     }
@@ -48,8 +48,8 @@ public partial class MaterialDTO
             Precio = this.Precio,
             Cantidad = this.Cantidad,
             IdTipoMaterial = this.IdTipoMaterial,
-            IdUnidadMedida = this.IdUnidadMedida,
-            IdProyecto = this.IdProyecto,           
+            IdUnidadMedida = this.IdUnidadMedida,                   
+            IdOrden = this.IdOrden,                   
             FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null)
            
         };

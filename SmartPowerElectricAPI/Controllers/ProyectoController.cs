@@ -152,8 +152,12 @@ namespace SmartPowerElectricAPI.Controllers
 
             try
             {
+               
+               
                 Proyecto proyecto = new Proyecto();
-                proyecto = _proyectoRepository.GetByID(id, "Trabajadores,Materials");
+                proyecto = _proyectoRepository.GetByID(id, "Cliente,Ordens");
+                
+                proyecto.Ordens=proyecto.Ordens.Where(x=>x.Eliminado!=true && x.FechaEliminado == null).ToList();
 
                 if (proyecto == null) return NotFound();
 

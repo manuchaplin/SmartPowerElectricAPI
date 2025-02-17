@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Projects\\SmartPowerElectricAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\dto\\proyectodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\dto\\proyectodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\controllers\\ordencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\controllers\\ordencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\controllers\\proyectocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\controllers\\proyectocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\service\\fileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\service\\fileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\service\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\service\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\models\\proyecto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\models\\proyecto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ProyectoController.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\ProyectoController.cs",
-              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Controllers\\ProyectoController.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\ProyectoController.cs",
-              "RelativeToolTip": "SmartPowerElectricAPI\\Controllers\\ProyectoController.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAvwIoAAAAQAAAAAAAAAA==",
+              "Title": "FileService.cs",
+              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Service\\FileService.cs",
+              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Service\\FileService.cs",
+              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Service\\FileService.cs",
+              "RelativeToolTip": "SmartPowerElectricAPI\\Service\\FileService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T14:38:29.093Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProyectoDTO.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\DTO\\ProyectoDTO.cs",
-              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\DTO\\ProyectoDTO.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\DTO\\ProyectoDTO.cs",
-              "RelativeToolTip": "SmartPowerElectricAPI\\DTO\\ProyectoDTO.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAQwCUAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T14:37:48.725Z",
+              "WhenOpened": "2025-02-17T12:51:10.857Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Proyecto.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Models\\Proyecto.cs",
-              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Models\\Proyecto.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Models\\Proyecto.cs",
-              "RelativeToolTip": "SmartPowerElectricAPI\\Models\\Proyecto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Program.cs",
+              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Program.cs",
+              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Program.cs",
+              "RelativeToolTip": "SmartPowerElectricAPI\\Program.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAFkAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T14:36:07.757Z",
+              "WhenOpened": "2025-02-17T11:35:38.739Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UsuarioController.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\UsuarioController.cs",
-              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Controllers\\UsuarioController.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\UsuarioController.cs",
-              "RelativeToolTip": "SmartPowerElectricAPI\\Controllers\\UsuarioController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAnwDMAAAAIAAAAAAAAAA==",
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Service\\EmailService.cs",
+              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Service\\EmailService.cs",
+              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Service\\EmailService.cs",
+              "RelativeToolTip": "SmartPowerElectricAPI\\Service\\EmailService.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADMAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T16:53:58.312Z",
+              "WhenOpened": "2025-02-17T10:18:28.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrdenController.cs",
+              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\OrdenController.cs",
+              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Controllers\\OrdenController.cs",
+              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\OrdenController.cs",
+              "RelativeToolTip": "SmartPowerElectricAPI\\Controllers\\OrdenController.cs",
+              "ViewState": "AgIAANkAAAAAAAAAAAAqwPQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T08:48:32.403Z",
               "EditorCaption": ""
             }
           ]

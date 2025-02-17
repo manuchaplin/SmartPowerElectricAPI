@@ -5,6 +5,7 @@ using SmartPowerElectricAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using SmartPowerElectricAPI.DTO;
+using System.Data.Entity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,38 +17,35 @@ namespace SmartPowerElectricAPI.Controllers
     public class MaterialController : ControllerBase
     {
         private readonly IMaterialRepository _materialRepository;
+        private IOrdenRepository _ordenRepository;
         private readonly SmartPowerElectricContext _context;
-        public MaterialController(IMaterialRepository materialRepository, SmartPowerElectricContext context)
+        public MaterialController(IMaterialRepository materialRepository, IOrdenRepository ordenRepository, SmartPowerElectricContext context)
         {
             _materialRepository = materialRepository;
+            _ordenRepository = ordenRepository;
             _context = context;
         }
 
-        [HttpPost("create")]
-        public IActionResult Create([FromBody] MaterialDTO materialDTO)
+        [HttpPost("create/{idOrden}")]
+        public IActionResult Create(int idOrden,[FromBody] MaterialDTO materialDTO)
         {
             try
             {
-                //Cuando se incorpore proyecto al modelo hay q hacer la validacion de la creacion de material, para no agregar dos materiales iguales al mismo proyecto, con el mismo precio
-                //List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                //where.Add(x => x.Nombre.ToLower() == cliente.Nombre.ToLower());
-                //where.Add(x => x.Email.ToLower() == cliente.Email.ToLower());
-                //Material materialSearch = _clienteRepository.Get(where).FirstOrDefault();
+                
+                List<Expression<Func<Orden, bool>>> where = new List<Expression<Func<Orden, bool>>>();
+                where.Add(x => x.Id== idOrden);
+                
+                Orden ordenSearch = _ordenRepository.Get(where).FirstOrDefault();
 
-                //if (materialSearch == null)
-                //{
+                if (ordenSearch == null) return NotFound();
+               
                 Material material=materialDTO.ToEntity();
+                material.IdOrden = idOrden;
                 material.FechaCreacion = DateTime.Now;
                 _materialRepository.Insert(material);
 
                 return Ok();
-                //}
-                //else
-                //{
-                //    return Conflict(new { message="El cliente ya existe"});
-                //}
-
-
+             
             }
             catch (Exception ex)
             {
@@ -100,8 +98,8 @@ namespace SmartPowerElectricAPI.Controllers
                     if (materialDTO.Precio!=null)materialSearch.Precio=materialDTO.Precio;
                     if (materialDTO.Cantidad != null)materialSearch.Cantidad = materialDTO.Cantidad;
                     if (materialDTO.IdTipoMaterial != null)materialSearch.IdTipoMaterial = (int)materialDTO.IdTipoMaterial;
-                    if (materialDTO.IdUnidadMedida != null)materialSearch.IdUnidadMedida = (int)materialDTO.IdUnidadMedida;
-                    if (materialDTO.IdProyecto != null)materialSearch.IdProyecto = (int)materialDTO.IdProyecto;
+                    if (materialDTO.IdUnidadMedida != null)materialSearch.IdUnidadMedida = (int)materialDTO.IdUnidadMedida;                   
+                    if (materialDTO.IdOrden != null)materialSearch.IdOrden = (int)materialDTO.IdOrden;                   
                     if (materialDTO.FechaCreacion != null) materialSearch.FechaCreacion = string.IsNullOrWhiteSpace(materialDTO.FechaCreacion) ? null : DateTime.ParseExact(materialDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _materialRepository.Update(materialSearch);
@@ -120,28 +118,7 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("list")]
-        public IActionResult List()//ActionResult<IEnumerable<Material>>
-        {
-            try
-            {
-                List<Material> materials = new List<Material>();
-                List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
-                materials = _materialRepository.Get(where).ToList();
-
-                //var materials = _context.Material.Include(x => x.TipoMaterial).Include(x => x.UnidadMedida).ToList();//Probar con Yannia Luego
-                List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
-
-                return Ok(materialDTOs);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-
-        }
+      
 
 
     }

@@ -102,11 +102,16 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
     "Method": "Create",
-    "RelativePath": "api/Material/create",
+    "RelativePath": "api/Material/create/{idOrden}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
       {
         "Name": "materialDTO",
         "Type": "SmartPowerElectricAPI.DTO.MaterialDTO",
@@ -116,13 +121,151 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
-    "Method": "List",
-    "RelativePath": "api/Material/list",
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "Delete",
+    "RelativePath": "api/Orden/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "Edit",
+    "RelativePath": "api/Orden/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "ordenDTO",
+        "Type": "SmartPowerElectricAPI.DTO.OrdenDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "AddWorkerToOrder",
+    "RelativePath": "api/Orden/{idOrden},{idTrabajador}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "DeleteWorkerToOrder",
+    "RelativePath": "api/Orden/{idOrden},{idTrabajador}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "Create",
+    "RelativePath": "api/Orden/create/{idProyecto}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idProyecto",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "ordenDTO",
+        "Type": "SmartPowerElectricAPI.DTO.OrdenDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "ListMaterials",
+    "RelativePath": "api/Orden/listMaterials/{idOrden}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "ListTrabajadores",
+    "RelativePath": "api/Orden/listTrabajadores/{idOrden}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "SendMailBills",
+    "RelativePath": "api/Orden/SendMail/{idOrden}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

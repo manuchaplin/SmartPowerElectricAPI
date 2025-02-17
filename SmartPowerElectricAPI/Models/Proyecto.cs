@@ -24,9 +24,9 @@ namespace SmartPowerElectricAPI.Models
         public double? horasEstimadas { get; set; }
 
         public virtual Cliente Cliente { get; set; }
-        public virtual ICollection<Material> Materials { get; set; }
+        public virtual ICollection<Orden> Ordens { get; set; }
 
-        public virtual ICollection<Trabajador> Trabajadores { get; set; }
+       
 
     }
 }

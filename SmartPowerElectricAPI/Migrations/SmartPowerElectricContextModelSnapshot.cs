@@ -22,19 +22,19 @@ namespace SmartPowerElectricAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProyectoTrabajador", b =>
+            modelBuilder.Entity("OrdenTrabajador", b =>
                 {
-                    b.Property<int>("ProyectosId")
+                    b.Property<int>("OrdensId")
                         .HasColumnType("int");
 
                     b.Property<int>("TrabajadoresId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProyectosId", "TrabajadoresId");
+                    b.HasKey("OrdensId", "TrabajadoresId");
 
                     b.HasIndex("TrabajadoresId");
 
-                    b.ToTable("ProyectoTrabajador");
+                    b.ToTable("OrdenTrabajador");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Cliente", b =>
@@ -93,7 +93,7 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Property<DateTime?>("FechaEliminado")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdProyecto")
+                    b.Property<int?>("IdOrden")
                         .HasColumnType("int");
 
                     b.Property<int?>("IdTipoMaterial")
@@ -107,13 +107,55 @@ namespace SmartPowerElectricAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdProyecto");
+                    b.HasIndex("IdOrden");
 
                     b.HasIndex("IdTipoMaterial");
 
                     b.HasIndex("IdUnidadMedida");
 
                     b.ToTable("Material");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double?>("Cobrado")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CosteManoObra")
+                        .HasColumnType("float");
+
+                    b.Property<bool?>("Eliminado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("HorasEstimadas")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("IdProyecto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroOrden")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("OrdenFinalizada")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdProyecto");
+
+                    b.ToTable("Orden");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
@@ -316,11 +358,11 @@ namespace SmartPowerElectricAPI.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("ProyectoTrabajador", b =>
+            modelBuilder.Entity("OrdenTrabajador", b =>
                 {
-                    b.HasOne("SmartPowerElectricAPI.Models.Proyecto", null)
+                    b.HasOne("SmartPowerElectricAPI.Models.Orden", null)
                         .WithMany()
-                        .HasForeignKey("ProyectosId")
+                        .HasForeignKey("OrdensId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -333,9 +375,9 @@ namespace SmartPowerElectricAPI.Migrations
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Material", b =>
                 {
-                    b.HasOne("SmartPowerElectricAPI.Models.Proyecto", "Proyecto")
+                    b.HasOne("SmartPowerElectricAPI.Models.Orden", "Orden")
                         .WithMany("Materials")
-                        .HasForeignKey("IdProyecto");
+                        .HasForeignKey("IdOrden");
 
                     b.HasOne("SmartPowerElectricAPI.Models.TipoMaterial", "TipoMaterial")
                         .WithMany("Materials")
@@ -345,11 +387,20 @@ namespace SmartPowerElectricAPI.Migrations
                         .WithMany("Materials")
                         .HasForeignKey("IdUnidadMedida");
 
-                    b.Navigation("Proyecto");
+                    b.Navigation("Orden");
 
                     b.Navigation("TipoMaterial");
 
                     b.Navigation("UnidadMedida");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
+                {
+                    b.HasOne("SmartPowerElectricAPI.Models.Proyecto", "Proyecto")
+                        .WithMany("Ordens")
+                        .HasForeignKey("IdProyecto");
+
+                    b.Navigation("Proyecto");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
@@ -366,9 +417,14 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Navigation("Proyectos");
                 });
 
-            modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
                 {
                     b.Navigation("Materials");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Proyecto", b =>
+                {
+                    b.Navigation("Ordens");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.TipoMaterial", b =>

@@ -6,6 +6,8 @@ using System.Text;
 using SmartPowerElectricAPI.Controllers;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
+using SmartPowerElectricAPI.Services;
+using SmartPowerElectricAPI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,6 +85,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//Services
+builder.Services.AddSingleton<EmailService>();
+builder.Services.AddSingleton<FileService>();
+//Repositorys
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUnidadMedidumRepository, UnidadMedidumRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
@@ -90,6 +96,7 @@ builder.Services.AddScoped<ITipoMaterialRepository, TipoMaterialRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<ITrabajadorRepository, TrabajadorRepository>();
 builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
+builder.Services.AddScoped<IOrdenRepository, OrdenRepository>();
 builder.Services.AddDbContext<SmartPowerElectricContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();

@@ -34,8 +34,7 @@ public class Trabajador
     public DateTime? FechaEliminado { get; set; }
 
     public bool? Eliminado { get; set; }
-
-    public virtual ICollection<Proyecto> Proyectos { get; set; } 
+    public virtual ICollection<Orden> Ordens { get; set; }
 
 
 }
