@@ -102,7 +102,7 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
     "Method": "Create",
-    "RelativePath": "api/Material/create{idOrden}",
+    "RelativePath": "api/Material/create/{idOrden}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -115,22 +115,6 @@
       {
         "Name": "materialDTO",
         "Type": "SmartPowerElectricAPI.DTO.MaterialDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
-    "Method": "List",
-    "RelativePath": "api/Material/list{idOrden}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "idOrden",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -168,22 +152,6 @@
       {
         "Name": "ordenDTO",
         "Type": "SmartPowerElectricAPI.DTO.OrdenDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "GetById",
-    "RelativePath": "api/Orden/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -234,7 +202,7 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
     "Method": "Create",
-    "RelativePath": "api/Orden/create{idProyecto}",
+    "RelativePath": "api/Orden/create/{idProyecto}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -254,14 +222,46 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "List",
-    "RelativePath": "api/Orden/list{idProyecto}",
+    "Method": "ListMaterials",
+    "RelativePath": "api/Orden/listMaterials/{idOrden}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "idProyecto",
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "ListTrabajadores",
+    "RelativePath": "api/Orden/listTrabajadores/{idOrden}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "SendMailBills",
+    "RelativePath": "api/Orden/SendMail/{idOrden}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
         "Type": "System.Int32",
         "IsRequired": true
       }

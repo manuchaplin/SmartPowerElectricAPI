@@ -95,7 +95,7 @@
         }
       }
     },
-    "/api/Material/create{idOrden}": {
+    "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
           "Material"
@@ -180,28 +180,7 @@
         }
       }
     },
-    "/api/Material/list{idOrden}": {
-      "get": {
-        "tags": [
-          "Material"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idOrden",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/create{idProyecto}": {
+    "/api/Orden/create/{idProyecto}": {
       "post": {
         "tags": [
           "Orden"
@@ -284,7 +263,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Orden/listMaterials/{idOrden}": {
       "get": {
         "tags": [
           "Orden"
@@ -292,7 +273,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "idOrden",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -305,7 +286,7 @@
         }
       }
     },
-    "/api/Orden/list{idProyecto}": {
+    "/api/Orden/listTrabajadores/{idOrden}": {
       "get": {
         "tags": [
           "Orden"
@@ -313,7 +294,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "idProyecto",
+            "name": "idOrden",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -368,6 +349,27 @@
           {
             "in": "path",
             "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/SendMail/{idOrden}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
             "required": true,
             "type": "integer",
             "format": "int32"

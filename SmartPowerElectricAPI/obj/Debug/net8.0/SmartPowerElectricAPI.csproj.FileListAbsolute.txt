@@ -272,3 +272,7 @@ C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Debug\net8.0\SmartPo
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Debug\net8.0\SmartPowerElectricAPI.genruntimeconfig.cache
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Debug\net8.0\ref\SmartPowerElectricAPI.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Debug\net8.0\MailKit.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Debug\net8.0\MimeKit.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Debug\net8.0\NETCore.MailKit.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Debug\net8.0\BouncyCastle.Crypto.dll

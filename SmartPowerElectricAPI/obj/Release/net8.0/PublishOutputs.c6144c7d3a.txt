@@ -9,6 +9,7 @@ C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTm
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\EntityFramework.SqlServer.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\EntityFramework.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Humanizer.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\MailKit.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.OpenApi.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
@@ -58,7 +59,9 @@ C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTm
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\MimeKit.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Mono.TextTemplating.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\NETCore.MailKit.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\NuGet.Common.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\NuGet.Configuration.dll
@@ -69,6 +72,7 @@ C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTm
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\NuGet.ProjectModel.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\NuGet.Protocol.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\NuGet.Versioning.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\BouncyCastle.Crypto.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll

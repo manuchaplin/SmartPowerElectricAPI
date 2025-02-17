@@ -43,6 +43,8 @@ public partial class OrdenDTO
             HorasEstimadas = orden.HorasEstimadas,
             IdProyecto = orden.IdProyecto,           
             FechaCreacion = orden.FechaCreacion?.ToString("yyyy-MM-dd"),
+            FechaEliminado = orden.FechaEliminado?.ToString("yyyy-MM-dd"),
+            Eliminado = orden.Eliminado,
             materialDTOs = orden.Materials != null ? orden.Materials.Select(MaterialDTO.FromEntity).ToList() : null,
             trabajadorDTOs = orden.Trabajadores != null ? orden.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList() : null,
             CosteManoObra = orden.CosteManoObra,
@@ -56,11 +58,11 @@ public partial class OrdenDTO
     public Orden ToEntity()
     {
         return new Orden
-        {
-            //NumeroOrden = this.NumeroOrden,
+        {           
             OrdenFinalizada = this.OrdenFinalizada,
             CosteManoObra = this.CosteManoObra,
             Cobrado = this.Cobrado,
+            NumeroOrden = this.NumeroOrden,
             HorasEstimadas = this.HorasEstimadas,
             IdProyecto = this.IdProyecto,
             FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null)

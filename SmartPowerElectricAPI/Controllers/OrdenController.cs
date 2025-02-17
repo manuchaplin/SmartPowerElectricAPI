@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
+using SmartPowerElectricAPI.Service;
+using SmartPowerElectricAPI.Services;
+using SmartPowerElectricAPI.Utilities;
 
 namespace SmartPowerElectricAPI.Controllers
 {
@@ -20,13 +27,21 @@ namespace SmartPowerElectricAPI.Controllers
     {
         private IOrdenRepository _ordenRepository;
         private ITrabajadorRepository _trabajadorRepository;
-        public OrdenController(IOrdenRepository ordenRepository,ITrabajadorRepository trabajadorRepository)
+        private IMaterialRepository _materialRepository;
+        private readonly EmailService _emailService;
+        private readonly FileService _fileService;
+        private readonly IWebHostEnvironment _env;    
+        public OrdenController(IOrdenRepository ordenRepository,ITrabajadorRepository trabajadorRepository, IMaterialRepository materialRepository, EmailService emailService,FileService fileService, IWebHostEnvironment env)
         {
             _ordenRepository = ordenRepository;
             _trabajadorRepository = trabajadorRepository;
+            _materialRepository = materialRepository;
+            _emailService = emailService;
+            _fileService = fileService;
+            _env = env;        
         }
 
-        [HttpPost("create{idProyecto}")]
+        [HttpPost("create/{idProyecto}")]
         public IActionResult Create(int idProyecto,[FromBody] OrdenDTO ordenDTO)
         {
 
@@ -48,6 +63,7 @@ namespace SmartPowerElectricAPI.Controllers
                 Orden orden = ordenDTO.ToEntity();
                 orden.IdProyecto = idProyecto;
                 orden.Cobrado = ordenDTO.Cobrado ?? 0;
+                orden.OrdenFinalizada = ordenDTO.OrdenFinalizada ?? false;
                 orden.FechaCreacion = DateTime.Now;
                 _ordenRepository.Insert(orden);
 
@@ -102,12 +118,12 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (ordenSearch != null)
                 {
-                    if (ordenSearch.OrdenFinalizada != null) ordenSearch.OrdenFinalizada = ordenDTO.OrdenFinalizada;
-                    if (ordenSearch.CosteManoObra != null) ordenSearch.CosteManoObra = ordenDTO.CosteManoObra;
-                    if (ordenSearch.Cobrado != null) ordenSearch.Cobrado = ordenDTO.Cobrado;
-                    if (ordenSearch.HorasEstimadas != null) ordenSearch.HorasEstimadas = ordenDTO.HorasEstimadas;
-                    if (ordenSearch.IdProyecto != null) ordenSearch.IdProyecto = ordenDTO.IdProyecto;
-                    if (ordenSearch.FechaCreacion != null) ordenSearch.FechaCreacion = string.IsNullOrWhiteSpace(ordenDTO.FechaCreacion) ? null : DateTime.ParseExact(ordenDTO.FechaCreacion, "yyyy-MM-dd", null);
+                    if (ordenDTO.OrdenFinalizada != null) ordenSearch.OrdenFinalizada = ordenDTO.OrdenFinalizada;
+                    if (ordenDTO.CosteManoObra != null) ordenSearch.CosteManoObra = ordenDTO.CosteManoObra;
+                    if (ordenDTO.Cobrado != null) ordenSearch.Cobrado = ordenDTO.Cobrado;
+                    if (ordenDTO.HorasEstimadas != null) ordenSearch.HorasEstimadas = ordenDTO.HorasEstimadas;
+                    if (ordenDTO.IdProyecto != null) ordenSearch.IdProyecto = ordenDTO.IdProyecto;
+                    if (ordenDTO.FechaCreacion != null) ordenSearch.FechaCreacion = string.IsNullOrWhiteSpace(ordenDTO.FechaCreacion) ? null : DateTime.ParseExact(ordenDTO.FechaCreacion, "yyyy-MM-dd", null);
 
 
                     _ordenRepository.Update(ordenSearch);
@@ -125,22 +141,23 @@ namespace SmartPowerElectricAPI.Controllers
             }
 
         }
+    
 
-        [HttpGet("list{idProyecto}")]
-        public IActionResult List(int idProyecto)
+        [HttpGet("listMaterials/{idOrden}")]
+        public IActionResult ListMaterials(int idOrden)//ActionResult<IEnumerable<Material>>
         {
             try
             {
-                List<Orden> ordens = new List<Orden>();
-                List<Expression<Func<Orden, bool>>> where = new List<Expression<Func<Orden, bool>>>();
+                List<Material> materials = new List<Material>();
+                List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
-                where.Add(x => x.IdProyecto == idProyecto);
-                //proyectos = _proyectoRepository.Get(where, "Trabajadores,Materials").ToList();//Para saber los trabajadores,y materiales asociados al proyecto
-                ordens = _ordenRepository.Get(where, "Trabajadores,Materials").ToList();
+                where.Add(x => x.IdOrden == idOrden);
+                materials = _materialRepository.Get(where).ToList();
 
-                List<OrdenDTO> ordenDTOs = ordens.Select(OrdenDTO.FromEntity).ToList();
 
-                return Ok(ordenDTOs);
+                List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
+
+                return Ok(materialDTOs);
 
             }
             catch (Exception ex)
@@ -150,28 +167,23 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [HttpGet("listTrabajadores/{idOrden}")]
+        public IActionResult ListTrabajadores(int idOrden)
         {
-
             try
             {
                 Orden orden = new Orden();
-                orden = _ordenRepository.GetByID(id, "Trabajadores,Materials");
+                orden = _ordenRepository.GetByID(idOrden, "Trabajadores");
+              
+                List<TrabajadorDTO> trabajadorDTOs = orden.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList();
 
-                if (orden == null) return NotFound();
-
-                OrdenDTO ordenDTO = OrdenDTO.FromEntity(orden);
-
-
-                return Ok(ordenDTO);
+                return Ok(trabajadorDTOs);
 
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
-
 
         }
 
@@ -228,5 +240,61 @@ namespace SmartPowerElectricAPI.Controllers
             }
 
         }
+
+
+        [HttpPost("SendMail/{idOrden}")]
+        public async Task<IActionResult> SendMailBills(int idOrden)
+        {
+
+            try
+            {
+                Orden orden = new Orden();
+                orden = _ordenRepository.GetByID(idOrden, "Trabajadores,Materials,Proyecto");
+
+                if (orden==null)
+                {
+                    return NotFound();
+                }
+                string MailTo = "manuchaplin@gmail.com";
+                string Topic = "Confirmación de Orden";
+                string Body = "";
+
+                Body += "<div>";
+                Body += "<p>Buenos días</p>";
+                Body += "<p>Factura de prueba</p>";
+                Body += "</div>";
+
+
+                List<string> Attachments= new List<string>();
+                List<string> bills= _fileService.GetFilesFromBillTempDirectory();
+                if (bills.Any())
+                    foreach (string bill in bills) {
+                        var split = bill.Split('.')[0].Split('-');
+                        int idProyecto = int.Parse(split[1]);
+                        int idOrd = int.Parse(split[3]);
+                        if (idProyecto == orden.IdProyecto && idOrd == orden.Id)
+                        {
+                            Attachments.Add(bill);
+                        }
+                    }
+
+                if (Attachments.Count() > 0)
+                {
+                    await _emailService.SendMailAsync(MailTo, Topic, Body, Attachments.Count() > 0 ? Attachments : null);
+                }
+                else
+                {
+                    return NotFound(new { message = "La factura del Proyecto: " + orden.Proyecto.Nombre + " y Orden " + orden.NumeroOrden + " no se ha encontrado." });
+                }
+              
+
+                return Ok();
+            }
+            catch (Exception ex) {
+                return BadRequest(new { message = ex.Message });
+            }
+           
+        }
+    
     }
 }

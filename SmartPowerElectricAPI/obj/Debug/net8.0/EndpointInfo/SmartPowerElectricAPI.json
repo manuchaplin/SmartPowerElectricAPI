@@ -111,7 +111,7 @@
         }
       }
     },
-    "/api/Material/create{idOrden}": {
+    "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
           "Material"
@@ -216,30 +216,7 @@
         }
       }
     },
-    "/api/Material/list{idOrden}": {
-      "get": {
-        "tags": [
-          "Material"
-        ],
-        "parameters": [
-          {
-            "name": "idOrden",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/create{idProyecto}": {
+    "/api/Orden/create/{idProyecto}": {
       "post": {
         "tags": [
           "Orden"
@@ -342,14 +319,16 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Orden/listMaterials/{idOrden}": {
       "get": {
         "tags": [
           "Orden"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "idOrden",
             "in": "path",
             "required": true,
             "schema": {
@@ -365,14 +344,14 @@
         }
       }
     },
-    "/api/Orden/list{idProyecto}": {
+    "/api/Orden/listTrabajadores/{idOrden}": {
       "get": {
         "tags": [
           "Orden"
         ],
         "parameters": [
           {
-            "name": "idProyecto",
+            "name": "idOrden",
             "in": "path",
             "required": true,
             "schema": {
@@ -435,6 +414,29 @@
           },
           {
             "name": "idTrabajador",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/SendMail/{idOrden}": {
+      "post": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "idOrden",
             "in": "path",
             "required": true,
             "schema": {

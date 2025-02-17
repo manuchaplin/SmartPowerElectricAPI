@@ -5,6 +5,7 @@ using SmartPowerElectricAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using SmartPowerElectricAPI.DTO;
+using System.Data.Entity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,12 +26,12 @@ namespace SmartPowerElectricAPI.Controllers
             _context = context;
         }
 
-        [HttpPost("create{idOrden}")]
+        [HttpPost("create/{idOrden}")]
         public IActionResult Create(int idOrden,[FromBody] MaterialDTO materialDTO)
         {
             try
             {
-              
+                
                 List<Expression<Func<Orden, bool>>> where = new List<Expression<Func<Orden, bool>>>();
                 where.Add(x => x.Id== idOrden);
                 
@@ -117,29 +118,7 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("list{idOrden}")]
-        public IActionResult List(int idOrden)//ActionResult<IEnumerable<Material>>
-        {
-            try
-            {
-                List<Material> materials = new List<Material>();
-                List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
-                where.Add(x => x.IdOrden == idOrden);
-                materials = _materialRepository.Get(where).ToList();
-
-          
-                List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
-
-                return Ok(materialDTOs);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-
-        }
+      
 
 
     }
