@@ -88,6 +88,7 @@ builder.Services.AddSwaggerGen();
 //Services
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddSingleton<FileService>();
+builder.Services.AddSingleton<PDFService>();
 //Repositorys
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUnidadMedidumRepository, UnidadMedidumRepository>();

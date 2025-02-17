@@ -159,9 +159,9 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "AddWorkerToOrder",
+    "Method": "DeleteWorkerToOrder",
     "RelativePath": "api/Orden/{idOrden},{idTrabajador}",
-    "HttpMethod": "POST",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -180,20 +180,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "DeleteWorkerToOrder",
-    "RelativePath": "api/Orden/{idOrden},{idTrabajador}",
-    "HttpMethod": "DELETE",
+    "Method": "AddWorkerToOrder",
+    "RelativePath": "api/Orden/asociarOrdenTrabajador",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "idOrden",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "idTrabajador",
-        "Type": "System.Int32",
+        "Name": "ordenTrabajadorPar",
+        "Type": "SmartPowerElectricAPI.Controllers.OrdenTrabajadorPar",
         "IsRequired": true
       }
     ],
@@ -216,6 +211,32 @@
         "Name": "ordenDTO",
         "Type": "SmartPowerElectricAPI.DTO.OrdenDTO",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "DescargarFactura",
+    "RelativePath": "api/Orden/descargarFactura",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "numeroOrden",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "precioTotal",
+        "Type": "System.Double",
+        "IsRequired": false
+      },
+      {
+        "Name": "pagado",
+        "Type": "System.Double",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

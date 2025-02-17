@@ -307,25 +307,23 @@
         }
       }
     },
-    "/api/Orden/{idOrden},{idTrabajador}": {
+    "/api/Orden/asociarOrdenTrabajador": {
       "post": {
         "tags": [
           "Orden"
         ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
         "parameters": [
           {
-            "in": "path",
-            "name": "idOrden",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "path",
-            "name": "idTrabajador",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/OrdenTrabajadorPar"
+            }
           }
         ],
         "responses": {
@@ -333,7 +331,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Orden/{idOrden},{idTrabajador}": {
       "delete": {
         "tags": [
           "Orden"
@@ -1066,6 +1066,20 @@
         "faltanteCobrar": {
           "format": "double",
           "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrdenTrabajadorPar": {
+      "type": "object",
+      "properties": {
+        "idOrden": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idTrabajador": {
+          "format": "int32",
+          "type": "integer"
         }
       },
       "additionalProperties": false
