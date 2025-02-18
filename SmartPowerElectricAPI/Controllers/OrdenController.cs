@@ -154,14 +154,13 @@ namespace SmartPowerElectricAPI.Controllers
                 Orden orden = new Orden();
                 //orden = _ordenRepository.GetByID(id, "Materials,Trabajadores");
 
-                orden = _context.Orden
+                orden = _context.Orden.Where(x=>x.Id==id)
                                .Include(x => x.Materials)
                                    .ThenInclude(m => m.UnidadMedida)
                                .Include(x => x.Materials)
                                    .ThenInclude(m => m.TipoMaterial)
                                .Include(x => x.Trabajadores)
-                               .Include(x=>x.Facturas)
-                               .FirstOrDefault(x => x.Id == id);
+                               .Include(x=>x.Facturas).FirstOrDefault();
                 orden.Materials = orden.Materials.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
                 orden.Facturas = orden.Facturas.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
 

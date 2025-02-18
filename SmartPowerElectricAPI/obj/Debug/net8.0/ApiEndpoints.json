@@ -63,6 +63,64 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
+    "Method": "Delete",
+    "RelativePath": "api/Factura/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
+    "Method": "Edit",
+    "RelativePath": "api/Factura/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "facturaDTO",
+        "Type": "SmartPowerElectricAPI.DTO.FacturaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
+    "Method": "Create",
+    "RelativePath": "api/Factura/create/{idOrden}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idOrden",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "facturaDTO",
+        "Type": "SmartPowerElectricAPI.DTO.FacturaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
     "Method": "Delete",
     "RelativePath": "api/Material/{id}",
@@ -253,38 +311,6 @@
         "Name": "pagado",
         "Type": "System.Double",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "ListMaterials",
-    "RelativePath": "api/Orden/listMaterials/{idOrden}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "idOrden",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "ListTrabajadores",
-    "RelativePath": "api/Orden/listTrabajadores/{idOrden}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "idOrden",
-        "Type": "System.Int32",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
