@@ -6,7 +6,6 @@ using System.Text;
 using SmartPowerElectricAPI.Controllers;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
-using SmartPowerElectricAPI.Services;
 using SmartPowerElectricAPI.Service;
 
 var builder = WebApplication.CreateBuilder(args);

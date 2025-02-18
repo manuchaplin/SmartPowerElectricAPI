@@ -15,8 +15,10 @@ public partial class MaterialDTO
     public double? Cantidad { get; set; }
   
     public int? IdTipoMaterial { get; set; }
+    public string TipoMaterial { get; set; }
 
     public int? IdUnidadMedida { get; set; }
+    public string UnidadMedida { get; set; }
     public int? IdOrden { get; set; }
 
     public string? FechaCreacion { get; set; }
@@ -34,7 +36,9 @@ public partial class MaterialDTO
             Precio = material.Precio,
             Cantidad = material.Cantidad,
             IdTipoMaterial = material.IdTipoMaterial,
+            TipoMaterial = material.TipoMaterial!=null ? material.TipoMaterial.Nombre:null,
             IdUnidadMedida = material.IdUnidadMedida,                   
+            UnidadMedida = material.UnidadMedida != null ? material.UnidadMedida.UMedida : null,
             IdOrden = material.IdOrden,
             FechaCreacion = material.FechaCreacion?.ToString("yyyy-MM-dd")
         };

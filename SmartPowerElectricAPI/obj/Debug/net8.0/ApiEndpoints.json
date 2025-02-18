@@ -159,6 +159,22 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
+    "Method": "GetById",
+    "RelativePath": "api/Orden/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
     "Method": "DeleteWorkerToOrder",
     "RelativePath": "api/Orden/{idOrden},{idTrabajador}",
     "HttpMethod": "DELETE",

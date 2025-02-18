@@ -263,6 +263,25 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Orden/listMaterials/{idOrden}": {
@@ -373,6 +392,38 @@
             "required": true,
             "type": "integer",
             "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Orden/descargarFactura": {
+      "get": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "numeroOrden",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "precioTotal",
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "in": "query",
+            "name": "pagado",
+            "type": "number",
+            "format": "double"
           }
         ],
         "responses": {
@@ -984,9 +1035,15 @@
           "format": "int32",
           "type": "integer"
         },
+        "tipoMaterial": {
+          "type": "string"
+        },
         "idUnidadMedida": {
           "format": "int32",
           "type": "integer"
+        },
+        "unidadMedida": {
+          "type": "string"
         },
         "idOrden": {
           "format": "int32",

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +13,7 @@ using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using SmartPowerElectricAPI.Service;
-using SmartPowerElectricAPI.Services;
-using SmartPowerElectricAPI.Utilities;
+
 
 namespace SmartPowerElectricAPI.Controllers
 {
@@ -29,15 +25,17 @@ namespace SmartPowerElectricAPI.Controllers
         private IOrdenRepository _ordenRepository;
         private ITrabajadorRepository _trabajadorRepository;
         private IMaterialRepository _materialRepository;
+        private readonly SmartPowerElectricContext _context;
         private readonly EmailService _emailService;
         private readonly FileService _fileService;
         private readonly PDFService _pdfService;
         private readonly IWebHostEnvironment _env;
-        public OrdenController(IOrdenRepository ordenRepository, ITrabajadorRepository trabajadorRepository, IMaterialRepository materialRepository, EmailService emailService, FileService fileService, PDFService pdfService, IWebHostEnvironment env)
+        public OrdenController(IOrdenRepository ordenRepository, ITrabajadorRepository trabajadorRepository, IMaterialRepository materialRepository,SmartPowerElectricContext context ,EmailService emailService, FileService fileService, PDFService pdfService, IWebHostEnvironment env)
         {
             _ordenRepository = ordenRepository;
             _trabajadorRepository = trabajadorRepository;
             _materialRepository = materialRepository;
+            _context = context;
             _emailService = emailService;
             _fileService = fileService;
             _pdfService = pdfService;
@@ -145,6 +143,41 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
+        [HttpGet("{id}")]
+        public  IActionResult GetById(int id)
+        { 
+
+            try
+            {
+                Orden orden = new Orden();
+                //orden = _ordenRepository.GetByID(id, "Materials,Trabajadores");
+
+                orden = _context.Orden
+                               .Include(x => x.Materials)
+                                   .ThenInclude(m => m.UnidadMedida)
+                               .Include(x => x.Materials)
+                                   .ThenInclude(m => m.TipoMaterial)
+                               .Include(x => x.Trabajadores)
+                               .FirstOrDefault(x => x.Id == id);
+                orden.Materials = orden.Materials.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
+
+                if (orden == null) return NotFound();
+
+                OrdenDTO ordenDTO = OrdenDTO.FromEntity(orden);
+             
+
+                return Ok(ordenDTO);
+              
+
+            }
+            catch (Exception ex) {
+
+                return BadRequest(new { message = ex.Message });
+            }
+
+
+        }
+
 
         [HttpGet("listMaterials/{idOrden}")]
         public IActionResult ListMaterials(int idOrden)//ActionResult<IEnumerable<Material>>
@@ -155,7 +188,7 @@ namespace SmartPowerElectricAPI.Controllers
                 List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 where.Add(x => x.IdOrden == idOrden);
-                materials = _materialRepository.Get(where).ToList();
+                materials = _materialRepository.Get(where, "TipoMaterial,UnidadMedida").ToList();
 
 
                 List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();

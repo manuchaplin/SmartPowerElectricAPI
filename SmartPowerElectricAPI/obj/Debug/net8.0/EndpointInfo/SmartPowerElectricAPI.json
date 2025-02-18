@@ -319,6 +319,27 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Orden"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Orden/listMaterials/{idOrden}": {
@@ -1197,9 +1218,17 @@
             "format": "int32",
             "nullable": true
           },
+          "tipoMaterial": {
+            "type": "string",
+            "nullable": true
+          },
           "idUnidadMedida": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "unidadMedida": {
+            "type": "string",
             "nullable": true
           },
           "idOrden": {
