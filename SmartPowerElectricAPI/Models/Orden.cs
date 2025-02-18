@@ -26,6 +26,7 @@ namespace SmartPowerElectricAPI.Models
         public virtual Proyecto Proyecto { get; set; }
         public virtual ICollection<Material> Materials { get; set; }
         public virtual ICollection<Trabajador> Trabajadores { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
 
 
     }

@@ -215,6 +215,8 @@ namespace SmartPowerElectricAPI.Controllers
                     if (trabajadorDTO.FechaInicioContrato != null) trabajadorSearch.FechaInicioContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaInicioContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaInicioContrato, "yyyy-MM-dd", null);
                     if (trabajadorDTO.FechaFinContrato != null) trabajadorSearch.FechaFinContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaFinContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaFinContrato, "yyyy-MM-dd", null);
                     if (trabajadorDTO.CobroxHora != null) trabajadorSearch.CobroxHora = trabajadorDTO.CobroxHora;
+                    if (trabajadorDTO.NumeroCuenta != null) trabajadorSearch.NumeroCuenta = trabajadorDTO.NumeroCuenta;
+                    if (trabajadorDTO.Enrutamiento != null) trabajadorSearch.Enrutamiento = trabajadorDTO.Enrutamiento;
                     if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion  = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _trabajadorRepository.Update(trabajadorSearch);

@@ -19,6 +19,7 @@ public partial class OrdenDTO
     public int? IdProyecto { get; set; }
     public List<MaterialDTO>? materialDTOs { get; set; }
     public List<TrabajadorDTO>? trabajadorDTOs { get; set; }
+    public List<FacturaDTO>? facturaDTOs { get; set; }
     public string? FechaCreacion { get; set; }
 
     public string? FechaEliminado { get; set; }
@@ -47,6 +48,7 @@ public partial class OrdenDTO
             Eliminado = orden.Eliminado,
             materialDTOs = orden.Materials != null ? orden.Materials.Select(MaterialDTO.FromEntity).ToList() : null,
             trabajadorDTOs = orden.Trabajadores != null ? orden.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList() : null,
+            facturaDTOs = orden.Facturas != null ? orden.Facturas.Select(FacturaDTO.FromEntity).ToList() : null,
             CosteManoObra = orden.CosteManoObra,
             CosteMateriales= costeMateriales,
             CosteTotal = costeTotal,

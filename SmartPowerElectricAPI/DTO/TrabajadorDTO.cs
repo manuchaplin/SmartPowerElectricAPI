@@ -27,6 +27,8 @@ public class TrabajadorDTO
     public string? FechaFinContrato { get; set; }
 
     public double? CobroxHora { get; set; }
+    public string? NumeroCuenta { get; set; }
+    public string? Enrutamiento { get; set; }
 
     public string? FechaCreacion { get; set; }
 
@@ -51,6 +53,8 @@ public class TrabajadorDTO
             FechaInicioContrato = trabajador.FechaInicioContrato?.ToString("yyyy-MM-dd"),
             FechaFinContrato = trabajador.FechaFinContrato?.ToString("yyyy-MM-dd"),
             CobroxHora = trabajador.CobroxHora,
+            NumeroCuenta = trabajador.NumeroCuenta,
+            Enrutamiento = trabajador.Enrutamiento,
             FechaCreacion = trabajador.FechaCreacion?.ToString("yyyy-MM-dd"),
         };
     }
@@ -70,7 +74,9 @@ public class TrabajadorDTO
             FechaInicioContrato = string.IsNullOrWhiteSpace(this.FechaInicioContrato) ? null : DateTime.ParseExact(this.FechaInicioContrato, "yyyy-MM-dd", null),
             FechaFinContrato = string.IsNullOrWhiteSpace(this.FechaFinContrato) ? null: DateTime.ParseExact(this.FechaFinContrato, "yyyy-MM-dd", null),
             FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),
-            CobroxHora = this.CobroxHora
+            CobroxHora = this.CobroxHora,
+            NumeroCuenta = this.NumeroCuenta,
+            Enrutamiento = this.Enrutamiento
         };
     }
 }

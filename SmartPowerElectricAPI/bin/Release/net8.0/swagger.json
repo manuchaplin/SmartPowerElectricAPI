@@ -95,6 +95,91 @@
         }
       }
     },
+    "/api/Factura/create/{idOrden}": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FacturaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/{id}": {
+      "delete": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Factura"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FacturaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
@@ -272,48 +357,6 @@
           {
             "in": "path",
             "name": "id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/listMaterials/{idOrden}": {
-      "get": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idOrden",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/listTrabajadores/{idOrden}": {
-      "get": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idOrden",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -1004,6 +1047,39 @@
       },
       "additionalProperties": false
     },
+    "FacturaDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "montoACobrar": {
+          "format": "double",
+          "type": "number"
+        },
+        "emailEnviado": {
+          "type": "boolean"
+        },
+        "facturaCompletada": {
+          "type": "boolean"
+        },
+        "idOrden": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
     "LoginRequest": {
       "type": "object",
       "properties": {
@@ -1101,6 +1177,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/TrabajadorDTO"
+          }
+        },
+        "facturaDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FacturaDTO"
           }
         },
         "fechaCreacion": {
@@ -1251,6 +1333,12 @@
         "cobroxHora": {
           "format": "double",
           "type": "number"
+        },
+        "numeroCuenta": {
+          "type": "string"
+        },
+        "enrutamiento": {
+          "type": "string"
         },
         "fechaCreacion": {
           "type": "string"

@@ -28,6 +28,8 @@ public class Trabajador
     public DateTime? FechaFinContrato { get; set; }
 
     public double? CobroxHora { get; set; }
+    public string? NumeroCuenta { get; set; }
+    public string? Enrutamiento { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 

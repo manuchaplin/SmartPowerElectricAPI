@@ -25,16 +25,18 @@ namespace SmartPowerElectricAPI.Controllers
         private IOrdenRepository _ordenRepository;
         private ITrabajadorRepository _trabajadorRepository;
         private IMaterialRepository _materialRepository;
+        private IFacturaRepository _facturasRepository;
         private readonly SmartPowerElectricContext _context;
         private readonly EmailService _emailService;
         private readonly FileService _fileService;
         private readonly PDFService _pdfService;
         private readonly IWebHostEnvironment _env;
-        public OrdenController(IOrdenRepository ordenRepository, ITrabajadorRepository trabajadorRepository, IMaterialRepository materialRepository,SmartPowerElectricContext context ,EmailService emailService, FileService fileService, PDFService pdfService, IWebHostEnvironment env)
+        public OrdenController(IOrdenRepository ordenRepository, ITrabajadorRepository trabajadorRepository, IMaterialRepository materialRepository, IFacturaRepository facturasRepository, SmartPowerElectricContext context ,EmailService emailService, FileService fileService, PDFService pdfService, IWebHostEnvironment env)
         {
             _ordenRepository = ordenRepository;
             _trabajadorRepository = trabajadorRepository;
             _materialRepository = materialRepository;
+            _facturasRepository=facturasRepository;
             _context = context;
             _emailService = emailService;
             _fileService = fileService;
@@ -158,8 +160,10 @@ namespace SmartPowerElectricAPI.Controllers
                                .Include(x => x.Materials)
                                    .ThenInclude(m => m.TipoMaterial)
                                .Include(x => x.Trabajadores)
+                               .Include(x=>x.Facturas)
                                .FirstOrDefault(x => x.Id == id);
                 orden.Materials = orden.Materials.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
+                orden.Facturas = orden.Facturas.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
 
                 if (orden == null) return NotFound();
 
@@ -179,49 +183,72 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
 
-        [HttpGet("listMaterials/{idOrden}")]
-        public IActionResult ListMaterials(int idOrden)//ActionResult<IEnumerable<Material>>
-        {
-            try
-            {
-                List<Material> materials = new List<Material>();
-                List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
-                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
-                where.Add(x => x.IdOrden == idOrden);
-                materials = _materialRepository.Get(where, "TipoMaterial,UnidadMedida").ToList();
+        //[HttpGet("listMaterials/{idOrden}")]
+        //public IActionResult ListMaterials(int idOrden)
+        //{
+        //    try
+        //    {
+        //        List<Material> materials = new List<Material>();
+        //        List<Expression<Func<Material, bool>>> where = new List<Expression<Func<Material, bool>>>();
+        //        where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+        //        where.Add(x => x.IdOrden == idOrden);
+        //        materials = _materialRepository.Get(where, "TipoMaterial,UnidadMedida").ToList();
 
 
-                List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
+        //        List<MaterialDTO> materialDTOs = materials.Select(MaterialDTO.FromEntity).ToList();
 
-                return Ok(materialDTOs);
+        //        return Ok(materialDTOs);
 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
 
-        }
+        //}
 
-        [HttpGet("listTrabajadores/{idOrden}")]
-        public IActionResult ListTrabajadores(int idOrden)
-        {
-            try
-            {
-                Orden orden = new Orden();
-                orden = _ordenRepository.GetByID(idOrden, "Trabajadores");
+        //[HttpGet("listTrabajadores/{idOrden}")]
+        //public IActionResult ListTrabajadores(int idOrden)
+        //{
+        //    try
+        //    {
+        //        Orden orden = new Orden();
+        //        orden = _ordenRepository.GetByID(idOrden, "Trabajadores");
 
-                List<TrabajadorDTO> trabajadorDTOs = orden.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList();
+        //        List<TrabajadorDTO> trabajadorDTOs = orden.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList();
 
-                return Ok(trabajadorDTOs);
+        //        return Ok(trabajadorDTOs);
 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
 
-        }
+        //}
+        //[HttpGet("listFacturas/{idOrden}")]
+        //public IActionResult ListFacturas(int idOrden)
+        //{
+        //    try
+        //    {
+        //        List<Factura> facturas = new List<Factura>();
+        //        List<Expression<Func<Factura, bool>>> where = new List<Expression<Func<Factura, bool>>>();
+        //        where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+        //        where.Add(x => x.IdOrden == idOrden);
+        //        facturas = _facturasRepository.Get(where).ToList();
+
+
+        //        List<FacturaDTO> facturaDTOs = facturas.Select(FacturaDTO.FromEntity).ToList();
+
+        //        return Ok(facturaDTOs);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+
+        //}
 
         [HttpPost("asociarOrdenTrabajador")]
         public IActionResult AddWorkerToOrder([FromBody] OrdenTrabajadorPar ordenTrabajadorPar)
