@@ -44,7 +44,7 @@ public partial class OrdenDTO
             Cobrado = orden.Cobrado,
             HorasEstimadas = orden.HorasEstimadas,
             IdProyecto = orden.IdProyecto,           
-            NombreProyecto = orden.Proyecto.Nombre,           
+            NombreProyecto = orden.Proyecto!=null ? orden.Proyecto.Nombre:null,           
             FechaCreacion = orden.FechaCreacion?.ToString("yyyy-MM-dd"),
             FechaEliminado = orden.FechaEliminado?.ToString("yyyy-MM-dd"),
             Eliminado = orden.Eliminado,

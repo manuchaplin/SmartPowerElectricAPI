@@ -5,7 +5,6 @@ using SmartPowerElectricAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using SmartPowerElectricAPI.DTO;
-using System.Data.Entity;
 using SmartPowerElectricAPI.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -192,6 +191,8 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 Factura factura = _facturaRepository.GetByID(idFactura);
                 Orden orden = _ordenRepository.GetByID(factura.IdOrden, "Materials,Proyecto");
+                //Orden orden = _context.Orden.Where(x=>x.Id==factura.IdOrden).Include(x=>x.Materials).Include(x=>x.Proyecto).ThenInclude(x=>x.Cliente).FirstOrDefault();
+
 
                 if (factura == null || orden==null)
                 {
@@ -203,7 +204,8 @@ namespace SmartPowerElectricAPI.Controllers
 
                 // Datos del correo
                 string MailTo = "manuchaplin@gmail.com";
-                string Topic = "Factura";
+                //string MailTo = orden.Proyecto.Cliente.Email;
+                string Topic = "Factura "+ facturaDTO.NumeroFactura;
                 string Body = "<div>";
                 Body += "<p>Buenos días</p>";
                 Body += "<p>Factura número "+ facturaDTO.NumeroFactura + " correspondiente al Proyecto "+ ordenDTO.NombreProyecto+"</p>";

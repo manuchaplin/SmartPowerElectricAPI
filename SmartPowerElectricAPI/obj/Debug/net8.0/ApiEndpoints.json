@@ -122,7 +122,7 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
-    "Method": "DescargarFactura",
+    "Method": "downloadInvoice",
     "RelativePath": "api/Factura/downloadInvoice/{idFactura}",
     "HttpMethod": "GET",
     "IsController": true,
