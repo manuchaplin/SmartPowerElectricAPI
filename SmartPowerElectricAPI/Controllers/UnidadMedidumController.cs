@@ -16,13 +16,11 @@ namespace SmartPowerElectricAPI.Controllers
     public class UnidadMedidumController : ControllerBase
     {
         private readonly IUnidadMedidumRepository _unidadMedidumRepository;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration, ILogger logger)
+        private readonly IConfiguration _configuration;   
+        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration)
         {
             _unidadMedidumRepository = unidadMedidumRepository;
-            _configuration = configuration;
-            _logger = logger;
+            _configuration = configuration;           
         }
         [HttpPost("create")]       
         public IActionResult Create([FromBody] UnidadMedidaDTO unidadMedidumDTO)

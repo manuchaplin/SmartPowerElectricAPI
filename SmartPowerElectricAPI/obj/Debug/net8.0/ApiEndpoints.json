@@ -121,6 +121,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
+    "Method": "DescargarFactura",
+    "RelativePath": "api/Factura/downloadInvoice/{idFactura}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idFactura",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
+    "Method": "sendInvoice",
+    "RelativePath": "api/Factura/sendInvoice/{idFactura}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idFactura",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartPowerElectricAPI.Controllers.MaterialController",
     "Method": "Delete",
     "RelativePath": "api/Material/{id}",
@@ -284,48 +316,6 @@
       {
         "Name": "ordenDTO",
         "Type": "SmartPowerElectricAPI.DTO.OrdenDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "DescargarFactura",
-    "RelativePath": "api/Orden/descargarFactura",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "numeroOrden",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "precioTotal",
-        "Type": "System.Double",
-        "IsRequired": false
-      },
-      {
-        "Name": "pagado",
-        "Type": "System.Double",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
-    "Method": "SendMailBills",
-    "RelativePath": "api/Orden/SendMail/{idOrden}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "idOrden",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

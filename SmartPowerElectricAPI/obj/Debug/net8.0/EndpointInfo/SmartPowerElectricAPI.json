@@ -216,6 +216,52 @@
         }
       }
     },
+    "/api/Factura/sendInvoice/{idFactura}": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "name": "idFactura",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/downloadInvoice/{idFactura}": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "name": "idFactura",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
@@ -500,67 +546,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/SendMail/{idOrden}": {
-      "post": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "name": "idOrden",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/descargarFactura": {
-      "get": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "name": "numeroOrden",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "precioTotal",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "name": "pagado",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
             }
           }
         ],
@@ -1253,6 +1238,10 @@
             "format": "double",
             "nullable": true
           },
+          "numeroFactura": {
+            "type": "string",
+            "nullable": true
+          },
           "emailEnviado": {
             "type": "boolean",
             "nullable": true
@@ -1309,6 +1298,11 @@
             "nullable": true
           },
           "cantidad": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "precioTotal": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -1385,6 +1379,10 @@
           "idProyecto": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "nombreProyecto": {
+            "type": "string",
             "nullable": true
           },
           "materialDTOs": {

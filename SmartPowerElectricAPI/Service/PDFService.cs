@@ -4,12 +4,14 @@ using PdfSharpCore.Drawing;
 
 
 using PageSizeCore = PdfSharpCore.PageSize;
+using SmartPowerElectricAPI.Models;
+using SmartPowerElectricAPI.DTO;
 
 namespace SmartPowerElectricAPI.Service
 {
     public class PDFService
     {
-        public void GenerarFacturaPdf(string filePath, int numeroOrden, double precioTotal, double pagado)
+        public void GenerarFacturaPdf(string filePath, FacturaDTO facturaDTO,OrdenDTO ordenDTO)
         {
             // Crear un nuevo documento PDF
             PdfDocument document = new PdfDocument();
@@ -26,9 +28,13 @@ namespace SmartPowerElectricAPI.Service
             // Escribir texto en la página
             gfx.DrawString("Factura", font, XBrushes.Black, new XPoint(200, 40));
 
-            gfx.DrawString("Número de Orden: " + numeroOrden, font, XBrushes.Black, new XPoint(50, 80));
-            gfx.DrawString("Precio Total: " + precioTotal.ToString("C"), font, XBrushes.Black, new XPoint(50, 120));
-            gfx.DrawString("Pagado: " + pagado.ToString("C"), font, XBrushes.Black, new XPoint(50, 160));
+            gfx.DrawString("Factura: " + facturaDTO.NumeroFactura, font, XBrushes.Black, new XPoint(50, 80));
+            gfx.DrawString("Proyecto: " + ordenDTO.NombreProyecto, font, XBrushes.Black, new XPoint(50, 120));
+            gfx.DrawString("Número de Orden: " + ordenDTO.NumeroOrden, font, XBrushes.Black, new XPoint(50, 160));
+            gfx.DrawString("Precio Total: " + ordenDTO.CosteTotal?.ToString("C"), font, XBrushes.Black, new XPoint(50, 200));
+            gfx.DrawString("Pagado: " + ordenDTO.Cobrado?.ToString("C"), font, XBrushes.Black, new XPoint(50, 240));
+            gfx.DrawString("Faltante por cobrar: " + ordenDTO.FaltanteCobrar?.ToString("C"), font, XBrushes.Black, new XPoint(50, 280));
+            gfx.DrawString("Importe de factura: " + facturaDTO.MontoACobrar?.ToString("C"), font, XBrushes.Black, new XPoint(50, 320));
 
             // Guardar el documento en el archivo especificado
             document.Save(filePath);

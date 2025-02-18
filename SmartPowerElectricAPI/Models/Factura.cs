@@ -10,6 +10,7 @@ namespace SmartPowerElectricAPI.Models
 
         [Required]
         public double MontoACobrar { get; set; }
+        public string NumeroFactura { get; set; }
         public bool? EmailEnviado { get; set; }
         public bool? FacturaCompletada {  get; set; }
         [ForeignKey("Orden")]

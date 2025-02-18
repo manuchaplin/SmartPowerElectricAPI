@@ -11,6 +11,7 @@ public partial class FacturaDTO
 
     public int? Id { get; set; }
     public double? MontoACobrar { get; set; }
+    public string? NumeroFactura { get; set; }
     public bool? EmailEnviado { get; set; }
     public bool? FacturaCompletada { get; set; }
     public int? IdOrden { get; set; }
@@ -27,6 +28,8 @@ public partial class FacturaDTO
         return new FacturaDTO
         {
             Id = factura.Id,
+            MontoACobrar = factura.MontoACobrar,
+            NumeroFactura = factura.NumeroFactura,
             EmailEnviado = factura.EmailEnviado,
             FacturaCompletada = factura.FacturaCompletada,         
             IdOrden = factura.IdOrden,           
@@ -40,6 +43,7 @@ public partial class FacturaDTO
         return new Factura
         {
             MontoACobrar = this.MontoACobrar ?? 0,
+            NumeroFactura = this.NumeroFactura,
             EmailEnviado = this.EmailEnviado,
             FacturaCompletada = this.FacturaCompletada,                           
             IdOrden = this.IdOrden,                   

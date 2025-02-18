@@ -180,6 +180,48 @@
         }
       }
     },
+    "/api/Factura/sendInvoice/{idFactura}": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idFactura",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/downloadInvoice/{idFactura}": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idFactura",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
@@ -414,59 +456,6 @@
             "required": true,
             "type": "integer",
             "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/SendMail/{idOrden}": {
-      "post": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idOrden",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/descargarFactura": {
-      "get": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "numeroOrden",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "precioTotal",
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "in": "query",
-            "name": "pagado",
-            "type": "number",
-            "format": "double"
           }
         ],
         "responses": {
@@ -1058,6 +1047,9 @@
           "format": "double",
           "type": "number"
         },
+        "numeroFactura": {
+          "type": "string"
+        },
         "emailEnviado": {
           "type": "boolean"
         },
@@ -1104,6 +1096,10 @@
           "type": "number"
         },
         "cantidad": {
+          "format": "double",
+          "type": "number"
+        },
+        "precioTotal": {
           "format": "double",
           "type": "number"
         },
@@ -1166,6 +1162,9 @@
         "idProyecto": {
           "format": "int32",
           "type": "integer"
+        },
+        "nombreProyecto": {
+          "type": "string"
         },
         "materialDTOs": {
           "type": "array",

@@ -17,6 +17,7 @@ public partial class OrdenDTO
     public double? Cobrado {  get; set; }
     public double? HorasEstimadas {  get; set; }  
     public int? IdProyecto { get; set; }
+    public string? NombreProyecto { get; set; }
     public List<MaterialDTO>? materialDTOs { get; set; }
     public List<TrabajadorDTO>? trabajadorDTOs { get; set; }
     public List<FacturaDTO>? facturaDTOs { get; set; }
@@ -43,6 +44,7 @@ public partial class OrdenDTO
             Cobrado = orden.Cobrado,
             HorasEstimadas = orden.HorasEstimadas,
             IdProyecto = orden.IdProyecto,           
+            NombreProyecto = orden.Proyecto.Nombre,           
             FechaCreacion = orden.FechaCreacion?.ToString("yyyy-MM-dd"),
             FechaEliminado = orden.FechaEliminado?.ToString("yyyy-MM-dd"),
             Eliminado = orden.Eliminado,
