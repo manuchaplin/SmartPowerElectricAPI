@@ -181,7 +181,7 @@
       }
     },
     "/api/Factura/sendInvoice/{idFactura}": {
-      "post": {
+      "get": {
         "tags": [
           "Factura"
         ],

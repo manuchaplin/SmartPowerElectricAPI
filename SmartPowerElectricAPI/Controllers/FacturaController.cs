@@ -184,7 +184,7 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpPost("sendInvoice/{idFactura}")]
+        [HttpGet("sendInvoice/{idFactura}")]
         public async Task<IActionResult> sendInvoice(int idFactura)
         {
             try
