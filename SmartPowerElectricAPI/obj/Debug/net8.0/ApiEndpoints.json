@@ -140,7 +140,7 @@
     "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
     "Method": "sendInvoice",
     "RelativePath": "api/Factura/sendInvoice/{idFactura}",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [

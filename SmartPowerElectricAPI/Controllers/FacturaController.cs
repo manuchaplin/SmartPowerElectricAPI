@@ -13,7 +13,7 @@ namespace SmartPowerElectricAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class FacturaController : ControllerBase
     {
         private IFacturaRepository _facturaRepository;
@@ -220,6 +220,9 @@ namespace SmartPowerElectricAPI.Controllers
 
                 await _emailService.SendMailAsync(MailTo, Topic, Body, Attachments);
 
+
+                factura.EmailEnviado= true;
+                _facturaRepository.Update(factura);
                 // Eliminar el archivo PDF después de enviar el correo
                 if (System.IO.File.Exists(filePath))
                 {
