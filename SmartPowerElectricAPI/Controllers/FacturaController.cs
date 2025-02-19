@@ -53,12 +53,12 @@ namespace SmartPowerElectricAPI.Controllers
                 #region Validate
                 if (facturaDTO.MontoACobrar > ordenDTO.FaltanteCobrar)
                 {
-                    return BadRequest(new { message = "El monto a cobrar es superior al faltante por cobrar." });
+                    return Conflict(new { message = "El monto a cobrar es superior al faltante por cobrar." });
                 }
 
                 if ((ordenDTO.facturaDTOs.Where(x=>x.FacturaCompletada==false && x.Eliminado!=true && x.FechaEliminado==null).Sum(x=>x.MontoACobrar)+facturaDTO.MontoACobrar)>ordenDTO.FaltanteCobrar)
                 {
-                    return BadRequest(new { message = "La sumatoria de las facturas por cobrar es superior al faltante por cobrar." });
+                    return Conflict(new { message = "La sumatoria de las facturas por cobrar es superior al faltante por cobrar." });
                 }
                 #endregion
 
@@ -140,12 +140,12 @@ namespace SmartPowerElectricAPI.Controllers
                         
                         if (facturaDTO.MontoACobrar > ordenDTO.FaltanteCobrar)
                         {
-                            return BadRequest(new { message = "El monto a cobrar es superior al faltante por cobrar." });
+                            return Conflict(new { message = "El monto a cobrar es superior al faltante por cobrar." });
                         }
 
                         if ((ordenDTO.facturaDTOs.Where(x => x.FacturaCompletada == false && x.Eliminado != true && x.FechaEliminado == null).Sum(x => x.MontoACobrar) + facturaDTO.MontoACobrar) > ordenDTO.FaltanteCobrar)
                         {
-                            return BadRequest(new { message = "La sumatoria de las facturas por cobrar es superior al faltante por cobrar." });
+                            return Conflict(new { message = "La sumatoria de las facturas por cobrar es superior al faltante por cobrar." });
                         }
 
                         facturaSearch.MontoACobrar = facturaDTO.MontoACobrar ?? 0; 
