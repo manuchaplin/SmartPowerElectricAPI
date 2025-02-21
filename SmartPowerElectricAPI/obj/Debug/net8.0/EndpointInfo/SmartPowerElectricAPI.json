@@ -367,6 +367,157 @@
         }
       }
     },
+    "/api/Nomina/create/{idTrabajador}": {
+      "post": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "idTrabajador",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/{id}": {
+      "delete": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/list/{idTrabajador}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "idTrabajador",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/ListWeeksOfYear/{year}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Orden/create/{idProyecto}": {
       "post": {
         "tags": [
@@ -1259,6 +1410,10 @@
             "type": "string",
             "nullable": true
           },
+          "fechaCreacionEng": {
+            "type": "string",
+            "nullable": true
+          },
           "fechaEliminado": {
             "type": "string",
             "nullable": true
@@ -1345,6 +1500,57 @@
         },
         "additionalProperties": false
       },
+      "NominaDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "horasTrabajadas": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "salarioEstandar": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "salarioPlus": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "fechaPago": {
+            "type": "string",
+            "nullable": true
+          },
+          "semanaCompleta": {
+            "type": "string",
+            "nullable": true
+          },
+          "noSemana": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "inicioSemana": {
+            "type": "string",
+            "nullable": true
+          },
+          "finSemana": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "OrdenDTO": {
         "type": "object",
         "properties": {
@@ -1367,6 +1573,11 @@
             "nullable": true
           },
           "cobrado": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ganancia": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -1501,6 +1712,10 @@
             "nullable": true
           },
           "eliminado": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "finalizado": {
             "type": "boolean",
             "nullable": true
           },

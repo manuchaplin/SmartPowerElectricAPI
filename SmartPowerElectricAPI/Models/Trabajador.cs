@@ -37,6 +37,7 @@ public class Trabajador
 
     public bool? Eliminado { get; set; }
     public virtual ICollection<Orden> Ordens { get; set; }
+    public virtual ICollection<Nomina> Nominas { get; set; }
 
 
 }

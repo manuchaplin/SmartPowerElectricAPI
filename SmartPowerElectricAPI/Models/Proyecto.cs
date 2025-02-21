@@ -18,6 +18,7 @@ namespace SmartPowerElectricAPI.Models
         public DateTime? FechaCreacion { get; set; }
 
         public DateTime? FechaEliminado { get; set; }
+        public bool? Finalizado { get; set; }
 
         public bool? Eliminado { get; set; }
 

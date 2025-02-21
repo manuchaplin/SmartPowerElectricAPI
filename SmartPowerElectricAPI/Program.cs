@@ -98,6 +98,7 @@ builder.Services.AddScoped<ITrabajadorRepository, TrabajadorRepository>();
 builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
 builder.Services.AddScoped<IOrdenRepository, OrdenRepository>();
 builder.Services.AddScoped<IFacturaRepository, FacturaRepository>();
+builder.Services.AddScoped<INominaRepository, NominaRepository>();
 builder.Services.AddDbContext<SmartPowerElectricContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();

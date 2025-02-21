@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPowerElectricAPI.Models;
 
@@ -11,9 +12,11 @@ using SmartPowerElectricAPI.Models;
 namespace SmartPowerElectricAPI.Migrations
 {
     [DbContext(typeof(SmartPowerElectricContext))]
-    partial class SmartPowerElectricContextModelSnapshot : ModelSnapshot
+    [Migration("20250221095719_ganancias")]
+    partial class ganancias
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,50 +157,6 @@ namespace SmartPowerElectricAPI.Migrations
                     b.HasIndex("IdUnidadMedida");
 
                     b.ToTable("Material");
-                });
-
-            modelBuilder.Entity("SmartPowerElectricAPI.Models.Nomina", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaPago")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FinSemana")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("IdTrabajador")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("InicioSemana")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NoSemana")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("SalarioEstandar")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SalarioPlus")
-                        .HasColumnType("float");
-
-                    b.Property<double>("horasTrabajadas")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdTrabajador");
-
-                    b.ToTable("Nomina");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
@@ -499,15 +458,6 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Navigation("UnidadMedida");
                 });
 
-            modelBuilder.Entity("SmartPowerElectricAPI.Models.Nomina", b =>
-                {
-                    b.HasOne("SmartPowerElectricAPI.Models.Trabajador", "Trabajador")
-                        .WithMany("Nominas")
-                        .HasForeignKey("IdTrabajador");
-
-                    b.Navigation("Trabajador");
-                });
-
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
                 {
                     b.HasOne("SmartPowerElectricAPI.Models.Proyecto", "Proyecto")
@@ -546,11 +496,6 @@ namespace SmartPowerElectricAPI.Migrations
             modelBuilder.Entity("SmartPowerElectricAPI.Models.TipoMaterial", b =>
                 {
                     b.Navigation("Materials");
-                });
-
-            modelBuilder.Entity("SmartPowerElectricAPI.Models.Trabajador", b =>
-                {
-                    b.Navigation("Nominas");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.UnidadMedida", b =>

@@ -66,6 +66,7 @@ namespace SmartPowerElectricAPI.Controllers
                 Orden orden = ordenDTO.ToEntity();
                 orden.IdProyecto = idProyecto;
                 orden.Cobrado = ordenDTO.Cobrado ?? 0;
+                orden.Ganancia = ordenDTO.Ganancia ?? 0;
                 orden.OrdenFinalizada = ordenDTO.OrdenFinalizada ?? false;
                 orden.FechaCreacion = DateTime.Now;
                 _ordenRepository.Insert(orden);
@@ -124,6 +125,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (ordenDTO.OrdenFinalizada != null) ordenSearch.OrdenFinalizada = ordenDTO.OrdenFinalizada;
                     if (ordenDTO.CosteManoObra != null) ordenSearch.CosteManoObra = ordenDTO.CosteManoObra;
                     if (ordenDTO.Cobrado != null) ordenSearch.Cobrado = ordenDTO.Cobrado;
+                    if (ordenDTO.Ganancia != null) ordenSearch.Ganancia = ordenDTO.Ganancia;
                     if (ordenDTO.HorasEstimadas != null) ordenSearch.HorasEstimadas = ordenDTO.HorasEstimadas;
                     if (ordenDTO.IdProyecto != null) ordenSearch.IdProyecto = ordenDTO.IdProyecto;
                     if (ordenDTO.FechaCreacion != null) ordenSearch.FechaCreacion = string.IsNullOrWhiteSpace(ordenDTO.FechaCreacion) ? null : DateTime.ParseExact(ordenDTO.FechaCreacion, "yyyy-MM-dd", null);

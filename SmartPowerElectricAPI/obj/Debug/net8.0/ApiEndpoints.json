@@ -211,6 +211,96 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "Delete",
+    "RelativePath": "api/Nomina/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "Edit",
+    "RelativePath": "api/Nomina/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nominaDTO",
+        "Type": "SmartPowerElectricAPI.DTO.NominaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "Create",
+    "RelativePath": "api/Nomina/create/{idTrabajador}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nominaDTO",
+        "Type": "SmartPowerElectricAPI.DTO.NominaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "List",
+    "RelativePath": "api/Nomina/list/{idTrabajador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "ListWeekOfYear",
+    "RelativePath": "api/Nomina/ListWeeksOfYear/{year}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartPowerElectricAPI.Controllers.OrdenController",
     "Method": "Delete",
     "RelativePath": "api/Orden/{id}",

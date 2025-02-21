@@ -14,6 +14,8 @@ namespace SmartPowerElectricAPI.Models
         public bool? OrdenFinalizada {  get; set; }
         public double? CosteManoObra { get; set; }
         public double? Cobrado {  get; set; }
+
+        public double? Ganancia { get; set; }
         public double? HorasEstimadas {  get; set; }
         [ForeignKey("Proyecto")]
         public int? IdProyecto { get; set; }

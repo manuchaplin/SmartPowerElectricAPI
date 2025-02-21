@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Service;
+using Org.BouncyCastle.Asn1.X500;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,6 +45,8 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Id== idOrden);
                 
                 Orden ordenSearch = _ordenRepository.Get(where, "Materials,Facturas").FirstOrDefault();
+                ordenSearch.Materials = ordenSearch.Materials.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
+                ordenSearch.Facturas = ordenSearch.Facturas.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
 
                 if (ordenSearch == null) return NotFound();
 
@@ -56,7 +59,7 @@ namespace SmartPowerElectricAPI.Controllers
                     return Conflict(new { message = "El monto a cobrar es superior al faltante por cobrar." });
                 }
 
-                if ((ordenDTO.facturaDTOs.Where(x=>x.FacturaCompletada==false && x.Eliminado!=true && x.FechaEliminado==null).Sum(x=>x.MontoACobrar)+facturaDTO.MontoACobrar)>ordenDTO.FaltanteCobrar)
+                if ((ordenDTO.facturaDTOs.Where(x=>x.FacturaCompletada!=true).Sum(x=>x.MontoACobrar)+facturaDTO.MontoACobrar)>ordenDTO.FaltanteCobrar)
                 {
                     return Conflict(new { message = "La sumatoria de las facturas por cobrar es superior al faltante por cobrar." });
                 }
@@ -123,13 +126,14 @@ namespace SmartPowerElectricAPI.Controllers
                 List<Expression<Func<Factura, bool>>> where = new List<Expression<Func<Factura, bool>>>();
                 where.Add(x => x.Id == id);
                 Factura facturaSearch = _facturaRepository.Get(where).FirstOrDefault();
-
-                List<Expression<Func<Orden, bool>>> whereOrden = new List<Expression<Func<Orden, bool>>>();
-                where.Add(x => x.Id == facturaSearch.IdOrden);
-                Orden ordenSearch = _ordenRepository.Get(whereOrden, "Materials,Facturas").FirstOrDefault();
+          
+                Orden ordenSearch = _ordenRepository.GetByID(facturaSearch.IdOrden, "Materials,Facturas");               
+              
 
                 if (ordenSearch == null) return NotFound();
 
+                ordenSearch.Materials = ordenSearch.Materials.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
+                ordenSearch.Facturas = ordenSearch.Facturas.Where(x => x.Eliminado != true && x.FechaEliminado == null).ToList();
                 OrdenDTO ordenDTO = OrdenDTO.FromEntity(ordenSearch);
 
 
@@ -141,9 +145,9 @@ namespace SmartPowerElectricAPI.Controllers
                         if (facturaDTO.MontoACobrar > ordenDTO.FaltanteCobrar)
                         {
                             return Conflict(new { message = "El monto a cobrar es superior al faltante por cobrar." });
-                        }
+                        }                      
 
-                        if ((ordenDTO.facturaDTOs.Where(x => x.FacturaCompletada == false && x.Eliminado != true && x.FechaEliminado == null).Sum(x => x.MontoACobrar) + facturaDTO.MontoACobrar) > ordenDTO.FaltanteCobrar)
+                        if ((ordenDTO.facturaDTOs.Where(x => x.FacturaCompletada != true).Sum(x => x.MontoACobrar) + facturaDTO.MontoACobrar) > ordenDTO.FaltanteCobrar)
                         {
                             return Conflict(new { message = "La sumatoria de las facturas por cobrar es superior al faltante por cobrar." });
                         }
@@ -190,8 +194,10 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 Factura factura = _facturaRepository.GetByID(idFactura);
-                Orden orden = _ordenRepository.GetByID(factura.IdOrden, "Materials,Proyecto");
-                //Orden orden = _context.Orden.Where(x=>x.Id==factura.IdOrden).Include(x=>x.Materials).Include(x=>x.Proyecto).ThenInclude(x=>x.Cliente).FirstOrDefault();
+                //Orden orden = _ordenRepository.GetByID(factura.IdOrden, "Materials,Proyecto");
+                Orden orden = _context.Orden.Where(x=>x.Id==factura.IdOrden).Include(x=>x.Materials).Include(x=>x.Proyecto).ThenInclude(x=>x.Cliente).FirstOrDefault();               
+                orden.Materials.ToList().RemoveAll(material => material.Eliminado == true);
+               
 
 
                 if (factura == null || orden==null)
@@ -201,25 +207,31 @@ namespace SmartPowerElectricAPI.Controllers
 
                 OrdenDTO ordenDTO = OrdenDTO.FromEntity(orden);
                 FacturaDTO facturaDTO = FacturaDTO.FromEntity(factura);
+                ProyectoDTO proyectoDTO = ProyectoDTO.FromEntity(orden.Proyecto);
+                ClienteDTO clienteDTO = ClienteDTO.FromEntity(orden.Proyecto.Cliente);
 
                 // Datos del correo
                 string MailTo = "manuchaplin@gmail.com";
                 //string MailTo = orden.Proyecto.Cliente.Email;
-                string Topic = "Factura "+ facturaDTO.NumeroFactura;
+                string Topic = " Invoice No. " + facturaDTO.NumeroFactura+" - Project "+ ordenDTO.NombreProyecto;
                 string Body = "<div>";
-                Body += "<p>Buenos días</p>";
-                Body += "<p>Factura número "+ facturaDTO.NumeroFactura + " correspondiente al Proyecto "+ ordenDTO.NombreProyecto+"</p>";
+                Body += "<p>Dear "+ orden.Proyecto.Cliente.Nombre + "</p>";
+                Body += "<p>Attached to this email, you will find the invoice corresponding to the "+ordenDTO.NombreProyecto+", with the invoice number "+ facturaDTO.NumeroFactura + ".</p>";
+                Body += "<p>We remain at your disposal for any further clarification.</p>";
+                Body += "</br>";
+                Body += "<p>Atentamente,</p>";
+                Body += "<p><bold>Smart Power Electric.</bold></p>";
+
                 Body += "</div>";
 
                 // Generar factura (PDF)
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "BillTemp", $"{facturaDTO.NumeroFactura}.pdf");
-                _pdfService.GenerarFacturaPdf(filePath, facturaDTO, ordenDTO);
+                _pdfService.GenerarFacturaPdf(filePath, facturaDTO, ordenDTO,proyectoDTO,clienteDTO);
 
                 // Enviar correo con el archivo adjunto
                 List<string> Attachments = new List<string> { filePath };
 
                 await _emailService.SendMailAsync(MailTo, Topic, Body, Attachments);
-
 
                 factura.EmailEnviado= true;
                 _facturaRepository.Update(factura);
@@ -244,7 +256,9 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 Factura factura = _facturaRepository.GetByID(idFactura);
-                Orden orden = _ordenRepository.GetByID(factura.IdOrden, "Materials,Proyecto");
+                //Orden orden = _ordenRepository.GetByID(factura.IdOrden, "Materials,Proyecto");
+                Orden orden = _context.Orden.Where(x => x.Id == factura.IdOrden).Include(x => x.Materials).Include(x => x.Proyecto).ThenInclude(x => x.Cliente).FirstOrDefault();
+                orden.Materials.ToList().RemoveAll(material => material.Eliminado == true);
 
                 if (factura == null || orden == null)
                 {
@@ -253,6 +267,8 @@ namespace SmartPowerElectricAPI.Controllers
 
                 OrdenDTO ordenDTO = OrdenDTO.FromEntity(orden);
                 FacturaDTO facturaDTO = FacturaDTO.FromEntity(factura);
+                ProyectoDTO proyectoDTO = ProyectoDTO.FromEntity(orden.Proyecto);
+                ClienteDTO clienteDTO = ClienteDTO.FromEntity(orden.Proyecto.Cliente);
 
                 // Ruta en la carpeta Assets/BillTemp dentro del proyecto
                 string assetsPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "BillTemp");
@@ -268,7 +284,7 @@ namespace SmartPowerElectricAPI.Controllers
 
 
                 // Generar el PDF
-                _pdfService.GenerarFacturaPdf(filePath, facturaDTO, ordenDTO);
+                _pdfService.GenerarFacturaPdf(filePath, facturaDTO, ordenDTO, proyectoDTO, clienteDTO);
 
                 // Leer el archivo como un stream
                 var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);

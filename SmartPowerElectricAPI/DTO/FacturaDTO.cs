@@ -17,6 +17,7 @@ public partial class FacturaDTO
     public int? IdOrden { get; set; }
 
     public string? FechaCreacion { get; set; }
+    public string? FechaCreacionEng { get; set; }
 
     public string? FechaEliminado { get; set; }
 
@@ -33,7 +34,8 @@ public partial class FacturaDTO
             EmailEnviado = factura.EmailEnviado,
             FacturaCompletada = factura.FacturaCompletada,         
             IdOrden = factura.IdOrden,           
-            FechaCreacion = factura.FechaCreacion?.ToString("yyyy-MM-dd")
+            FechaCreacion = factura.FechaCreacion?.ToString("yyyy-MM-dd"),
+            FechaCreacionEng = factura.FechaCreacion?.ToString("yyyy-dd-MM")
         };
     }
 

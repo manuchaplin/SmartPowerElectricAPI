@@ -1264,6 +1264,9 @@
         "eliminado": {
           "type": "boolean"
         },
+        "finalizado": {
+          "type": "boolean"
+        },
         "ordenDTOs": {
           "type": "array",
           "items": {
