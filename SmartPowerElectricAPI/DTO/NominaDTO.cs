@@ -16,6 +16,7 @@ public class NominaDTO
     public string? FechaPago { get; set; }  
     public string? SemanaCompleta { get; set; }
     public int? NoSemana { get; set; }  
+    public int? Anyo { get; set; }  
     public string? InicioSemana { get; set; }  
     public string? FinSemana { get; set; }
     public string? FechaCreacion { get; set; }
@@ -33,6 +34,7 @@ public class NominaDTO
             SalarioTotal= nomina.SalarioEstandar+ nomina.SalarioPlus,
             FechaPago = nomina.FechaPago?.ToString("yyyy-MM-dd"),
             NoSemana = nomina.NoSemana,
+            Anyo = nomina.Anyo,
             InicioSemana = nomina.InicioSemana?.ToString("yyyy-MM-dd"),
             FinSemana = nomina.FinSemana?.ToString("yyyy-MM-dd"),      
             FechaCreacion = nomina.FechaCreacion?.ToString("yyyy-MM-dd"),
@@ -56,7 +58,7 @@ public class NominaDTO
             NoSemana = this.NoSemana ?? 0,
             InicioSemana = string.IsNullOrWhiteSpace(this.InicioSemana) ? null : DateTime.ParseExact(this.InicioSemana, "yyyy-MM-dd", null),
             FinSemana = string.IsNullOrWhiteSpace(this.FinSemana) ? null: DateTime.ParseExact(this.FinSemana, "yyyy-MM-dd", null),
-            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null)            
+            FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),           
         };
     }
 }

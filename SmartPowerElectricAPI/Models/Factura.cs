@@ -13,6 +13,7 @@ namespace SmartPowerElectricAPI.Models
         public string NumeroFactura { get; set; }
         public bool? EmailEnviado { get; set; }
         public bool? FacturaCompletada {  get; set; }
+        public string? Descripcion {  get; set; }
         [ForeignKey("Orden")]
         public int? IdOrden {  get; set; }
         public DateTime? FechaCreacion { get; set; }

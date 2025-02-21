@@ -15,7 +15,7 @@ public partial class FacturaDTO
     public bool? EmailEnviado { get; set; }
     public bool? FacturaCompletada { get; set; }
     public int? IdOrden { get; set; }
-
+    public string? Descripcion { get; set; }
     public string? FechaCreacion { get; set; }
     public string? FechaCreacionEng { get; set; }
 
@@ -32,7 +32,8 @@ public partial class FacturaDTO
             MontoACobrar = factura.MontoACobrar,
             NumeroFactura = factura.NumeroFactura,
             EmailEnviado = factura.EmailEnviado,
-            FacturaCompletada = factura.FacturaCompletada,         
+            FacturaCompletada = factura.FacturaCompletada,
+            Descripcion = factura.Descripcion,         
             IdOrden = factura.IdOrden,           
             FechaCreacion = factura.FechaCreacion?.ToString("yyyy-MM-dd"),
             FechaCreacionEng = factura.FechaCreacion?.ToString("yyyy-dd-MM")
@@ -47,7 +48,8 @@ public partial class FacturaDTO
             MontoACobrar = this.MontoACobrar ?? 0,
             NumeroFactura = this.NumeroFactura,
             EmailEnviado = this.EmailEnviado,
-            FacturaCompletada = this.FacturaCompletada,                           
+            FacturaCompletada = this.FacturaCompletada,
+            Descripcion = this.Descripcion,                           
             IdOrden = this.IdOrden,                   
             FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion) ? null : DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null)
            

@@ -7,6 +7,7 @@ using PageSizeCore = PdfSharpCore.PageSize;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.DTO;
 using System.Text.RegularExpressions;
+using PdfSharpCore.Drawing.Layout;
 
 namespace SmartPowerElectricAPI.Service
 {
@@ -33,6 +34,7 @@ namespace SmartPowerElectricAPI.Service
             XFont font = new XFont("Arial", 12);
             XFont boldFont = new XFont("Arial", 12, XFontStyle.Bold);
             XStringFormat formatRight = new XStringFormat { Alignment = XStringAlignment.Far };
+            XTextFormatter tf = new XTextFormatter(gfx);
 
             // Dibujar el logo            
             string logoPath = System.IO.Path.Combine(_env.ContentRootPath, "Assets", "Img", "Logo.png");
@@ -65,15 +67,14 @@ namespace SmartPowerElectricAPI.Service
             // Datos de la factura
             // Tabla de precios
             int tableStartY = 450;
-            gfx.DrawString("Invoice Price", boldFont, XBrushes.Black, new XPoint(50, tableStartY));
-            gfx.DrawString("Paid", boldFont, XBrushes.Black, new XPoint(200, tableStartY));
-            gfx.DrawString("Shortage to pay", boldFont, XBrushes.Black, new XPoint(350, tableStartY));
-            gfx.DrawString("Total", boldFont, XBrushes.Black, new XPoint(500, tableStartY));
+            gfx.DrawString("Description", boldFont, XBrushes.Black, new XPoint(50, tableStartY));
+            gfx.DrawString("Invoice Price", boldFont, XBrushes.Black, new XPoint(450, tableStartY));         
 
-            gfx.DrawString(facturaDTO.MontoACobrar?.ToString("C"), font, XBrushes.Black, new XPoint(50, tableStartY + 20));
-            gfx.DrawString(ordenDTO.Cobrado?.ToString("C"), font, XBrushes.Black, new XPoint(200, tableStartY + 20));
-            gfx.DrawString(ordenDTO.FaltanteCobrar?.ToString("C"), font, XBrushes.Black, new XPoint(350, tableStartY + 20));
-            gfx.DrawString(ordenDTO.CosteTotal?.ToString("C"), font, XBrushes.Black, new XPoint(500, tableStartY + 20));
+            //gfx.DrawString(facturaDTO.Descripcion, font, XBrushes.Black, new XPoint(50, tableStartY + 20));
+            XRect rect = new XRect(50, tableStartY + 20, 400, 100);
+            tf.DrawString(facturaDTO.Descripcion, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+            gfx.DrawString(ordenDTO.Cobrado?.ToString("C"), font, XBrushes.Black, new XPoint(450, tableStartY + 20));
+        
           
 
             // Guardar el documento en el archivo especificado

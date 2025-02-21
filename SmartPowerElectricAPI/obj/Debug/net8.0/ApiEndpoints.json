@@ -270,15 +270,15 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
-    "Method": "List",
-    "RelativePath": "api/Nomina/list/{idTrabajador}",
+    "Method": "listByAnyoTrabajador",
+    "RelativePath": "api/Nomina/listByAnyoTrabajador",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "idTrabajador",
-        "Type": "System.Int32",
+        "Name": "nominaTrabajador",
+        "Type": "SmartPowerElectricAPI.Controllers.NominaTrabajador",
         "IsRequired": true
       }
     ],

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SmartPowerElectricAPI.Controllers
 {
@@ -45,6 +46,7 @@ namespace SmartPowerElectricAPI.Controllers
                     nomina.IdTrabajador = idTrabajador;
                     nomina.SalarioEstandar = nomina.horasTrabajadas*trabajadorSearch.CobroxHora;
                     nomina.FechaCreacion = DateTime.Now;
+                    nomina.Anyo = (int)nomina.FinSemana?.Year;
                     _nominaRepository.Insert(nomina);
 
                     return Ok();
@@ -110,6 +112,7 @@ namespace SmartPowerElectricAPI.Controllers
                         nominaSearch.NoSemana = int.Parse(DivisionSemana[0]);
                         nominaSearch.InicioSemana = DateTime.ParseExact(DivisionSemana[1], "yyyy-MM-dd", null); 
                         nominaSearch.FinSemana = DateTime.ParseExact(DivisionSemana[2], "yyyy-MM-dd", null);
+                        nominaSearch.Anyo = (int)nominaSearch.FinSemana?.Year;
                     }               
                     if (nominaDTO.FechaCreacion != null) nominaSearch.FechaCreacion  = string.IsNullOrWhiteSpace(nominaDTO.FechaCreacion) ? null : DateTime.ParseExact(nominaDTO.FechaCreacion, "yyyy-MM-dd", null);
 
@@ -129,20 +132,24 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("list/{idTrabajador}")]
-        public IActionResult List(int idTrabajador)
+        [HttpGet("listByAnyoTrabajador")]
+        public IActionResult listByAnyoTrabajador([FromBody] NominaTrabajador nominaTrabajador)
         {
             try
             {
                 Trabajador trabajador = new Trabajador();
-               
-                trabajador = _trabajadorRepository.GetByID(idTrabajador, "Nominas");
+                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
+                where.Add(x => x.Id == nominaTrabajador.idTrabajador);
+                where.Add(x => x.Nominas.Any(y=>y.Anyo== nominaTrabajador.anyo));
+                trabajador = _trabajadorRepository.Get(where, "Nominas").FirstOrDefault();
+                //trabajador = _trabajadorRepository.GetByID(nominaTrabajador.idTrabajador, "Nominas");
+
                 if (trabajador!=null)
                 {
                     //List<Nomina> nominas = new List<Nomina>();
                     //nominas=trabajador.Nominas.ToList();
                     List<NominaDTO> nominaDTOs = new List<NominaDTO>();
-                    nominaDTOs= trabajador.Nominas.Select(NominaDTO.FromEntity).ToList();
+                    nominaDTOs= trabajador.Nominas.Select(NominaDTO.FromEntity).OrderBy(x=>x.NoSemana).ToList();
                     return Ok(nominaDTOs);
                 }
                 else
@@ -192,15 +199,24 @@ namespace SmartPowerElectricAPI.Controllers
                 semanaActual = cultura.Calendar.GetWeekOfYear(inicioSemana, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
             }
 
-            List<string> semanasString = new List<string>();
+            Dictionary<string,string> semanasString = new Dictionary<string,string>();
+            //List<(string key,string value)> semanasString = new List<(string,string)>();
 
             foreach (var semana in semanas)
             {
-                semanasString.Add(semana.Semana.ToString() + "/" + semana.FechaInicio.ToString("yyyy-MM-dd") + "/" + semana.FechaFin.ToString("yyyy-MM-dd"));
+                semanasString.Add(semana.Semana.ToString() + "/" + semana.FechaInicio.ToString("yyyy-dd-MM") + "/" + semana.FechaFin.ToString("yyyy-dd-MM"),
+                    (semana.Semana.ToString() + "/" + semana.FechaInicio.ToString("yyyy-MM-dd") + "/" + semana.FechaFin.ToString("yyyy-MM-dd")));
+
             }
 
             return Ok(semanasString);
         }
 
+    }
+
+    public class NominaTrabajador
+    {
+        public int idTrabajador { get; set; }
+        public int anyo { get; set; }
     }
 }

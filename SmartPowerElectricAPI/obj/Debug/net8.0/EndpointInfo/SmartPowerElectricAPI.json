@@ -472,22 +472,30 @@
         }
       }
     },
-    "/api/Nomina/list/{idTrabajador}": {
+    "/api/Nomina/listByAnyoTrabajador": {
       "get": {
         "tags": [
           "Nomina"
         ],
-        "parameters": [
-          {
-            "name": "idTrabajador",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaTrabajador"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaTrabajador"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NominaTrabajador"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -1406,6 +1414,10 @@
             "format": "int32",
             "nullable": true
           },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
           "fechaCreacion": {
             "type": "string",
             "nullable": true
@@ -1523,6 +1535,11 @@
             "format": "double",
             "nullable": true
           },
+          "salarioTotal": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "fechaPago": {
             "type": "string",
             "nullable": true
@@ -1532,6 +1549,11 @@
             "nullable": true
           },
           "noSemana": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "anyo": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -1547,6 +1569,20 @@
           "fechaCreacion": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NominaTrabajador": {
+        "type": "object",
+        "properties": {
+          "idTrabajador": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "anyo": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

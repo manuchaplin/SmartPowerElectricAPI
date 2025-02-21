@@ -71,7 +71,7 @@ namespace SmartPowerElectricAPI.Controllers
                 factura.NumeroFactura="F"+ordenDTO.Id+DateTime.Now.Year + DateTime.Now.Month+DateTime.Now.Day + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second;
                 factura.IdOrden = idOrden;
                 factura.FacturaCompletada = false;
-                factura.EmailEnviado = false;
+                factura.EmailEnviado = false;                ;
                 factura.FechaCreacion = DateTime.Now;
                 _facturaRepository.Insert(factura);
 
@@ -170,6 +170,7 @@ namespace SmartPowerElectricAPI.Controllers
                         facturaSearch.FacturaCompletada = facturaDTO.FacturaCompletada; 
                     }                                   
                     if (facturaDTO.IdOrden != null) facturaSearch.IdOrden = (int)facturaDTO.IdOrden;                   
+                    if (facturaDTO.Descripcion != null) facturaSearch.Descripcion = facturaDTO.Descripcion;                   
                     if (facturaDTO.FechaCreacion != null) facturaSearch.FechaCreacion = string.IsNullOrWhiteSpace(facturaDTO.FechaCreacion) ? null : DateTime.ParseExact(facturaDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _facturaRepository.Update(facturaSearch);

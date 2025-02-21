@@ -15,6 +15,8 @@ namespace SmartPowerElectricAPI.Models
         [Required]
         public int NoSemana { get; set; }
         [Required]
+        public int Anyo { get; set; }
+        [Required]
         public DateTime? InicioSemana { get; set; }
         [Required]
         public DateTime? FinSemana { get; set; }
