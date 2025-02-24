@@ -270,6 +270,22 @@
   },
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "downloadInvoice",
+    "RelativePath": "api/Nomina/downloadYTD/{idNomina}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idNomina",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
     "Method": "listByAnyoTrabajador",
     "RelativePath": "api/Nomina/listByAnyoTrabajador",
     "HttpMethod": "GET",
@@ -287,13 +303,29 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
     "Method": "ListWeekOfYear",
-    "RelativePath": "api/Nomina/ListWeeksOfYear/{year}",
+    "RelativePath": "api/Nomina/ListWeeksOfYear/{anyo}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "year",
+        "Name": "anyo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
+    "Method": "sendYTD",
+    "RelativePath": "api/Nomina/sendYTD/{idNomina}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idNomina",
         "Type": "System.Int32",
         "IsRequired": true
       }

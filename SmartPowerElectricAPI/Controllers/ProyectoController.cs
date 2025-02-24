@@ -34,6 +34,7 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 List<Expression<Func<Proyecto, bool>>> where = new List<Expression<Func<Proyecto, bool>>>();
                 where.Add(x => x.Nombre.ToLower() == proyectoDTO.Nombre.ToLower());
+                where.Add(x => x.Eliminado !=true && x.FechaEliminado==null);
                 Proyecto proyectoSearch = _proyectoRepository.Get(where).FirstOrDefault();
 
                 if (proyectoSearch == null)

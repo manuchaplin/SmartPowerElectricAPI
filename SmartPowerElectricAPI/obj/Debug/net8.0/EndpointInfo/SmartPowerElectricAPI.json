@@ -503,14 +503,60 @@
         }
       }
     },
-    "/api/Nomina/ListWeeksOfYear/{year}": {
+    "/api/Nomina/ListWeeksOfYear/{anyo}": {
       "get": {
         "tags": [
           "Nomina"
         ],
         "parameters": [
           {
-            "name": "year",
+            "name": "anyo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/downloadYTD/{idNomina}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "idNomina",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/sendYTD/{idNomina}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "name": "idNomina",
             "in": "path",
             "required": true,
             "schema": {

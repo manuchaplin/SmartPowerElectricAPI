@@ -53,7 +53,7 @@ public class NominaDTO
         {
             horasTrabajadas = this.horasTrabajadas ?? 0,
             SalarioEstandar = this.SalarioEstandar ?? 0,
-            SalarioPlus = this.SalarioPlus,
+            SalarioPlus = this.SalarioPlus ?? 0,
             FechaPago = string.IsNullOrWhiteSpace(this.FechaPago) ? null : DateTime.ParseExact(this.FechaPago, "yyyy-MM-dd", null),
             NoSemana = this.NoSemana ?? 0,
             InicioSemana = string.IsNullOrWhiteSpace(this.InicioSemana) ? null : DateTime.ParseExact(this.InicioSemana, "yyyy-MM-dd", null),

@@ -141,7 +141,8 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
                 where.Add(x => x.Nombre.ToLower() == trabajadorDTO.Nombre.ToLower());
-                where.Add(x => x.Apellido.ToLower() == trabajadorDTO.Apellido.ToLower());                
+                where.Add(x => x.Apellido.ToLower() == trabajadorDTO.Apellido.ToLower());
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
 
                 if (trabajadorSearch == null)

@@ -33,6 +33,7 @@ namespace SmartPowerElectricAPI.Controllers
                 List<Expression<Func<Cliente, bool>>> where = new List<Expression<Func<Cliente, bool>>>();
                 where.Add(x => x.Nombre.ToLower() == clienteDTO.Nombre.ToLower());
                 where.Add(x => x.Email.ToLower() == clienteDTO.Email.ToLower());                
+                where.Add(x => x.Eliminado !=true && x.FechaEliminado==null);                
                 Cliente clienteSearch = _clienteRepository.Get(where).FirstOrDefault();
 
                 if (clienteSearch == null)

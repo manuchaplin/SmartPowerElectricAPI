@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Assets\BillTemp\" />
+    <Folder Include="Assets\NominaTemp\" />
     <Folder Include="Migrations\" />
     <Folder Include="Utilities\Settings\" />
   </ItemGroup>

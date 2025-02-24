@@ -307,6 +307,180 @@
         }
       }
     },
+    "/api/Nomina/create/{idTrabajador}": {
+      "post": {
+        "tags": [
+          "Nomina"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/NominaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/{id}": {
+      "delete": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Nomina"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/NominaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/listByAnyoTrabajador": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/NominaTrabajador"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/ListWeeksOfYear/{anyo}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anyo",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/downloadYTD/{idNomina}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNomina",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/sendYTD/{idNomina}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNomina",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Orden/create/{idProyecto}": {
       "post": {
         "tags": [
@@ -1060,7 +1234,13 @@
           "format": "int32",
           "type": "integer"
         },
+        "descripcion": {
+          "type": "string"
+        },
         "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaCreacionEng": {
           "type": "string"
         },
         "fechaEliminado": {
@@ -1133,6 +1313,69 @@
       },
       "additionalProperties": false
     },
+    "NominaDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "horasTrabajadas": {
+          "format": "double",
+          "type": "number"
+        },
+        "salarioEstandar": {
+          "format": "double",
+          "type": "number"
+        },
+        "salarioPlus": {
+          "format": "double",
+          "type": "number"
+        },
+        "salarioTotal": {
+          "format": "double",
+          "type": "number"
+        },
+        "fechaPago": {
+          "type": "string"
+        },
+        "semanaCompleta": {
+          "type": "string"
+        },
+        "noSemana": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "anyo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "inicioSemana": {
+          "type": "string"
+        },
+        "finSemana": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "NominaTrabajador": {
+      "type": "object",
+      "properties": {
+        "idTrabajador": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "anyo": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
     "OrdenDTO": {
       "type": "object",
       "properties": {
@@ -1152,6 +1395,10 @@
           "type": "number"
         },
         "cobrado": {
+          "format": "double",
+          "type": "number"
+        },
+        "ganancia": {
           "format": "double",
           "type": "number"
         },

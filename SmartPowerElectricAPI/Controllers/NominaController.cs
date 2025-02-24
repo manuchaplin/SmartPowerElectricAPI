@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
+using SmartPowerElectricAPI.Service;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SmartPowerElectricAPI.Controllers
@@ -24,10 +26,14 @@ namespace SmartPowerElectricAPI.Controllers
 
         private readonly INominaRepository _nominaRepository;
         private readonly ITrabajadorRepository _trabajadorRepository;
-        public NominaController(INominaRepository nominaRepository,ITrabajadorRepository trabajadorRepository)
+        private readonly PDFService _pdfService;
+        private readonly EmailService _emailService;
+        public NominaController(INominaRepository nominaRepository,ITrabajadorRepository trabajadorRepository, PDFService pdfService, EmailService emailService)
         {
             _nominaRepository = nominaRepository;
             _trabajadorRepository = trabajadorRepository;
+            _pdfService = pdfService;
+            _emailService = emailService;
         }
 
         [HttpPost("create/{idTrabajador}")]
@@ -165,12 +171,12 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("ListWeeksOfYear/{year}")]
-        public IActionResult ListWeekOfYear(int year)
+        [HttpGet("ListWeeksOfYear/{anyo}")]
+        public IActionResult ListWeekOfYear(int anyo)
         {
             List<(int Semana, DateTime FechaInicio, DateTime FechaFin)> semanas = new List<(int, DateTime, DateTime)>();
-            DateTime primerDia = new DateTime(year, 1, 1);
-            DateTime ultimoDia = new DateTime(year, 12, 31);
+            DateTime primerDia = new DateTime(anyo, 1, 1);
+            DateTime ultimoDia = new DateTime(anyo, 12, 31);
             CultureInfo cultura = CultureInfo.CurrentCulture;
 
             // Obtener la primera semana del año según ISO 8601
@@ -178,20 +184,20 @@ namespace SmartPowerElectricAPI.Controllers
 
             // Encontrar el primer lunes de la semana 1
             DateTime inicioSemana = primerDia.AddDays(-(int)primerDia.DayOfWeek + (int)DayOfWeek.Monday);
-            if (inicioSemana.Year > year)
+            if (inicioSemana.Year > anyo)
             {
                 inicioSemana = inicioSemana.AddDays(-7); // Ajustar si el primer lunes pertenece al año siguiente
             }
-            else if (inicioSemana.Year < year && cultura.Calendar.GetWeekOfYear(ultimoDia.AddDays(-3), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) == 1)
+            else if (inicioSemana.Year < anyo && cultura.Calendar.GetWeekOfYear(ultimoDia.AddDays(-3), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) == 1)
             {
                 inicioSemana = inicioSemana.AddDays(7); // Ajustar si la última semana del año anterior se considera la primera del año actual
             }
 
             // Iterar sobre las semanas
-            while (inicioSemana.Year <= year)
+            while (inicioSemana.Year <= anyo)
             {
                 DateTime finSemana = inicioSemana.AddDays(6);
-                if (finSemana.Year > year) finSemana = ultimoDia; // Ajuste para la última semana del año
+                if (finSemana.Year > anyo) finSemana = ultimoDia; // Ajuste para la última semana del año
 
                 semanas.Add((semanaActual, inicioSemana, finSemana));
 
@@ -212,6 +218,142 @@ namespace SmartPowerElectricAPI.Controllers
             return Ok(semanasString);
         }
 
+
+        [HttpGet("downloadYTD/{idNomina}")]
+        public IActionResult downloadInvoice(int idNomina)
+        {
+            try
+            {
+                Nomina nomina = _nominaRepository.GetByID(idNomina);            
+                
+                Trabajador trabajador=_trabajadorRepository.GetByID(nomina.IdTrabajador);
+
+                if (nomina == null || trabajador == null)
+                {
+                    return NotFound();
+                }
+                List<Nomina> nominas= new List<Nomina>();
+                List<NominaDTO> nominasDTOs= new List<NominaDTO>();
+                List<Expression<Func<Nomina, bool>>> where = new List<Expression<Func<Nomina, bool>>>();
+                where.Add(x => x.IdTrabajador == nomina.IdTrabajador);
+                where.Add(x => x.Anyo == nomina.Anyo);
+                where.Add(x => x.NoSemana <= nomina.NoSemana);
+              
+                nominas= _nominaRepository.Get(where).ToList();
+                nominasDTOs= nominas.Select(NominaDTO.FromEntity).ToList();
+                double YTD = (double)nominasDTOs.Sum(x => x.SalarioTotal);
+
+
+
+                NominaDTO nominaDTO= NominaDTO.FromEntity(nomina);
+                TrabajadorDTO trabajadorDTO= TrabajadorDTO.FromEntity(trabajador);
+
+
+                // Ruta en la carpeta Assets/BillTemp dentro del proyecto
+                string assetsPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "NominaTemp");
+
+                // Verificar si la carpeta existe, si no, crearla
+                if (!Directory.Exists(assetsPath))
+                {
+                    Directory.CreateDirectory(assetsPath);
+                }
+                // Definir la ruta temporal para guardar el archivo
+                string fileName = $"PayStub {trabajadorDTO.Nombre+" "+trabajadorDTO.Apellido+" " + nominaDTO.NoSemana+"-" + nominaDTO.Anyo}.pdf";
+                string filePath = Path.Combine(assetsPath, fileName);
+
+
+                // Generar el PDF
+                _pdfService.GenerarNominaPdf(filePath, nominaDTO,trabajadorDTO, YTD);
+
+                // Leer el archivo como un stream
+                var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                var fileResult = File(fileStream, "application/pdf", fileName);
+
+                // Eliminar el archivo después de enviarlo
+                Response.OnCompleted(() =>
+                {
+                    fileStream.Dispose();
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    return Task.CompletedTask;
+                });
+
+                //return Ok(new {fileResult=fileResult});
+                return fileResult;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("sendYTD/{idNomina}")]
+        public async Task<IActionResult> sendYTD(int idNomina)
+        {
+            try
+            {
+                Nomina nomina = _nominaRepository.GetByID(idNomina);
+
+                Trabajador trabajador = _trabajadorRepository.GetByID(nomina.IdTrabajador);
+
+                if (nomina == null || trabajador == null)
+                {
+                    return NotFound();
+                }
+                List<Nomina> nominas = new List<Nomina>();
+                List<NominaDTO> nominasDTOs = new List<NominaDTO>();
+                List<Expression<Func<Nomina, bool>>> where = new List<Expression<Func<Nomina, bool>>>();
+                where.Add(x => x.IdTrabajador == nomina.IdTrabajador);
+                where.Add(x => x.Anyo == nomina.Anyo);
+                where.Add(x => x.NoSemana <= nomina.NoSemana);
+
+                nominas = _nominaRepository.Get(where).ToList();
+                nominasDTOs = nominas.Select(NominaDTO.FromEntity).ToList();
+                double YTD = (double)nominasDTOs.Sum(x => x.SalarioTotal);
+
+
+
+                NominaDTO nominaDTO = NominaDTO.FromEntity(nomina);
+                TrabajadorDTO trabajadorDTO = TrabajadorDTO.FromEntity(trabajador);
+
+                // Datos del correo
+                string MailTo = "manuchaplin@gmail.com";
+                //string MailTo = trabajadorDTO.Email;
+                string Topic = " PayStub No. " + trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + " " + nominaDTO.Anyo + nominaDTO.NoSemana;
+                string Body = "<div>";
+                Body += "<p>Dear " + trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + "</p>";
+                Body += "<p>Attached to this email, you will find the paystub corresponding to the number " + nominaDTO.NoSemana + "/" + nominaDTO.Anyo +".</p>";
+                Body += "<p>We remain at your disposal for any further clarification.</p>";
+                Body += "</br>";
+                Body += "<p>Atentamente,</p>";
+                Body += "<p><bold>Smart Power Electric.</bold></p>";
+
+                Body += "</div>";
+
+                // Generar factura (PDF)
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "NominaTemp", $"PayStub {trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + " " + nominaDTO.NoSemana + "-" + nominaDTO.Anyo}.pdf");
+                _pdfService.GenerarNominaPdf(filePath, nominaDTO, trabajadorDTO, YTD);
+
+                // Enviar correo con el archivo adjunto
+                List<string> Attachments = new List<string> { filePath };
+
+                await _emailService.SendMailAsync(MailTo, Topic, Body, Attachments);
+            
+                // Eliminar el archivo PDF después de enviar el correo
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 
     public class NominaTrabajador

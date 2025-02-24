@@ -30,6 +30,7 @@ namespace SmartPowerElectricAPI.Controllers
             {                
                 List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
                 where.Add(x => x.UMedida.ToLower() == unidadMedidumDTO.UMedida.ToLower());
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 UnidadMedida unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
 
                 if (unidadMedSearch == null)
