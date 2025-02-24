@@ -157,7 +157,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (facturaDTO.EmailEnviado != null) facturaSearch.EmailEnviado = facturaDTO.EmailEnviado;
                     if (facturaDTO.FacturaCompletada != null) 
                     {
-                        if (facturaSearch.FacturaCompletada!=true && facturaDTO.FacturaCompletada==true)
+                        if (facturaSearch.FacturaCompletada!=true && facturaDTO.FacturaCompletada==true && ordenDTO.FaltanteCobrar >= facturaSearch.MontoACobrar)
                         {
                             ordenSearch.Cobrado += facturaSearch.MontoACobrar;
                             if (ordenSearch.Cobrado==ordenDTO.CosteTotal)
@@ -165,9 +165,11 @@ namespace SmartPowerElectricAPI.Controllers
                                 ordenSearch.OrdenFinalizada = true;
                             }
                             _ordenRepository.Update(ordenSearch);
-                        }
-
-                        facturaSearch.FacturaCompletada = facturaDTO.FacturaCompletada; 
+                            facturaSearch.FacturaCompletada = facturaDTO.FacturaCompletada;
+                        }else if (ordenDTO.FaltanteCobrar < facturaSearch.MontoACobrar)
+                        {
+                            return Conflict(new { message = "El Faltante a cobrar es menor que la factura que quiere cobrar" });
+                        }                        
                     }                                   
                     if (facturaDTO.IdOrden != null) facturaSearch.IdOrden = (int)facturaDTO.IdOrden;                   
                     if (facturaDTO.Descripcion != null) facturaSearch.Descripcion = facturaDTO.Descripcion;                   

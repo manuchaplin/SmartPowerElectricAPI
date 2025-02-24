@@ -63,6 +63,90 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
+    "Method": "Delete",
+    "RelativePath": "api/DocumentoCaducar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
+    "Method": "Edit",
+    "RelativePath": "api/DocumentoCaducar/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "documentoCaducarDTO",
+        "Type": "SmartPowerElectricAPI.DTO.DocumentoCaducarDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
+    "Method": "Create",
+    "RelativePath": "api/DocumentoCaducar/create/{idTrabajador}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "documentoCaducarDTO",
+        "Type": "SmartPowerElectricAPI.DTO.DocumentoCaducarDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
+    "Method": "List",
+    "RelativePath": "api/DocumentoCaducar/list/{idTrabajador}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
+    "Method": "sendEmailDocumentExpiration",
+    "RelativePath": "api/DocumentoCaducar/sendEmailDocumentExpiration",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartPowerElectricAPI.Controllers.FacturaController",
     "Method": "Delete",
     "RelativePath": "api/Factura/{id}",

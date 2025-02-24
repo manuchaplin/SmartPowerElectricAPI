@@ -95,6 +95,124 @@
         }
       }
     },
+    "/api/DocumentoCaducar/create/{idTrabajador}": {
+      "post": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DocumentoCaducarDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DocumentoCaducar/{id}": {
+      "delete": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DocumentoCaducarDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DocumentoCaducar/list/{idTrabajador}": {
+      "get": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DocumentoCaducar/sendEmailDocumentExpiration": {
+      "get": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Factura/create/{idOrden}": {
       "post": {
         "tags": [
@@ -1206,6 +1324,29 @@
         },
         "eliminado": {
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DocumentoCaducarDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "fechaExpiracion": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "idTrabajador": {
+          "format": "int32",
+          "type": "integer"
         }
       },
       "additionalProperties": false

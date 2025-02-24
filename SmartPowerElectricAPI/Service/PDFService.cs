@@ -39,7 +39,7 @@ namespace SmartPowerElectricAPI.Service
             // Dibujar el logo            
             string logoPath = System.IO.Path.Combine(_env.ContentRootPath, "Assets", "Img", "Logo.png");
             XImage logo = XImage.FromFile(logoPath);
-            gfx.DrawImage(logo, 5, 1, 250, 250);
+            gfx.DrawImage(logo, 20, 60, 150, 50);
 
             // Encabezado
             gfx.DrawString("INVOICE", new XFont("Arial", 16, XFontStyle.Bold), XBrushes.Black, new XPoint(250, 50));
@@ -72,8 +72,8 @@ namespace SmartPowerElectricAPI.Service
 
             //gfx.DrawString(facturaDTO.Descripcion, font, XBrushes.Black, new XPoint(50, tableStartY + 20));
             XRect rect = new XRect(50, tableStartY + 20, 400, 100);
-            tf.DrawString(facturaDTO.Descripcion, font, XBrushes.Black, rect, XStringFormats.TopLeft);
-            gfx.DrawString(ordenDTO.Cobrado?.ToString("C", new System.Globalization.CultureInfo("en-US")), font, XBrushes.Black, new XPoint(450, tableStartY + 20));
+            tf.DrawString(facturaDTO.Descripcion ?? "", font, XBrushes.Black, rect, XStringFormats.TopLeft);
+            gfx.DrawString(facturaDTO.MontoACobrar?.ToString("C", new System.Globalization.CultureInfo("en-US")), font, XBrushes.Black, new XPoint(450, tableStartY + 20));
         
           
 
@@ -99,7 +99,7 @@ namespace SmartPowerElectricAPI.Service
             // Dibujar el logo            
             string logoPath = System.IO.Path.Combine(_env.ContentRootPath, "Assets", "Img", "Logo.png");
             XImage logo = XImage.FromFile(logoPath);
-            gfx.DrawImage(logo, 5, 1, 250, 250);
+            gfx.DrawImage(logo, 20, 60, 150, 50);
 
             // Encabezado
             gfx.DrawString("PayStub", new XFont("Arial", 16, XFontStyle.Bold), XBrushes.Black, new XPoint(250, 50));
