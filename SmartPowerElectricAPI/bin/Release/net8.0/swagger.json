@@ -180,19 +180,10 @@
         }
       }
     },
-    "/api/DocumentoCaducar/list/{idTrabajador}": {
+    "/api/DocumentoCaducar/list": {
       "get": {
         "tags": [
           "DocumentoCaducar"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idTrabajador",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
         ],
         "responses": {
           "200": {

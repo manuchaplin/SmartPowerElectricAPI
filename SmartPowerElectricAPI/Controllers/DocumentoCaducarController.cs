@@ -116,15 +116,15 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("list/{idTrabajador}")]
-        public IActionResult List(int idTrabajador)
+        [HttpGet("list")]
+        public IActionResult List()
         {
             try
             {
                 List<DocumentoCaducar> documentoCaducars = new List<DocumentoCaducar>();
-                List<Expression<Func<DocumentoCaducar, bool>>> where = new List<Expression<Func<DocumentoCaducar, bool>>>();
-                where.Add(x => x.IdTrabajador==idTrabajador);
-                documentoCaducars = _documentoCaducarRepository.Get(where).ToList();
+                //List<Expression<Func<DocumentoCaducar, bool>>> where = new List<Expression<Func<DocumentoCaducar, bool>>>();
+                //where.Add(x => x.IdTrabajador==idTrabajador);
+                documentoCaducars = _documentoCaducarRepository.Get().ToList();
 
                 List<DocumentoCaducarDTO> documentoCaducarDTOs= documentoCaducars.Select(DocumentoCaducarDTO.FromEntity).ToList();
 

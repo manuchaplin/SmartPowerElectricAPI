@@ -28,7 +28,7 @@ namespace SmartPowerElectricAPI.Service
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "Logs.txt");               
                 var now = DateTime.Now;
                 //var nextRun = now.Date.AddHours(20).AddMinutes(44); // Hoy a las 10:00 AM
-                var nextRun = now.Date.AddHours(10); // Hoy a las 10:00 AM
+                var nextRun = now.Date.AddHours(12); // Hoy a las 10:00 AM
 
                 if (now > nextRun)
                 {
@@ -52,7 +52,7 @@ namespace SmartPowerElectricAPI.Service
             {
                
                 var client = _httpClientFactory.CreateClient();
-                var url = "https://localhost:44389/api/DocumentoCaducar/sendEmailDocumentExpiration"; // Ajusta la URL de la API
+                var url = "https://smartpowerelectric.azurewebsites.net/api/DocumentoCaducar/sendEmailDocumentExpiration"; // Ajusta la URL de la API
                 var response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
