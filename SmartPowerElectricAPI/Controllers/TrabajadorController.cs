@@ -18,119 +18,12 @@ namespace SmartPowerElectricAPI.Controllers
     [Authorize]
     public class TrabajadorController : ControllerBase
     {
-        #region async Test
-        //Funciones async Test
-        //private readonly SmartPowerElectricContext _context;
-
-        //public TrabajadorController(SmartPowerElectricContext context)
-        //{
-        //    _context = context;
-        //}
-
-        //// GET: api/Trabajador
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Trabajador>>> GetTrabajadors()
-        //{
-        //  if (_context.Trabajadors == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    return await _context.Trabajadors.ToListAsync();
-        //}
-
-        //// GET: api/Trabajador/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Trabajador>> GetTrabajador(int id)
-        //{
-        //  if (_context.Trabajadors == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    var trabajador = await _context.Trabajadors.FindAsync(id);
-
-        //    if (trabajador == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return trabajador;
-        //}
-
-        //// PUT: api/Trabajador/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutTrabajador(int id, Trabajador trabajador)
-        //{
-        //    if (id != trabajador.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(trabajador).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!TrabajadorExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Trabajador
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Trabajador>> PostTrabajador(Trabajador trabajador)
-        //{
-        //  if (_context.Trabajadors == null)
-        //  {
-        //      return Problem("Entity set 'SmartPowerElectricContext.Trabajadors'  is null.");
-        //  }
-        //    _context.Trabajadors.Add(trabajador);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetTrabajador", new { id = trabajador.Id }, trabajador);
-        //}
-
-        //// DELETE: api/Trabajador/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTrabajador(int id)
-        //{
-        //    if (_context.Trabajadors == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var trabajador = await _context.Trabajadors.FindAsync(id);
-        //    if (trabajador == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Trabajadors.Remove(trabajador);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
-        //private bool TrabajadorExists(int id)
-        //{
-        //    return (_context.Trabajadors?.Any(e => e.Id == id)).GetValueOrDefault();
-        //}
-        #endregion
-
         private readonly ITrabajadorRepository _trabajadorRepository;
-        public TrabajadorController(ITrabajadorRepository trabajadorRepository) {
+        private readonly IProyectoRepository _proyectoRepository;
+        public TrabajadorController(ITrabajadorRepository trabajadorRepository,IProyectoRepository proyectoRepository)
+        {
             _trabajadorRepository = trabajadorRepository;
+            _proyectoRepository = proyectoRepository;
         }
 
         [HttpPost("create")]
@@ -147,7 +40,7 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (trabajadorSearch == null)
                 {
-                    Trabajador trabajador= trabajadorDTO.ToEntity();
+                    Trabajador trabajador = trabajadorDTO.ToEntity();
                     trabajador.FechaCreacion = DateTime.Now;
                     _trabajadorRepository.Insert(trabajador);
 
@@ -155,7 +48,7 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return Conflict(new { message= "El trabajador ya existe" });
+                    return Conflict(new { message = "El trabajador ya existe" });
                 }
 
 
@@ -198,7 +91,7 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id,[FromBody] TrabajadorDTO trabajadorDTO)
+        public IActionResult Edit(int id, [FromBody] TrabajadorDTO trabajadorDTO)
         {
             try
             {
@@ -220,7 +113,7 @@ namespace SmartPowerElectricAPI.Controllers
                     if (trabajadorDTO.CobroxHora != null) trabajadorSearch.CobroxHora = trabajadorDTO.CobroxHora;
                     if (trabajadorDTO.NumeroCuenta != null) trabajadorSearch.NumeroCuenta = trabajadorDTO.NumeroCuenta;
                     if (trabajadorDTO.Enrutamiento != null) trabajadorSearch.Enrutamiento = trabajadorDTO.Enrutamiento;
-                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion  = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "yyyy-MM-dd", null);
+                    if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _trabajadorRepository.Update(trabajadorSearch);
 
@@ -248,7 +141,7 @@ namespace SmartPowerElectricAPI.Controllers
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 trabajadores = _trabajadorRepository.Get(where).ToList();
 
-                List<TrabajadorDTO> trabajadorDTOs=trabajadores.Select(TrabajadorDTO.FromEntity).ToList();
+                List<TrabajadorDTO> trabajadorDTOs = trabajadores.Select(TrabajadorDTO.FromEntity).ToList();
 
                 return Ok(trabajadorDTOs);
 
@@ -259,6 +152,45 @@ namespace SmartPowerElectricAPI.Controllers
             }
 
         }
-      
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+               
+                Trabajador trabajador = new Trabajador();
+                trabajador = _trabajadorRepository.GetByID(id);
+
+                if (trabajador == null)
+                {
+                    return NotFound();
+                }
+                ProyectosTrabajadorDTO proyectosTrabajadorDTO = new ProyectosTrabajadorDTO();
+                proyectosTrabajadorDTO.proyectosActivos = new List<string>();
+                List<Proyecto> proyectos=new List<Proyecto>();
+                List<Expression<Func<Proyecto, bool>>> where = new List<Expression<Func<Proyecto, bool>>>();
+                where.Add(x =>x.Finalizado!=true && x.Eliminado!=true && x.Ordens.Any(y => y.Trabajadores.Any(t => t.Id == trabajador.Id)));
+                proyectos= _proyectoRepository.Get(where).ToList();
+
+                proyectosTrabajadorDTO.trabajadorDTO = TrabajadorDTO.FromEntity(trabajador);
+                //proyectos.ForEach(x => proyectosTrabajadorDTO.proyectosActivos.Add(x.Nombre));
+                proyectosTrabajadorDTO.proyectosActivos.AddRange(proyectos.Select(x => x.Nombre));
+
+                return Ok(proyectosTrabajadorDTO);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        public class ProyectosTrabajadorDTO
+        {
+            public TrabajadorDTO trabajadorDTO { get; set; }
+            public List<string> proyectosActivos { get; set; }
+
+        }
     }
 }

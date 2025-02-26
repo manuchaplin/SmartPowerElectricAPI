@@ -1018,6 +1018,25 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Trabajador"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Trabajador/list": {

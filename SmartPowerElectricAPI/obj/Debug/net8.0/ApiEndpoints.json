@@ -360,14 +360,19 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.NominaController",
     "Method": "listByAnyoTrabajador",
-    "RelativePath": "api/Nomina/listByAnyoTrabajador",
+    "RelativePath": "api/Nomina/listByAnyoTrabajador/{idTrabajador}/{anyo}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "nominaTrabajador",
-        "Type": "SmartPowerElectricAPI.Controllers.NominaTrabajador",
+        "Name": "idTrabajador",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "anyo",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -690,6 +695,22 @@
       {
         "Name": "trabajadorDTO",
         "Type": "SmartPowerElectricAPI.DTO.TrabajadorDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartPowerElectricAPI.Controllers.TrabajadorController",
+    "Method": "GetById",
+    "RelativePath": "api/Trabajador/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

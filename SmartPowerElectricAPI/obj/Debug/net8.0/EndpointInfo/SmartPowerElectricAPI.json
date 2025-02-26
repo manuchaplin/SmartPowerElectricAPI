@@ -590,30 +590,31 @@
         }
       }
     },
-    "/api/Nomina/listByAnyoTrabajador": {
+    "/api/Nomina/listByAnyoTrabajador/{idTrabajador}/{anyo}": {
       "get": {
         "tags": [
           "Nomina"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NominaTrabajador"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NominaTrabajador"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/NominaTrabajador"
-              }
+        "parameters": [
+          {
+            "name": "idTrabajador",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "anyo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1204,6 +1205,27 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Trabajador"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Trabajador/list": {
@@ -1769,20 +1791,6 @@
           "fechaCreacion": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "NominaTrabajador": {
-        "type": "object",
-        "properties": {
-          "idTrabajador": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "anyo": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
