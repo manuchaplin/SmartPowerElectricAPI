@@ -95,7 +95,7 @@
         }
       }
     },
-    "/api/DocumentoCaducar/create/{idTrabajador}": {
+    "/api/DocumentoCaducar/create": {
       "post": {
         "tags": [
           "DocumentoCaducar"
@@ -106,13 +106,6 @@
           "application/*+json"
         ],
         "parameters": [
-          {
-            "in": "path",
-            "name": "idTrabajador",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
           {
             "in": "body",
             "name": "body",
@@ -1332,12 +1325,18 @@
         "fechaExpiracion": {
           "type": "string"
         },
-        "fechaCreacion": {
+        "fechaExpedicion": {
           "type": "string"
         },
         "idTrabajador": {
           "format": "int32",
           "type": "integer"
+        },
+        "trabajador": {
+          "type": "string"
+        },
+        "expirado": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false

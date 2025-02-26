@@ -28,10 +28,12 @@ namespace SmartPowerElectricAPI.Service
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "Logs.txt");               
                 var now = DateTime.Now;
                 //var nextRun = now.Date.AddHours(20).AddMinutes(44); // Hoy a las 10:00 AM
-                var nextRun = now.Date.AddHours(12); // Hoy a las 10:00 AM
+                var nextRun = now.Date.AddHours(9).AddMinutes(1); // Hoy a las 10:00 AM
 
                 if (now > nextRun)
                 {
+                    File.AppendAllText(filePath, $"Hora ejecucion programada en {nextRun}" + Environment.NewLine);
+                    File.AppendAllText(filePath, $"Hora actual en {now}" + Environment.NewLine);
                     nextRun = nextRun.AddDays(1); // Si ya pasó, agendar para mañana
                 }
 
@@ -50,7 +52,8 @@ namespace SmartPowerElectricAPI.Service
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "Logs.txt");
             try
             {
-               
+                File.AppendAllText(filePath, $"Entro.{DateTime.Now}" + Environment.NewLine);
+
                 var client = _httpClientFactory.CreateClient();
                 var url = "https://smartpowerelectric.azurewebsites.net/api/DocumentoCaducar/sendEmailDocumentExpiration"; // Ajusta la URL de la API
                 var response = await client.GetAsync(url);

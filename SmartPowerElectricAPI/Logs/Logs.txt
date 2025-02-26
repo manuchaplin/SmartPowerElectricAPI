@@ -1,2 +1,19 @@
-Próxima ejecución programada en 25/02/2025 10:00:00
-Próxima ejecución programada en 25/02/2025 10:00:00
+
+Entro.26/02/2025 18:40:08
+Job ejecutado correctamente.26/02/2025 18:40:21
+Próxima ejecución programada en 27/02/2025 18:40:00
+Hora ejecucion programada en 26/02/2025 17:57:00
+Hora actual en 26/02/2025 18:56:15
+Próxima ejecución programada en 27/02/2025 17:57:00
+Hora ejecucion programada en 26/02/2025 17:57:00
+Hora actual en 26/02/2025 19:06:00
+Próxima ejecución programada en 27/02/2025 17:57:00
+Hora ejecucion programada en 26/02/2025 9:01:00
+Hora actual en 26/02/2025 19:23:44
+Próxima ejecución programada en 27/02/2025 9:01:00
+Hora ejecucion programada en 26/02/2025 9:01:00
+Hora actual en 26/02/2025 19:37:00
+Próxima ejecución programada en 27/02/2025 9:01:00
+Hora ejecucion programada en 26/02/2025 9:01:00
+Hora actual en 26/02/2025 19:50:07
+Próxima ejecución programada en 27/02/2025 9:01:00

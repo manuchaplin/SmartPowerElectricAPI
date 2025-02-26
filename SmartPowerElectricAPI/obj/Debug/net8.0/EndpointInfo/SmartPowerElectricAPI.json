@@ -111,21 +111,10 @@
         }
       }
     },
-    "/api/DocumentoCaducar/create/{idTrabajador}": {
+    "/api/DocumentoCaducar/create": {
       "post": {
         "tags": [
           "DocumentoCaducar"
-        ],
-        "parameters": [
-          {
-            "name": "idTrabajador",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -216,21 +205,10 @@
         }
       }
     },
-    "/api/DocumentoCaducar/list/{idTrabajador}": {
+    "/api/DocumentoCaducar/list": {
       "get": {
         "tags": [
           "DocumentoCaducar"
-        ],
-        "parameters": [
-          {
-            "name": "idTrabajador",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -1586,13 +1564,21 @@
             "type": "string",
             "nullable": true
           },
-          "fechaCreacion": {
+          "fechaExpedicion": {
             "type": "string",
             "nullable": true
           },
           "idTrabajador": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "trabajador": {
+            "type": "string",
+            "nullable": true
+          },
+          "expirado": {
+            "type": "boolean",
             "nullable": true
           }
         },

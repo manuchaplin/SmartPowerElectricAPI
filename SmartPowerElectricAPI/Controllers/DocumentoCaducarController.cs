@@ -4,6 +4,7 @@ using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using SmartPowerElectricAPI.Service;
+using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Net.Mail;
 
@@ -19,15 +20,17 @@ namespace SmartPowerElectricAPI.Controllers
         private IDocumentoCaducarRepository _documentoCaducarRepository;
         private ITrabajadorRepository _trabajadorRepository;
         private EmailService _emailService;
-        public DocumentoCaducarController(IDocumentoCaducarRepository documentoCaducarRepository, ITrabajadorRepository trabajadorRepository, EmailService emailService)
+        private SmartPowerElectricContext _context;
+        public DocumentoCaducarController(IDocumentoCaducarRepository documentoCaducarRepository, ITrabajadorRepository trabajadorRepository, EmailService emailService, SmartPowerElectricContext context)
         {
             _documentoCaducarRepository = documentoCaducarRepository;
             _trabajadorRepository = trabajadorRepository;
             _emailService = emailService;
+            _context = context;
         }
 
-        [HttpPost("create/{idTrabajador}")]
-        public IActionResult Create(int idTrabajador,[FromBody] DocumentoCaducarDTO documentoCaducarDTO)
+        [HttpPost("create")]
+        public IActionResult Create([FromBody] DocumentoCaducarDTO documentoCaducarDTO)
         {
 
             try
@@ -40,8 +43,7 @@ namespace SmartPowerElectricAPI.Controllers
                 if (documentoCaducarSearch == null)
                 {
                     DocumentoCaducar documentoCaducar = documentoCaducarDTO.ToEntity();
-                    documentoCaducar.FechaCreacion = DateTime.Now;
-                    documentoCaducar.IdTrabajador = idTrabajador;
+                    documentoCaducar.FechaCreacion = DateTime.Now;                  
                     _documentoCaducarRepository.Insert(documentoCaducar);
 
                     return Ok();
@@ -99,6 +101,7 @@ namespace SmartPowerElectricAPI.Controllers
                 {
                     if (documentoCaducarDTO.Nombre != null) documentoCaducarSearch.Nombre = documentoCaducarDTO.Nombre;
                     if (documentoCaducarDTO.FechaExpiracion != null) documentoCaducarSearch.FechaExpiracion = string.IsNullOrWhiteSpace(documentoCaducarDTO.FechaExpiracion) ? null : DateTime.ParseExact(documentoCaducarDTO.FechaExpiracion, "yyyy-MM-dd", null);
+                    if (documentoCaducarDTO.FechaExpedicion != null) documentoCaducarSearch.FechaExpedicion = string.IsNullOrWhiteSpace(documentoCaducarDTO.FechaExpedicion) ? null : DateTime.ParseExact(documentoCaducarDTO.FechaExpedicion, "yyyy-MM-dd", null);
 
                     _documentoCaducarRepository.Update(documentoCaducarSearch);
 
@@ -122,9 +125,10 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<DocumentoCaducar> documentoCaducars = new List<DocumentoCaducar>();
-                //List<Expression<Func<DocumentoCaducar, bool>>> where = new List<Expression<Func<DocumentoCaducar, bool>>>();
-                //where.Add(x => x.IdTrabajador==idTrabajador);
-                documentoCaducars = _documentoCaducarRepository.Get().ToList();
+                List<Expression<Func<DocumentoCaducar, bool>>> where = new List<Expression<Func<DocumentoCaducar, bool>>>();
+                
+                documentoCaducars = _documentoCaducarRepository.Get(where,"Trabajador").ToList();
+               
 
                 List<DocumentoCaducarDTO> documentoCaducarDTOs= documentoCaducars.Select(DocumentoCaducarDTO.FromEntity).ToList();
 

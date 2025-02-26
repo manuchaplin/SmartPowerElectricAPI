@@ -11,6 +11,8 @@ namespace SmartPowerElectricAPI.Models
         public string Nombre { get; set; }
        
         public DateTime? FechaExpiracion { get; set; }
+
+        public DateTime? FechaExpedicion { get; set; }
         public DateTime? FechaCreacion { get; set; }
         [ForeignKey("Trabajador")]
         public int? IdTrabajador { get; set; }

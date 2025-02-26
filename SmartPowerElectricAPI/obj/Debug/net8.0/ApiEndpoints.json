@@ -102,16 +102,11 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
     "Method": "Create",
-    "RelativePath": "api/DocumentoCaducar/create/{idTrabajador}",
+    "RelativePath": "api/DocumentoCaducar/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
-      {
-        "Name": "idTrabajador",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
       {
         "Name": "documentoCaducarDTO",
         "Type": "SmartPowerElectricAPI.DTO.DocumentoCaducarDTO",
@@ -123,17 +118,11 @@
   {
     "ContainingType": "SmartPowerElectricAPI.Controllers.DocumentoCaducarController",
     "Method": "List",
-    "RelativePath": "api/DocumentoCaducar/list/{idTrabajador}",
+    "RelativePath": "api/DocumentoCaducar/list",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "idTrabajador",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPowerElectricAPI.Models;
 
@@ -11,9 +12,11 @@ using SmartPowerElectricAPI.Models;
 namespace SmartPowerElectricAPI.Migrations
 {
     [DbContext(typeof(SmartPowerElectricContext))]
-    partial class SmartPowerElectricContextModelSnapshot : ModelSnapshot
+    [Migration("20250226183818_FechaExpedi")]
+    partial class FechaExpedi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
