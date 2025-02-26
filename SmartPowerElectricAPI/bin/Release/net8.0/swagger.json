@@ -494,23 +494,25 @@
         }
       }
     },
-    "/api/Nomina/listByAnyoTrabajador": {
+    "/api/Nomina/listByAnyoTrabajador/{idTrabajador}/{anyo}": {
       "get": {
         "tags": [
           "Nomina"
         ],
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/NominaTrabajador"
-            }
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "anyo",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -1489,20 +1491,6 @@
         },
         "fechaCreacion": {
           "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "NominaTrabajador": {
-      "type": "object",
-      "properties": {
-        "idTrabajador": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "anyo": {
-          "format": "int32",
-          "type": "integer"
         }
       },
       "additionalProperties": false

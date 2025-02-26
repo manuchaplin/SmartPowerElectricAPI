@@ -139,15 +139,15 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [HttpGet("listByAnyoTrabajador")]
-        public IActionResult listByAnyoTrabajador([FromBody] NominaTrabajador nominaTrabajador)
+        [HttpGet("listByAnyoTrabajador/{idTrabajador}/{anyo}")]
+        public IActionResult listByAnyoTrabajador(int idTrabajador,int anyo)
         {
             try
             {
                 Trabajador trabajador = new Trabajador();
                 List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
-                where.Add(x => x.Id == nominaTrabajador.idTrabajador);
-                where.Add(x => x.Nominas.Any(y => y.Anyo == nominaTrabajador.anyo));
+                where.Add(x => x.Id == idTrabajador);
+                where.Add(x => x.Nominas.Any(y => y.Anyo == anyo));
                 trabajador = _trabajadorRepository.Get(where, "Nominas").FirstOrDefault();
                 //trabajador = _trabajadorRepository.GetByID(nominaTrabajador.idTrabajador, "Nominas");
 
@@ -362,11 +362,11 @@ namespace SmartPowerElectricAPI.Controllers
         }
     }
 
-    public class NominaTrabajador
-    {
-        public int idTrabajador { get; set; }
-        public int anyo { get; set; }
-    }
+    //public class NominaTrabajador
+    //{
+    //    public int idTrabajador { get; set; }
+    //    public int anyo { get; set; }
+    //}
 
     public class RangoFecha
     {
