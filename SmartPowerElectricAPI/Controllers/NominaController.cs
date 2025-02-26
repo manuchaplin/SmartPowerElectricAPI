@@ -144,19 +144,17 @@ namespace SmartPowerElectricAPI.Controllers
         {
             try
             {
-                Trabajador trabajador = new Trabajador();
-                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
-                where.Add(x => x.Id == idTrabajador);
-                where.Add(x => x.Nominas.Any(y => y.Anyo == anyo));
-                trabajador = _trabajadorRepository.Get(where, "Nominas").FirstOrDefault();
-                //trabajador = _trabajadorRepository.GetByID(nominaTrabajador.idTrabajador, "Nominas");
+                List<Nomina> nominas = new List<Nomina>();
+              
+                List<Expression<Func<Nomina, bool>>> where = new List<Expression<Func<Nomina, bool>>>();
+                where.Add(x => x.IdTrabajador == idTrabajador && x.Anyo==anyo);
 
-                if (trabajador != null)
-                {
-                    //List<Nomina> nominas = new List<Nomina>();
-                    //nominas=trabajador.Nominas.ToList();
+                nominas = _nominaRepository.Get(where).ToList();
+                
+                if (nominas.Count()>0 )
+                {                                       
                     List<NominaDTO> nominaDTOs = new List<NominaDTO>();
-                    nominaDTOs = trabajador.Nominas.Select(NominaDTO.FromEntity).OrderBy(x => x.NoSemana).ToList();
+                    nominaDTOs = nominas.Select(NominaDTO.FromEntity).OrderBy(x => x.NoSemana).ToList();
                     return Ok(nominaDTOs);
                 }
                 else
