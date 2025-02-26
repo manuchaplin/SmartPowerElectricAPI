@@ -38,17 +38,16 @@ public class NominaDTO
             InicioSemana = nomina.InicioSemana?.ToString("yyyy-MM-dd"),
             FinSemana = nomina.FinSemana?.ToString("yyyy-MM-dd"),      
             FechaCreacion = nomina.FechaCreacion?.ToString("yyyy-MM-dd"),
-            SemanaCompleta = nomina.NoSemana.ToString()+"/"+ nomina.InicioSemana?.ToString("yyyy-MM-dd")+"/"+ nomina.FinSemana?.ToString("yyyy-MM-dd")
+            SemanaCompleta = nomina.InicioSemana?.ToString("yyyy-MM-dd")+"/"+ nomina.FinSemana?.ToString("yyyy-MM-dd")
         };
     }
 
     // Constructor para mapear desde NominaDTO
     public Nomina ToEntity()
     {
-        var DivisionSemana = SemanaCompleta.Split('/');
-        this.NoSemana = int.Parse(DivisionSemana[0]);
-        this.InicioSemana = DivisionSemana[1];
-        this.FinSemana = DivisionSemana[2];
+        var DivisionSemana = SemanaCompleta.Split('/');      
+        this.InicioSemana = DivisionSemana[0];
+        this.FinSemana = DivisionSemana[1];
         return new Nomina
         {
             horasTrabajadas = this.horasTrabajadas ?? 0,

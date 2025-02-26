@@ -17,3 +17,6 @@ Próxima ejecución programada en 27/02/2025 9:01:00
 Hora ejecucion programada en 26/02/2025 9:01:00
 Hora actual en 26/02/2025 19:50:07
 Próxima ejecución programada en 27/02/2025 9:01:00
+Hora ejecucion programada en 26/02/2025 9:01:00
+Hora actual en 26/02/2025 21:25:36
+Próxima ejecución programada en 27/02/2025 9:01:00

@@ -22,13 +22,13 @@ namespace SmartPowerElectricAPI.Controllers
     [Authorize]
     public class NominaController : ControllerBase
     {
-       
+
 
         private readonly INominaRepository _nominaRepository;
         private readonly ITrabajadorRepository _trabajadorRepository;
         private readonly PDFService _pdfService;
         private readonly EmailService _emailService;
-        public NominaController(INominaRepository nominaRepository,ITrabajadorRepository trabajadorRepository, PDFService pdfService, EmailService emailService)
+        public NominaController(INominaRepository nominaRepository, ITrabajadorRepository trabajadorRepository, PDFService pdfService, EmailService emailService)
         {
             _nominaRepository = nominaRepository;
             _trabajadorRepository = trabajadorRepository;
@@ -37,20 +37,20 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPost("create/{idTrabajador}")]
-        public IActionResult Create(int idTrabajador,[FromBody] NominaDTO nominaDTO)
+        public IActionResult Create(int idTrabajador, [FromBody] NominaDTO nominaDTO)
         {
 
             try
             {
                 List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
-                where.Add(x => x.Id == idTrabajador);           
+                where.Add(x => x.Id == idTrabajador);
                 Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
 
                 if (trabajadorSearch != null)
                 {
-                    Nomina nomina= nominaDTO.ToEntity();
+                    Nomina nomina = nominaDTO.ToEntity();
                     nomina.IdTrabajador = idTrabajador;
-                    nomina.SalarioEstandar = nomina.horasTrabajadas*trabajadorSearch.CobroxHora;
+                    nomina.SalarioEstandar = nomina.horasTrabajadas * trabajadorSearch.CobroxHora;
                     nomina.FechaCreacion = DateTime.Now;
                     nomina.Anyo = (int)nomina.FinSemana?.Year;
                     _nominaRepository.Insert(nomina);
@@ -59,7 +59,7 @@ namespace SmartPowerElectricAPI.Controllers
                 }
                 else
                 {
-                    return Conflict(new { message= "El trabajador no existe" });
+                    return Conflict(new { message = "El trabajador no existe" });
                 }
 
 
@@ -99,28 +99,29 @@ namespace SmartPowerElectricAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id,[FromBody] NominaDTO nominaDTO)
+        public IActionResult Edit(int id, [FromBody] NominaDTO nominaDTO)
         {
             try
             {
                 List<Expression<Func<Nomina, bool>>> where = new List<Expression<Func<Nomina, bool>>>();
                 where.Add(x => x.Id == id);
-                Nomina nominaSearch = _nominaRepository.Get(where,"Trabajador").FirstOrDefault();
+                Nomina nominaSearch = _nominaRepository.Get(where, "Trabajador").FirstOrDefault();
 
                 if (nominaSearch != null)
                 {
                     if (nominaDTO.horasTrabajadas != null) nominaSearch.horasTrabajadas = nominaDTO.horasTrabajadas ?? 0;
-                    if (nominaDTO.horasTrabajadas != null) nominaSearch.SalarioEstandar = nominaDTO.horasTrabajadas* nominaSearch.Trabajador.CobroxHora;
+                    if (nominaDTO.horasTrabajadas != null) nominaSearch.SalarioEstandar = nominaDTO.horasTrabajadas * nominaSearch.Trabajador.CobroxHora;
                     if (nominaDTO.SalarioPlus != null) nominaSearch.SalarioPlus = nominaDTO.SalarioPlus;
                     if (nominaDTO.FechaPago != null) nominaSearch.FechaPago = string.IsNullOrWhiteSpace(nominaDTO.FechaPago) ? null : DateTime.ParseExact(nominaDTO.FechaPago, "yyyy-MM-dd", null);
-                    if (nominaDTO.SemanaCompleta != null) {
+                    if (nominaDTO.SemanaCompleta != null && nominaDTO.NoSemana!=null)
+                    {
                         var DivisionSemana = nominaDTO.SemanaCompleta.Split('/');
-                        nominaSearch.NoSemana = int.Parse(DivisionSemana[0]);
-                        nominaSearch.InicioSemana = DateTime.ParseExact(DivisionSemana[1], "yyyy-MM-dd", null); 
-                        nominaSearch.FinSemana = DateTime.ParseExact(DivisionSemana[2], "yyyy-MM-dd", null);
+                        nominaSearch.NoSemana = (int)nominaDTO.NoSemana;
+                        nominaSearch.InicioSemana = DateTime.ParseExact(DivisionSemana[0], "yyyy-MM-dd", null);
+                        nominaSearch.FinSemana = DateTime.ParseExact(DivisionSemana[1], "yyyy-MM-dd", null);
                         nominaSearch.Anyo = (int)nominaSearch.FinSemana?.Year;
-                    }               
-                    if (nominaDTO.FechaCreacion != null) nominaSearch.FechaCreacion  = string.IsNullOrWhiteSpace(nominaDTO.FechaCreacion) ? null : DateTime.ParseExact(nominaDTO.FechaCreacion, "yyyy-MM-dd", null);
+                    }
+                    if (nominaDTO.FechaCreacion != null) nominaSearch.FechaCreacion = string.IsNullOrWhiteSpace(nominaDTO.FechaCreacion) ? null : DateTime.ParseExact(nominaDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _nominaRepository.Update(nominaSearch);
 
@@ -146,23 +147,23 @@ namespace SmartPowerElectricAPI.Controllers
                 Trabajador trabajador = new Trabajador();
                 List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
                 where.Add(x => x.Id == nominaTrabajador.idTrabajador);
-                where.Add(x => x.Nominas.Any(y=>y.Anyo== nominaTrabajador.anyo));
+                where.Add(x => x.Nominas.Any(y => y.Anyo == nominaTrabajador.anyo));
                 trabajador = _trabajadorRepository.Get(where, "Nominas").FirstOrDefault();
                 //trabajador = _trabajadorRepository.GetByID(nominaTrabajador.idTrabajador, "Nominas");
 
-                if (trabajador!=null)
+                if (trabajador != null)
                 {
                     //List<Nomina> nominas = new List<Nomina>();
                     //nominas=trabajador.Nominas.ToList();
                     List<NominaDTO> nominaDTOs = new List<NominaDTO>();
-                    nominaDTOs= trabajador.Nominas.Select(NominaDTO.FromEntity).OrderBy(x=>x.NoSemana).ToList();
+                    nominaDTOs = trabajador.Nominas.Select(NominaDTO.FromEntity).OrderBy(x => x.NoSemana).ToList();
                     return Ok(nominaDTOs);
                 }
                 else
                 {
                     return NotFound();
                 }
-                             
+
             }
             catch (Exception ex)
             {
@@ -205,13 +206,18 @@ namespace SmartPowerElectricAPI.Controllers
                 semanaActual = cultura.Calendar.GetWeekOfYear(inicioSemana, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
             }
 
-            Dictionary<string,string> semanasString = new Dictionary<string,string>();
+            
+            List<RangoFecha> semanasString = new List<RangoFecha>();
             //List<(string key,string value)> semanasString = new List<(string,string)>();
 
             foreach (var semana in semanas)
             {
-                semanasString.Add(semana.Semana.ToString() + "/" + semana.FechaInicio.ToString("yyyy-dd-MM") + "/" + semana.FechaFin.ToString("yyyy-dd-MM"),
-                    (semana.Semana.ToString() + "/" + semana.FechaInicio.ToString("yyyy-MM-dd") + "/" + semana.FechaFin.ToString("yyyy-MM-dd")));
+                RangoFecha rangoFecha = new RangoFecha();
+                rangoFecha.NoSemana = semana.Semana;
+                rangoFecha.rangoFechaIngles = semana.FechaInicio.ToString("yyyy-dd-MM") + "/" + semana.FechaFin.ToString("yyyy-dd-MM");
+                rangoFecha.SemanaCompleta = semana.FechaInicio.ToString("yyyy-MM-dd") + "/" + semana.FechaFin.ToString("yyyy-MM-dd");
+                semanasString.Add(rangoFecha);
+             
 
             }
 
@@ -224,29 +230,29 @@ namespace SmartPowerElectricAPI.Controllers
         {
             try
             {
-                Nomina nomina = _nominaRepository.GetByID(idNomina);            
-                
-                Trabajador trabajador=_trabajadorRepository.GetByID(nomina.IdTrabajador);
+                Nomina nomina = _nominaRepository.GetByID(idNomina);
+
+                Trabajador trabajador = _trabajadorRepository.GetByID(nomina.IdTrabajador);
 
                 if (nomina == null || trabajador == null)
                 {
                     return NotFound();
                 }
-                List<Nomina> nominas= new List<Nomina>();
-                List<NominaDTO> nominasDTOs= new List<NominaDTO>();
+                List<Nomina> nominas = new List<Nomina>();
+                List<NominaDTO> nominasDTOs = new List<NominaDTO>();
                 List<Expression<Func<Nomina, bool>>> where = new List<Expression<Func<Nomina, bool>>>();
                 where.Add(x => x.IdTrabajador == nomina.IdTrabajador);
                 where.Add(x => x.Anyo == nomina.Anyo);
                 where.Add(x => x.NoSemana <= nomina.NoSemana);
-              
-                nominas= _nominaRepository.Get(where).ToList();
-                nominasDTOs= nominas.Select(NominaDTO.FromEntity).ToList();
+
+                nominas = _nominaRepository.Get(where).ToList();
+                nominasDTOs = nominas.Select(NominaDTO.FromEntity).ToList();
                 double YTD = (double)nominasDTOs.Sum(x => x.SalarioTotal);
 
 
 
-                NominaDTO nominaDTO= NominaDTO.FromEntity(nomina);
-                TrabajadorDTO trabajadorDTO= TrabajadorDTO.FromEntity(trabajador);
+                NominaDTO nominaDTO = NominaDTO.FromEntity(nomina);
+                TrabajadorDTO trabajadorDTO = TrabajadorDTO.FromEntity(trabajador);
 
 
                 // Ruta en la carpeta Assets/BillTemp dentro del proyecto
@@ -258,12 +264,12 @@ namespace SmartPowerElectricAPI.Controllers
                     Directory.CreateDirectory(assetsPath);
                 }
                 // Definir la ruta temporal para guardar el archivo
-                string fileName = $"PayStub {trabajadorDTO.Nombre+" "+trabajadorDTO.Apellido+" " + nominaDTO.NoSemana+"-" + nominaDTO.Anyo}.pdf";
+                string fileName = $"PayStub {trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + " " + nominaDTO.NoSemana + "-" + nominaDTO.Anyo}.pdf";
                 string filePath = Path.Combine(assetsPath, fileName);
 
 
                 // Generar el PDF
-                _pdfService.GenerarNominaPdf(filePath, nominaDTO,trabajadorDTO, YTD);
+                _pdfService.GenerarNominaPdf(filePath, nominaDTO, trabajadorDTO, YTD);
 
                 // Leer el archivo como un stream
                 var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -324,7 +330,7 @@ namespace SmartPowerElectricAPI.Controllers
                 string Topic = " PayStub No. " + trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + " " + nominaDTO.Anyo + nominaDTO.NoSemana;
                 string Body = "<div>";
                 Body += "<p>Dear " + trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + "</p>";
-                Body += "<p>Attached to this email, you will find the paystub corresponding to the number " + nominaDTO.NoSemana + "/" + nominaDTO.Anyo +".</p>";
+                Body += "<p>Attached to this email, you will find the paystub corresponding to the number " + nominaDTO.NoSemana + "/" + nominaDTO.Anyo + ".</p>";
                 Body += "<p>We remain at your disposal for any further clarification.</p>";
                 Body += "</br>";
                 Body += "<p>Atentamente,</p>";
@@ -340,7 +346,7 @@ namespace SmartPowerElectricAPI.Controllers
                 List<string> Attachments = new List<string> { filePath };
 
                 await _emailService.SendMailAsync(MailTo, Topic, Body, Attachments);
-            
+
                 // Eliminar el archivo PDF después de enviar el correo
                 if (System.IO.File.Exists(filePath))
                 {
@@ -360,5 +366,12 @@ namespace SmartPowerElectricAPI.Controllers
     {
         public int idTrabajador { get; set; }
         public int anyo { get; set; }
+    }
+
+    public class RangoFecha
+    {
+        public int NoSemana { get; set; }
+        public string rangoFechaIngles { get; set; }
+        public string SemanaCompleta { get; set; }
     }
 }
