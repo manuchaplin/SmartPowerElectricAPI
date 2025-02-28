@@ -28,17 +28,18 @@ namespace SmartPowerElectricAPI.Service
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "Logs.txt");               
                 var now = DateTime.Now;
                 //var nextRun = now.Date.AddHours(20).AddMinutes(44); // Hoy a las 10:00 AM
-                var nextRun = now.Date.AddHours(9).AddMinutes(1); // Hoy a las 10:00 AM
+                var nextRun = now.Date.AddHours(11).AddMinutes(30); // Hoy a las 10:00 AM
+                File.AppendAllText(filePath, $"Hora actual en {now}" + Environment.NewLine);
 
                 if (now > nextRun)
                 {
                     File.AppendAllText(filePath, $"Hora ejecucion programada en {nextRun}" + Environment.NewLine);
-                    File.AppendAllText(filePath, $"Hora actual en {now}" + Environment.NewLine);
                     nextRun = nextRun.AddDays(1); // Si ya pasó, agendar para mañana
                 }
 
                 var delay = nextRun - now;
                 File.AppendAllText(filePath, $"Próxima ejecución programada en {nextRun}" + Environment.NewLine);
+                File.AppendAllText(filePath, $"--------------------------------" + Environment.NewLine);
                 _logger.LogInformation($"Próxima ejecución programada en {nextRun}");
 
                 await Task.Delay(delay, stoppingToken); // Esperar hasta la hora programada

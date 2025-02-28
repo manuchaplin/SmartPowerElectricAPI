@@ -48,14 +48,26 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (trabajadorSearch != null)
                 {
-                    Nomina nomina = nominaDTO.ToEntity();
-                    nomina.IdTrabajador = idTrabajador;
-                    nomina.SalarioEstandar = nomina.horasTrabajadas * trabajadorSearch.CobroxHora;
-                    nomina.FechaCreacion = DateTime.Now;
-                    nomina.Anyo = (int)nomina.FinSemana?.Year;
-                    _nominaRepository.Insert(nomina);
+                    List<Expression<Func<Nomina, bool>>> whereNomina = new List<Expression<Func<Nomina, bool>>>();
+                    whereNomina.Add(x => x.NoSemana== nominaDTO.NoSemana && x.IdTrabajador==idTrabajador);
+                    Nomina nominaSearch = _nominaRepository.Get(whereNomina).FirstOrDefault();
+                    if (nominaSearch==null)
+                    {
+                        Nomina nomina = nominaDTO.ToEntity();
+                        nomina.IdTrabajador = idTrabajador;
+                        nomina.SalarioEstandar = nomina.horasTrabajadas * trabajadorSearch.CobroxHora;
+                        nomina.FechaCreacion = DateTime.Now;
+                        nomina.Anyo = (int)nomina.FinSemana?.Year;
+                        _nominaRepository.Insert(nomina);
+                        return Ok();
+                    }
+                    else
+                    {
+                        return Conflict(new { message = "Nomina ya creada" });
+                    }
+                   
 
-                    return Ok();
+                   
                 }
                 else
                 {
@@ -120,6 +132,14 @@ namespace SmartPowerElectricAPI.Controllers
                         nominaSearch.InicioSemana = DateTime.ParseExact(DivisionSemana[0], "yyyy-MM-dd", null);
                         nominaSearch.FinSemana = DateTime.ParseExact(DivisionSemana[1], "yyyy-MM-dd", null);
                         nominaSearch.Anyo = (int)nominaSearch.FinSemana?.Year;
+
+                        List<Expression<Func<Nomina, bool>>> whereNomina = new List<Expression<Func<Nomina, bool>>>();
+                        whereNomina.Add(x => x.NoSemana == nominaDTO.NoSemana && x.IdTrabajador == nominaSearch.IdTrabajador);
+                        Nomina nomina = _nominaRepository.Get(whereNomina).FirstOrDefault();
+                        if (nomina!=null)
+                        {
+                            return Conflict(new { message = "Semana de la nomina ya insertada" });
+                        }
                     }
                     if (nominaDTO.FechaCreacion != null) nominaSearch.FechaCreacion = string.IsNullOrWhiteSpace(nominaDTO.FechaCreacion) ? null : DateTime.ParseExact(nominaDTO.FechaCreacion, "yyyy-MM-dd", null);
 
@@ -145,23 +165,18 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<Nomina> nominas = new List<Nomina>();
-              
+                List<NominaDTO> nominaDTOs = new List<NominaDTO>();
                 List<Expression<Func<Nomina, bool>>> where = new List<Expression<Func<Nomina, bool>>>();
                 where.Add(x => x.IdTrabajador == idTrabajador && x.Anyo==anyo);
 
                 nominas = _nominaRepository.Get(where).ToList();
                 
                 if (nominas.Count()>0 )
-                {                                       
-                    List<NominaDTO> nominaDTOs = new List<NominaDTO>();
-                    nominaDTOs = nominas.Select(NominaDTO.FromEntity).OrderBy(x => x.NoSemana).ToList();
-                    return Ok(nominaDTOs);
+                {                                                         
+                    nominaDTOs = nominas.Select(NominaDTO.FromEntity).OrderBy(x => x.NoSemana).ToList();                  
                 }
-                else
-                {
-                    return NotFound();
-                }
-
+              
+                return Ok(nominaDTOs);
             }
             catch (Exception ex)
             {
@@ -214,6 +229,8 @@ namespace SmartPowerElectricAPI.Controllers
                 rangoFecha.NoSemana = semana.Semana;
                 rangoFecha.rangoFechaIngles = semana.FechaInicio.ToString("yyyy-dd-MM") + "/" + semana.FechaFin.ToString("yyyy-dd-MM");
                 rangoFecha.SemanaCompleta = semana.FechaInicio.ToString("yyyy-MM-dd") + "/" + semana.FechaFin.ToString("yyyy-MM-dd");
+                rangoFecha.FechaInicio = semana.FechaInicio.ToString("yyyy-MM-dd");
+                rangoFecha.FechaFin = semana.FechaFin.ToString("yyyy-MM-dd");
                 semanasString.Add(rangoFecha);
              
 
@@ -360,16 +377,14 @@ namespace SmartPowerElectricAPI.Controllers
         }
     }
 
-    //public class NominaTrabajador
-    //{
-    //    public int idTrabajador { get; set; }
-    //    public int anyo { get; set; }
-    //}
 
     public class RangoFecha
     {
         public int NoSemana { get; set; }
         public string rangoFechaIngles { get; set; }
         public string SemanaCompleta { get; set; }
+        public string FechaInicio { get; set; }
+        public string FechaFin { get; set; }
+
     }
 }

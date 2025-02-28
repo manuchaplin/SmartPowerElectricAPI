@@ -42,6 +42,13 @@ namespace SmartPowerElectricAPI.Controllers
                 {
                     Trabajador trabajador = trabajadorDTO.ToEntity();
                     trabajador.FechaCreacion = DateTime.Now;
+
+                    List<string> MessageError = Validate(trabajador);
+                    if (MessageError.Count() > 0)
+                    {
+                        return Conflict(new { message = MessageError });
+                    }
+
                     _trabajadorRepository.Insert(trabajador);
 
                     return Ok();
@@ -101,18 +108,18 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (trabajadorSearch != null)
                 {
-                    if (trabajadorDTO.Nombre != null) trabajadorSearch.Nombre = trabajadorDTO.Nombre;
-                    if (trabajadorDTO.Apellido != null) trabajadorSearch.Apellido = trabajadorDTO.Apellido;
-                    if (trabajadorDTO.Especialidad != null) trabajadorSearch.Especialidad = trabajadorDTO.Especialidad;
-                    if (trabajadorDTO.Email != null) trabajadorSearch.Email = trabajadorDTO.Email;
+                    if (trabajadorDTO.Nombre != null && trabajadorDTO.Nombre != "") trabajadorSearch.Nombre = trabajadorDTO.Nombre;
+                    if (trabajadorDTO.Apellido != null && trabajadorDTO.Apellido != "") trabajadorSearch.Apellido = trabajadorDTO.Apellido;
+                    if (trabajadorDTO.Especialidad != null && trabajadorDTO.Especialidad != "") trabajadorSearch.Especialidad = trabajadorDTO.Especialidad;
+                    if (trabajadorDTO.Email != null && trabajadorDTO.Email != "") trabajadorSearch.Email = trabajadorDTO.Email;
                     if (trabajadorDTO.Telefono != null) trabajadorSearch.Telefono = trabajadorDTO.Telefono;
                     if (trabajadorDTO.Direccion != null) trabajadorSearch.Direccion = trabajadorDTO.Direccion;
-                    if (trabajadorDTO.SeguridadSocial != null) trabajadorSearch.SeguridadSocial = trabajadorDTO.SeguridadSocial;
+                    if (trabajadorDTO.SeguridadSocial != null && trabajadorDTO.SeguridadSocial != "") trabajadorSearch.SeguridadSocial = trabajadorDTO.SeguridadSocial;
                     if (trabajadorDTO.FechaInicioContrato != null) trabajadorSearch.FechaInicioContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaInicioContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaInicioContrato, "yyyy-MM-dd", null);
                     if (trabajadorDTO.FechaFinContrato != null) trabajadorSearch.FechaFinContrato = string.IsNullOrWhiteSpace(trabajadorDTO.FechaFinContrato) ? null : DateTime.ParseExact(trabajadorDTO.FechaFinContrato, "yyyy-MM-dd", null);
                     if (trabajadorDTO.CobroxHora != null) trabajadorSearch.CobroxHora = trabajadorDTO.CobroxHora;
-                    if (trabajadorDTO.NumeroCuenta != null) trabajadorSearch.NumeroCuenta = trabajadorDTO.NumeroCuenta;
-                    if (trabajadorDTO.Enrutamiento != null) trabajadorSearch.Enrutamiento = trabajadorDTO.Enrutamiento;
+                    if (trabajadorDTO.NumeroCuenta != null && trabajadorDTO.NumeroCuenta != "") trabajadorSearch.NumeroCuenta = trabajadorDTO.NumeroCuenta;
+                    if (trabajadorDTO.Enrutamiento != null && trabajadorDTO.Enrutamiento != "") trabajadorSearch.Enrutamiento = trabajadorDTO.Enrutamiento;
                     if (trabajadorDTO.FechaCreacion != null) trabajadorSearch.FechaCreacion = string.IsNullOrWhiteSpace(trabajadorDTO.FechaCreacion) ? null : DateTime.ParseExact(trabajadorDTO.FechaCreacion, "yyyy-MM-dd", null);
 
                     _trabajadorRepository.Update(trabajadorSearch);
@@ -184,6 +191,35 @@ namespace SmartPowerElectricAPI.Controllers
 
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<string> Validate(Trabajador trabajador)
+        {
+            List<string> Message = new List<string>();
+            if (string.IsNullOrEmpty(trabajador.SeguridadSocial))
+            {
+                Message.Add("La Seguridad Social del trabajador no puede ser vacio.");
+            }
+            if (string.IsNullOrEmpty(trabajador.Especialidad))
+            {
+                Message.Add("La Especialidad del trabajador no puede ser vacio.");
+            }
+            if (string.IsNullOrEmpty(trabajador.Email))
+            {
+                Message.Add("La Email del trabajador no puede ser vacio.");
+            }
+            if (string.IsNullOrEmpty(trabajador.NumeroCuenta))
+            {
+                Message.Add("La NumeroCuenta del trabajador no puede ser vacio.");
+            }
+            if (string.IsNullOrEmpty(trabajador.Enrutamiento))
+            {
+                Message.Add("La Enrutamiento del trabajador no puede ser vacio.");
+            }
+
+            return Message;
         }
 
         public class ProyectosTrabajadorDTO

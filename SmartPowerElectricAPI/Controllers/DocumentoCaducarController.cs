@@ -43,7 +43,13 @@ namespace SmartPowerElectricAPI.Controllers
                 if (documentoCaducarSearch == null)
                 {
                     DocumentoCaducar documentoCaducar = documentoCaducarDTO.ToEntity();
-                    documentoCaducar.FechaCreacion = DateTime.Now;                  
+                    documentoCaducar.FechaCreacion = DateTime.Now;
+
+                    List<string> MessageError = Validate(documentoCaducar);
+                    if (MessageError.Count()>0)
+                    {
+                        return Conflict(new { message = MessageError });
+                    }
                     _documentoCaducarRepository.Insert(documentoCaducar);
 
                     return Ok();
@@ -99,9 +105,9 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (documentoCaducarSearch != null)
                 {
-                    if (documentoCaducarDTO.Nombre != null) documentoCaducarSearch.Nombre = documentoCaducarDTO.Nombre;
-                    if (documentoCaducarDTO.FechaExpiracion != null) documentoCaducarSearch.FechaExpiracion = string.IsNullOrWhiteSpace(documentoCaducarDTO.FechaExpiracion) ? null : DateTime.ParseExact(documentoCaducarDTO.FechaExpiracion, "yyyy-MM-dd", null);
-                    if (documentoCaducarDTO.FechaExpedicion != null) documentoCaducarSearch.FechaExpedicion = string.IsNullOrWhiteSpace(documentoCaducarDTO.FechaExpedicion) ? null : DateTime.ParseExact(documentoCaducarDTO.FechaExpedicion, "yyyy-MM-dd", null);
+                    if (documentoCaducarDTO.Nombre != null && documentoCaducarDTO.Nombre!="") documentoCaducarSearch.Nombre = documentoCaducarDTO.Nombre;
+                    if (documentoCaducarDTO.FechaExpiracion != null && documentoCaducarDTO.FechaExpiracion != "") documentoCaducarSearch.FechaExpiracion = string.IsNullOrWhiteSpace(documentoCaducarDTO.FechaExpiracion) ? null : DateTime.ParseExact(documentoCaducarDTO.FechaExpiracion, "yyyy-MM-dd", null);
+                    if (documentoCaducarDTO.FechaExpedicion != null && documentoCaducarDTO.FechaExpedicion != "") documentoCaducarSearch.FechaExpedicion = string.IsNullOrWhiteSpace(documentoCaducarDTO.FechaExpedicion) ? null : DateTime.ParseExact(documentoCaducarDTO.FechaExpedicion, "yyyy-MM-dd", null);
 
                     _documentoCaducarRepository.Update(documentoCaducarSearch);
 
@@ -196,5 +202,30 @@ namespace SmartPowerElectricAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<string> Validate(DocumentoCaducar documento)
+        {
+            List<string> Message = new List<string>();
+            if (string.IsNullOrEmpty(documento.Nombre))
+            {
+                Message.Add("La Nombre del documento no puede ser vacio.");
+            }
+            if (documento.IdTrabajador==null)
+            {
+                Message.Add("La IdTrabajador del documento no puede ser vacio.");
+            }
+            if (documento.FechaExpedicion==null)
+            {
+                Message.Add("La Fecha Expedición del documento no puede ser vacio.");
+            }
+            if (documento.FechaExpiracion==null)
+            {
+                Message.Add("La Fecha Expiración del documento no puede ser vacio.");
+            }
+         
+
+            return Message;
+        }
     }
 }
