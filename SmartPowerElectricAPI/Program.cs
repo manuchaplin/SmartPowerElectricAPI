@@ -81,7 +81,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Add services to the container.
 builder.Services.AddHttpClient(); // Agregar HttpClient para hacer peticiones
-builder.Services.AddHostedService<DailyJobService>(); // Registrar el servicio en segundo plano
+//builder.Services.AddHostedService<DailyJobService>(); // Registrar el servicio en segundo plano
 
 
 builder.Services.AddControllers();
