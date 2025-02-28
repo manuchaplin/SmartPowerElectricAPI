@@ -5,7 +5,7 @@ using MailKit.Security;
 
 
 
-namespace SmartPowerElectricAPI.Services
+namespace SmartPowerElectricAPI.Service
 {
     public class EmailService
     {

@@ -19,9 +19,11 @@ namespace SmartPowerElectricAPI.Controllers
     public class ProyectoController : ControllerBase
     {
         private IProyectoRepository _proyectoRepository;
-        public ProyectoController(IProyectoRepository proyectoRepository)
+        private SmartPowerElectricContext _context;
+        public ProyectoController(IProyectoRepository proyectoRepository, SmartPowerElectricContext context)
         {
             _proyectoRepository = proyectoRepository;
+            _context = context;
         }
 
         [HttpPost("create")]
@@ -32,12 +34,14 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 List<Expression<Func<Proyecto, bool>>> where = new List<Expression<Func<Proyecto, bool>>>();
                 where.Add(x => x.Nombre.ToLower() == proyectoDTO.Nombre.ToLower());
+                where.Add(x => x.Eliminado !=true && x.FechaEliminado==null);
                 Proyecto proyectoSearch = _proyectoRepository.Get(where).FirstOrDefault();
 
                 if (proyectoSearch == null)
                 {
                     Proyecto proyecto = proyectoDTO.ToEntity();
                     proyecto.FechaCreacion=DateTime.Now;
+                    proyecto.Finalizado=false;
                     _proyectoRepository.Insert(proyecto);
 
                     return Ok();
@@ -93,7 +97,7 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 List<Expression<Func<Proyecto, bool>>> where = new List<Expression<Func<Proyecto, bool>>>();
                 where.Add(x => x.Id == id);
-                Proyecto proyectoSearch = _proyectoRepository.Get(where).FirstOrDefault();
+                Proyecto proyectoSearch = _proyectoRepository.Get(where, "Ordens").FirstOrDefault();
 
                 if (proyectoSearch != null)
                 {
@@ -101,7 +105,18 @@ namespace SmartPowerElectricAPI.Controllers
                     if (proyectoDTO.Direccion != null) proyectoSearch.Direccion = proyectoDTO.Direccion;
                     if (proyectoDTO.Descripcion != null) proyectoSearch.Descripcion = proyectoDTO.Descripcion;                    
                     if (proyectoDTO.horasEstimadas != null) proyectoSearch.horasEstimadas = proyectoDTO.horasEstimadas;                    
-                    if (proyectoDTO.IdCliente != null) proyectoSearch.IdCliente = proyectoDTO.IdCliente;                    
+                    if (proyectoDTO.IdCliente != null) proyectoSearch.IdCliente = proyectoDTO.IdCliente;
+                    if (proyectoDTO.Finalizado != null) 
+                    {
+                        if (proyectoSearch.Ordens.Any(x=>x.OrdenFinalizada!=true && x.Eliminado!=true))
+                        {
+                            return Conflict(new { message = "Hay ordenes sin finalizar" });
+                        }
+                        else
+                        {
+                            proyectoSearch.Finalizado=proyectoDTO.Finalizado;
+                        }
+                    }
                     if (proyectoDTO.FechaInicio != null) proyectoSearch.FechaInicio = string.IsNullOrWhiteSpace(proyectoDTO.FechaInicio) ? null : DateTime.ParseExact(proyectoDTO.FechaInicio, "yyyy-MM-dd", null);
                     if (proyectoDTO.FechaFin != null) proyectoSearch.FechaFin = string.IsNullOrWhiteSpace(proyectoDTO.FechaFin) ? null : DateTime.ParseExact(proyectoDTO.FechaFin, "yyyy-MM-dd", null);
                     if (proyectoDTO.FechaCreacion != null) proyectoSearch.FechaCreacion = string.IsNullOrWhiteSpace(proyectoDTO.FechaCreacion) ? null : DateTime.ParseExact(proyectoDTO.FechaCreacion, "yyyy-MM-dd", null);
@@ -109,7 +124,7 @@ namespace SmartPowerElectricAPI.Controllers
 
                     _proyectoRepository.Update(proyectoSearch);
 
-                    return Ok(proyectoSearch);
+                    return Ok();
                 }
                 else
                 {
@@ -155,9 +170,11 @@ namespace SmartPowerElectricAPI.Controllers
                
                
                 Proyecto proyecto = new Proyecto();
-                proyecto = _proyectoRepository.GetByID(id, "Cliente,Ordens");
+                //proyecto = _proyectoRepository.GetByID(id, "Cliente,Ordens");
+                proyecto = _context.Proyecto.Where(x => x.Id == id).Include(x => x.Cliente).Include(x => x.Ordens).ThenInclude(x => x.Materials).FirstOrDefault();
                 
                 proyecto.Ordens=proyecto.Ordens.Where(x=>x.Eliminado!=true && x.FechaEliminado == null).ToList();
+                proyecto.Ordens.ToList().ForEach(orden => orden.Materials.ToList().RemoveAll(material => material.Eliminado==true));
 
                 if (proyecto == null) return NotFound();
 

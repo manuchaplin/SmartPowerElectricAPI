@@ -276,3 +276,16 @@ C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\MailK
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\MimeKit.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\NETCore.MailKit.dll
 C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\BouncyCastle.Crypto.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharp.Charting.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharp.Quality.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharp.Snippets.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharp.System.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharp.WPFonts.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharp.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\PdfSharpCore.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\ICSharpCode.SharpZipLib.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\SixLabors.Fonts.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\SixLabors.ImageSharp.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\de\PdfSharp.Charting.resources.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\de\PdfSharp.resources.dll
+C:\Projects\SmartPowerElectricApi\SmartPowerElectricAPI\bin\Release\net8.0\de\PdfSharpCore.resources.dll

@@ -1,0 +1,8 @@
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\bin\Release\Settings.job
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\bin\Release\SendDocumentJob.exe.config
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\bin\Release\SendDocumentJob.exe
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\bin\Release\SendDocumentJob.pdb
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\obj\Release\SendDocumentJob.csproj.AssemblyReference.cache
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\obj\Release\SendDocumentJob.csproj.CoreCompileInputs.cache
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\obj\Release\SendDocumentJob.exe
+C:\Projects\SmartPowerElectricApi\SendDocumentJob\obj\Release\SendDocumentJob.pdb

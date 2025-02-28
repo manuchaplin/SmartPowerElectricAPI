@@ -6,8 +6,8 @@ using System.Text;
 using SmartPowerElectricAPI.Controllers;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
-using SmartPowerElectricAPI.Services;
 using SmartPowerElectricAPI.Service;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,7 +78,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //    });
 //});
 
+
 // Add services to the container.
+builder.Services.AddHttpClient(); // Agregar HttpClient para hacer peticiones
+//builder.Services.AddHostedService<DailyJobService>(); // Registrar el servicio en segundo plano
+
 
 builder.Services.AddControllers();
 
@@ -88,6 +92,7 @@ builder.Services.AddSwaggerGen();
 //Services
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddSingleton<FileService>();
+builder.Services.AddSingleton<PDFService>();
 //Repositorys
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUnidadMedidumRepository, UnidadMedidumRepository>();
@@ -97,6 +102,9 @@ builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<ITrabajadorRepository, TrabajadorRepository>();
 builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
 builder.Services.AddScoped<IOrdenRepository, OrdenRepository>();
+builder.Services.AddScoped<IFacturaRepository, FacturaRepository>();
+builder.Services.AddScoped<INominaRepository, NominaRepository>();
+builder.Services.AddScoped<IDocumentoCaducarRepository, DocumentoCaducarRepository>();
 builder.Services.AddDbContext<SmartPowerElectricContext>(ServiceLifetime.Scoped);
 
 var app = builder.Build();

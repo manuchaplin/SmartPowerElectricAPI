@@ -95,6 +95,235 @@
         }
       }
     },
+    "/api/DocumentoCaducar/create": {
+      "post": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DocumentoCaducarDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DocumentoCaducar/{id}": {
+      "delete": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DocumentoCaducarDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DocumentoCaducar/list": {
+      "get": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DocumentoCaducar/sendEmailDocumentExpiration": {
+      "get": {
+        "tags": [
+          "DocumentoCaducar"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/create/{idOrden}": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idOrden",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FacturaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/{id}": {
+      "delete": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Factura"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FacturaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/sendInvoice/{idFactura}": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idFactura",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Factura/downloadInvoice/{idFactura}": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idFactura",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Material/create/{idOrden}": {
       "post": {
         "tags": [
@@ -171,6 +400,182 @@
             "schema": {
               "$ref": "#/definitions/MaterialDTO"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/create/{idTrabajador}": {
+      "post": {
+        "tags": [
+          "Nomina"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/NominaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/{id}": {
+      "delete": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Nomina"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/NominaDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/listByAnyoTrabajador/{idTrabajador}/{anyo}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idTrabajador",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "anyo",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/ListWeeksOfYear/{anyo}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anyo",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/downloadYTD/{idNomina}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNomina",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Nomina/sendYTD/{idNomina}": {
+      "get": {
+        "tags": [
+          "Nomina"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNomina",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -263,9 +668,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Orden/listMaterials/{idOrden}": {
+      },
       "get": {
         "tags": [
           "Orden"
@@ -273,7 +676,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "idOrden",
+            "name": "id",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -286,18 +689,23 @@
         }
       }
     },
-    "/api/Orden/listTrabajadores/{idOrden}": {
-      "get": {
+    "/api/Orden/asociarOrdenTrabajador": {
+      "post": {
         "tags": [
           "Orden"
         ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
         "parameters": [
           {
-            "in": "path",
-            "name": "idOrden",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/OrdenTrabajadorPar"
+            }
           }
         ],
         "responses": {
@@ -308,32 +716,6 @@
       }
     },
     "/api/Orden/{idOrden},{idTrabajador}": {
-      "post": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idOrden",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "path",
-            "name": "idTrabajador",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "Orden"
@@ -349,27 +731,6 @@
           {
             "in": "path",
             "name": "idTrabajador",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Orden/SendMail/{idOrden}": {
-      "post": {
-        "tags": [
-          "Orden"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "idOrden",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -650,6 +1011,25 @@
             "schema": {
               "$ref": "#/definitions/TrabajadorDTO"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Trabajador"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -953,6 +1333,77 @@
       },
       "additionalProperties": false
     },
+    "DocumentoCaducarDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "fechaExpiracion": {
+          "type": "string"
+        },
+        "fechaExpedicion": {
+          "type": "string"
+        },
+        "idTrabajador": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "trabajador": {
+          "type": "string"
+        },
+        "expirado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FacturaDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "montoACobrar": {
+          "format": "double",
+          "type": "number"
+        },
+        "numeroFactura": {
+          "type": "string"
+        },
+        "emailEnviado": {
+          "type": "boolean"
+        },
+        "facturaCompletada": {
+          "type": "boolean"
+        },
+        "idOrden": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "descripcion": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaCreacionEng": {
+          "type": "string"
+        },
+        "fechaEliminado": {
+          "type": "string"
+        },
+        "eliminado": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
     "LoginRequest": {
       "type": "object",
       "properties": {
@@ -980,13 +1431,23 @@
           "format": "double",
           "type": "number"
         },
+        "precioTotal": {
+          "format": "double",
+          "type": "number"
+        },
         "idTipoMaterial": {
           "format": "int32",
           "type": "integer"
         },
+        "tipoMaterial": {
+          "type": "string"
+        },
         "idUnidadMedida": {
           "format": "int32",
           "type": "integer"
+        },
+        "unidadMedida": {
+          "type": "string"
         },
         "idOrden": {
           "format": "int32",
@@ -1000,6 +1461,55 @@
         },
         "eliminado": {
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "NominaDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "horasTrabajadas": {
+          "format": "double",
+          "type": "number"
+        },
+        "salarioEstandar": {
+          "format": "double",
+          "type": "number"
+        },
+        "salarioPlus": {
+          "format": "double",
+          "type": "number"
+        },
+        "salarioTotal": {
+          "format": "double",
+          "type": "number"
+        },
+        "fechaPago": {
+          "type": "string"
+        },
+        "semanaCompleta": {
+          "type": "string"
+        },
+        "noSemana": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "anyo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "inicioSemana": {
+          "type": "string"
+        },
+        "finSemana": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -1026,6 +1536,10 @@
           "format": "double",
           "type": "number"
         },
+        "ganancia": {
+          "format": "double",
+          "type": "number"
+        },
         "horasEstimadas": {
           "format": "double",
           "type": "number"
@@ -1033,6 +1547,9 @@
         "idProyecto": {
           "format": "int32",
           "type": "integer"
+        },
+        "nombreProyecto": {
+          "type": "string"
         },
         "materialDTOs": {
           "type": "array",
@@ -1044,6 +1561,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/TrabajadorDTO"
+          }
+        },
+        "facturaDTOs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FacturaDTO"
           }
         },
         "fechaCreacion": {
@@ -1066,6 +1589,20 @@
         "faltanteCobrar": {
           "format": "double",
           "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrdenTrabajadorPar": {
+      "type": "object",
+      "properties": {
+        "idOrden": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "idTrabajador": {
+          "format": "int32",
+          "type": "integer"
         }
       },
       "additionalProperties": false
@@ -1110,6 +1647,9 @@
           "type": "string"
         },
         "eliminado": {
+          "type": "boolean"
+        },
+        "finalizado": {
           "type": "boolean"
         },
         "ordenDTOs": {
@@ -1180,6 +1720,12 @@
         "cobroxHora": {
           "format": "double",
           "type": "number"
+        },
+        "numeroCuenta": {
+          "type": "string"
+        },
+        "enrutamiento": {
+          "type": "string"
         },
         "fechaCreacion": {
           "type": "string"

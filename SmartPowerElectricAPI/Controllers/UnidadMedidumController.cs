@@ -16,13 +16,11 @@ namespace SmartPowerElectricAPI.Controllers
     public class UnidadMedidumController : ControllerBase
     {
         private readonly IUnidadMedidumRepository _unidadMedidumRepository;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration, ILogger logger)
+        private readonly IConfiguration _configuration;   
+        public UnidadMedidumController (IUnidadMedidumRepository unidadMedidumRepository, IConfiguration configuration)
         {
             _unidadMedidumRepository = unidadMedidumRepository;
-            _configuration = configuration;
-            _logger = logger;
+            _configuration = configuration;           
         }
         [HttpPost("create")]       
         public IActionResult Create([FromBody] UnidadMedidaDTO unidadMedidumDTO)
@@ -32,6 +30,7 @@ namespace SmartPowerElectricAPI.Controllers
             {                
                 List<Expression<Func<UnidadMedida, bool>>> where = new List<Expression<Func<UnidadMedida, bool>>>();
                 where.Add(x => x.UMedida.ToLower() == unidadMedidumDTO.UMedida.ToLower());
+                where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 UnidadMedida unidadMedSearch = _unidadMedidumRepository.Get(where).FirstOrDefault();
 
                 if (unidadMedSearch == null)

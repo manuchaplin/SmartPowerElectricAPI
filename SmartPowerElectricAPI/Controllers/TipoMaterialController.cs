@@ -28,6 +28,7 @@ namespace SmartPowerElectricAPI.Controllers
             {
                 List<Expression<Func<TipoMaterial, bool>>> where = new List<Expression<Func<TipoMaterial, bool>>>();
                 where.Add(x => x.Nombre.ToLower() == tipoMaterialDTO.Nombre.ToLower());
+                where.Add(x => x.Eliminado !=true && x.FechaEliminado==null);
                 TipoMaterial tipoMaterialSearch = _tipoMaterialRepository.Get(where).FirstOrDefault();
 
                 if (tipoMaterialSearch == null)
@@ -120,7 +121,7 @@ namespace SmartPowerElectricAPI.Controllers
                 List<TipoMaterial> tipoMaterials = new List<TipoMaterial>();
                 List<Expression<Func<TipoMaterial, bool>>> where = new List<Expression<Func<TipoMaterial, bool>>>();
                 where.Add(x => x.Eliminado != true && x.FechaEliminado == null);
-                tipoMaterials = _tipoMaterialRepository.Get(where).ToList();
+                tipoMaterials = _tipoMaterialRepository.Get(where).OrderBy(x=>x.Nombre).ToList();
 
                 List<TipoMaterialDTO> tipoMaterialDTOs= tipoMaterials.Select(TipoMaterialDTO.FromEntity).ToList();
 

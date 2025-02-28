@@ -73,6 +73,80 @@ namespace SmartPowerElectricAPI.Migrations
                     b.ToTable("Cliente");
                 });
 
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.DocumentoCaducar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaExpedicion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaExpiracion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdTrabajador")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdTrabajador");
+
+                    b.ToTable("DocumentoCaducar");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Factura", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Eliminado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("EmailEnviado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FacturaCompletada")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaEliminado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdOrden")
+                        .HasColumnType("int");
+
+                    b.Property<double>("MontoACobrar")
+                        .HasColumnType("float");
+
+                    b.Property<string>("NumeroFactura")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdOrden");
+
+                    b.ToTable("Factura");
+                });
+
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Material", b =>
                 {
                     b.Property<int>("Id")
@@ -116,6 +190,53 @@ namespace SmartPowerElectricAPI.Migrations
                     b.ToTable("Material");
                 });
 
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Nomina", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Anyo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaPago")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FinSemana")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdTrabajador")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("InicioSemana")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NoSemana")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("SalarioEstandar")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("SalarioPlus")
+                        .HasColumnType("float");
+
+                    b.Property<double>("horasTrabajadas")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdTrabajador");
+
+                    b.ToTable("Nomina");
+                });
+
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
                 {
                     b.Property<int>("Id")
@@ -138,6 +259,9 @@ namespace SmartPowerElectricAPI.Migrations
 
                     b.Property<DateTime?>("FechaEliminado")
                         .HasColumnType("datetime2");
+
+                    b.Property<double?>("Ganancia")
+                        .HasColumnType("float");
 
                     b.Property<double?>("HorasEstimadas")
                         .HasColumnType("float");
@@ -186,6 +310,9 @@ namespace SmartPowerElectricAPI.Migrations
 
                     b.Property<DateTime?>("FechaInicio")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool?>("Finalizado")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("IdCliente")
                         .HasColumnType("int");
@@ -252,9 +379,15 @@ namespace SmartPowerElectricAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Enrutamiento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Especialidad")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("FechaCreacion")
@@ -273,7 +406,12 @@ namespace SmartPowerElectricAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NumeroCuenta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SeguridadSocial")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefono")
@@ -373,6 +511,24 @@ namespace SmartPowerElectricAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.DocumentoCaducar", b =>
+                {
+                    b.HasOne("SmartPowerElectricAPI.Models.Trabajador", "Trabajador")
+                        .WithMany("DocumentoCaducars")
+                        .HasForeignKey("IdTrabajador");
+
+                    b.Navigation("Trabajador");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Factura", b =>
+                {
+                    b.HasOne("SmartPowerElectricAPI.Models.Orden", "Orden")
+                        .WithMany("Facturas")
+                        .HasForeignKey("IdOrden");
+
+                    b.Navigation("Orden");
+                });
+
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Material", b =>
                 {
                     b.HasOne("SmartPowerElectricAPI.Models.Orden", "Orden")
@@ -392,6 +548,15 @@ namespace SmartPowerElectricAPI.Migrations
                     b.Navigation("TipoMaterial");
 
                     b.Navigation("UnidadMedida");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Nomina", b =>
+                {
+                    b.HasOne("SmartPowerElectricAPI.Models.Trabajador", "Trabajador")
+                        .WithMany("Nominas")
+                        .HasForeignKey("IdTrabajador");
+
+                    b.Navigation("Trabajador");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
@@ -419,6 +584,8 @@ namespace SmartPowerElectricAPI.Migrations
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.Orden", b =>
                 {
+                    b.Navigation("Facturas");
+
                     b.Navigation("Materials");
                 });
 
@@ -430,6 +597,13 @@ namespace SmartPowerElectricAPI.Migrations
             modelBuilder.Entity("SmartPowerElectricAPI.Models.TipoMaterial", b =>
                 {
                     b.Navigation("Materials");
+                });
+
+            modelBuilder.Entity("SmartPowerElectricAPI.Models.Trabajador", b =>
+                {
+                    b.Navigation("DocumentoCaducars");
+
+                    b.Navigation("Nominas");
                 });
 
             modelBuilder.Entity("SmartPowerElectricAPI.Models.UnidadMedida", b =>

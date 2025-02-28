@@ -15,10 +15,13 @@ public partial class OrdenDTO
     public bool? OrdenFinalizada {  get; set; }
     public double? CosteManoObra { get; set; }
     public double? Cobrado {  get; set; }
+    public double? Ganancia {  get; set; }
     public double? HorasEstimadas {  get; set; }  
     public int? IdProyecto { get; set; }
+    public string? NombreProyecto { get; set; }
     public List<MaterialDTO>? materialDTOs { get; set; }
     public List<TrabajadorDTO>? trabajadorDTOs { get; set; }
+    public List<FacturaDTO>? facturaDTOs { get; set; }
     public string? FechaCreacion { get; set; }
 
     public string? FechaEliminado { get; set; }
@@ -32,7 +35,7 @@ public partial class OrdenDTO
     public static OrdenDTO FromEntity(Orden orden)
     {
         var costeMateriales = orden.Materials != null ? orden.Materials.Sum(x => x.Cantidad * x.Precio) : 0;
-        var costeTotal = (orden.CosteManoObra ?? 0) + costeMateriales;
+        var costeTotal = (orden.Ganancia ?? 0) + (orden.CosteManoObra ?? 0) + costeMateriales;
         var faltanteCobrar = costeTotal- (orden.Cobrado ?? 0);
         return new OrdenDTO
         {
@@ -42,12 +45,15 @@ public partial class OrdenDTO
             Cobrado = orden.Cobrado,
             HorasEstimadas = orden.HorasEstimadas,
             IdProyecto = orden.IdProyecto,           
+            NombreProyecto = orden.Proyecto!=null ? orden.Proyecto.Nombre:null,           
             FechaCreacion = orden.FechaCreacion?.ToString("yyyy-MM-dd"),
             FechaEliminado = orden.FechaEliminado?.ToString("yyyy-MM-dd"),
             Eliminado = orden.Eliminado,
             materialDTOs = orden.Materials != null ? orden.Materials.Select(MaterialDTO.FromEntity).ToList() : null,
             trabajadorDTOs = orden.Trabajadores != null ? orden.Trabajadores.Select(TrabajadorDTO.FromEntity).ToList() : null,
+            facturaDTOs = orden.Facturas != null ? orden.Facturas.Select(FacturaDTO.FromEntity).ToList() : null,
             CosteManoObra = orden.CosteManoObra,
+            Ganancia = orden.Ganancia,
             CosteMateriales= costeMateriales,
             CosteTotal = costeTotal,
             FaltanteCobrar = faltanteCobrar,

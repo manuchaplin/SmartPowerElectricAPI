@@ -333,6 +333,8 @@ namespace SmartPowerElectricAPI.Repository
             return entity;
         }
 
+
+
         /// <summary>
         /// Método que inserta una entidad en el contexto.
         /// </summary>

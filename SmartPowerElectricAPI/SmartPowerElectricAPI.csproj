@@ -23,11 +23,16 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PDFsharp" Version="6.1.1" />
+    <PackageReference Include="PdfSharpCore" Version="1.3.65" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\BillTemp\" />
+    <Folder Include="Assets\NominaTemp\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Logs\" />
     <Folder Include="Utilities\Settings\" />
   </ItemGroup>
 

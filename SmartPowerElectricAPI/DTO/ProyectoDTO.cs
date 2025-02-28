@@ -15,11 +15,12 @@ public class ProyectoDTO
     public string? FechaInicio { get; set; }
     public string? FechaFin { get; set; }    
     public int? IdCliente { get; set; }
-    public string? NombreCLiente { get; set; }
+    public string? NombreCLiente { get; set; }  
     public double? horasEstimadas { get; set; }
     public string? FechaCreacion { get; set; }
     public string? FechaEliminado { get; set; }
     public bool? Eliminado { get; set; }
+    public bool? Finalizado { get; set; }
     public List<OrdenDTO>? ordenDTOs { get; set; }
   
 
@@ -34,8 +35,9 @@ public class ProyectoDTO
             Direccion = proyecto.Direccion,
             Descripcion = proyecto.Descripcion,
             horasEstimadas = proyecto.horasEstimadas,
+            Finalizado = proyecto.Finalizado,
             IdCliente = proyecto.IdCliente,
-            NombreCLiente = proyecto.Cliente!=null ? proyecto.Cliente.Nombre : null,
+            NombreCLiente = proyecto.Cliente!=null ? proyecto.Cliente.Nombre : null,           
             FechaInicio = proyecto.FechaInicio?.ToString("yyyy-MM-dd"),
             FechaFin = proyecto.FechaFin?.ToString("yyyy-MM-dd"),
             FechaCreacion = proyecto.FechaCreacion?.ToString("yyyy-MM-dd"),
@@ -53,6 +55,7 @@ public class ProyectoDTO
             Direccion = this.Direccion,
             Descripcion = this.Descripcion,
             horasEstimadas = this.horasEstimadas,
+            Finalizado = this.Finalizado,
             IdCliente = this.IdCliente,
             FechaInicio = string.IsNullOrWhiteSpace(this.FechaInicio) ? null : DateTime.ParseExact(this.FechaInicio, "yyyy-MM-dd", null),
             FechaFin = string.IsNullOrWhiteSpace(this.FechaFin) ? null : DateTime.ParseExact(this.FechaFin, "yyyy-MM-dd", null),

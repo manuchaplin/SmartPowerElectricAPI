@@ -16,19 +16,19 @@ public class SmartPowerElectricContext : DbContext
     }
 
     public virtual DbSet<Cliente> Cliente { get; set; }
-
+    public virtual DbSet<DocumentoCaducar> DocumentoCaducar { get; set; }
+    public virtual DbSet<Factura> Factura { get; set; }
     public virtual DbSet<Material> Material { get; set; }
-
-    public virtual DbSet<Proyecto> Proyecto { get; set; }
-
-    public virtual DbSet<TipoMaterial> TipoMaterial { get; set; }
-
-    public virtual DbSet<Trabajador> Trabajador { get; set; }
-
-    public virtual DbSet<UnidadMedida> UnidadMedida { get; set; }
-
-    public virtual DbSet<Usuario> Usuario { get; set; }
+    public virtual DbSet<Nomina> Nomina { get; set; }
     public virtual DbSet<Orden> Orden { get; set; }
+    public virtual DbSet<Proyecto> Proyecto { get; set; }
+    public virtual DbSet<TipoMaterial> TipoMaterial { get; set; }
+    public virtual DbSet<Trabajador> Trabajador { get; set; }
+    public virtual DbSet<UnidadMedida> UnidadMedida { get; set; }
+    public virtual DbSet<Usuario> Usuario { get; set; }
+   
+
+
 
     //local
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

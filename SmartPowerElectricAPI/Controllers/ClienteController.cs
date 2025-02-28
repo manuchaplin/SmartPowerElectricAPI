@@ -33,12 +33,19 @@ namespace SmartPowerElectricAPI.Controllers
                 List<Expression<Func<Cliente, bool>>> where = new List<Expression<Func<Cliente, bool>>>();
                 where.Add(x => x.Nombre.ToLower() == clienteDTO.Nombre.ToLower());
                 where.Add(x => x.Email.ToLower() == clienteDTO.Email.ToLower());                
+                where.Add(x => x.Eliminado !=true && x.FechaEliminado==null);                
                 Cliente clienteSearch = _clienteRepository.Get(where).FirstOrDefault();
 
                 if (clienteSearch == null)
                 {
+
                     Cliente cliente= clienteDTO.ToEntity();
                     cliente.FechaCreacion=DateTime.Now;
+                    List<string> MessageError = Validate(cliente);
+                    if (MessageError.Count() > 0)
+                    {
+                        return Conflict(new { message = MessageError });
+                    }
                     _clienteRepository.Insert(cliente);
 
                     return Ok();
@@ -98,9 +105,9 @@ namespace SmartPowerElectricAPI.Controllers
 
                 if (clienteSearch != null)
                 {
-                    if (clienteDTO.Nombre != null) clienteSearch.Nombre = clienteDTO.Nombre;
+                    if (clienteDTO.Nombre != null && clienteDTO.Nombre != "") clienteSearch.Nombre = clienteDTO.Nombre;
                     if (clienteDTO.Direccion != null) clienteSearch.Direccion = clienteDTO.Direccion;
-                    if (clienteDTO.Email != null) clienteSearch.Email = clienteDTO.Email;
+                    if (clienteDTO.Email != null && clienteDTO.Email!="") clienteSearch.Email = clienteDTO.Email;
                     if (clienteDTO.Telefono != null) clienteSearch.Telefono = clienteDTO.Telefono;
                     if (clienteDTO.FechaCreacion != null) clienteSearch.FechaCreacion = string.IsNullOrWhiteSpace(clienteDTO.FechaCreacion) ? null : DateTime.ParseExact(clienteDTO.FechaCreacion, "yyyy-MM-dd", null);
 
@@ -143,5 +150,22 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
+        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public List<string> Validate(Cliente cliente)
+        {
+            List<string> Message = new List<string>();
+
+            if (string.IsNullOrEmpty(cliente.Nombre))
+            {
+                Message.Add("EL nombre del cliente no puede ser vacio.");
+            }
+            if (string.IsNullOrEmpty(cliente.Email))
+            {
+                Message.Add("EL email del cliente no puede ser vacio.");
+            }
+            return Message;
+
+        }
     }
 }
