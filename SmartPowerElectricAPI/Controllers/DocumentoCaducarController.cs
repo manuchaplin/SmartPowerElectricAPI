@@ -165,8 +165,8 @@ namespace SmartPowerElectricAPI.Controllers
                 {                   
                     foreach (var trabajador in trabajadors)
                     {
-                        string MailTo = "manuchaplin@gmail.com";
-                        //string MailTo = trabajador.Email;
+                        
+                        string MailTo = trabajador.Email;
                         string Topic = "Documentation about to expire";
                         string Body = "<div>";
                         Body += "<p>Dear " + trabajador.Nombre + " " + trabajador.Apellido + "</p>";

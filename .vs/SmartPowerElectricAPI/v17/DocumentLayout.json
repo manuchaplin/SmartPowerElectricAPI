@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "C:\\Projects\\SmartPowerElectricAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8BD3C675-E497-436D-8E3F-CF9F744E458C}|SendDocumentJob\\SendDocumentJob.csproj|c:\\projects\\smartpowerelectricapi\\senddocumentjob\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BD3C675-E497-436D-8E3F-CF9F744E458C}|SendDocumentJob\\SendDocumentJob.csproj|solutionrelative:senddocumentjob\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BD3C675-E497-436D-8E3F-CF9F744E458C}|SendDocumentJob\\SendDocumentJob.csproj|c:\\projects\\smartpowerelectricapi\\senddocumentjob\\settings.job||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{8BD3C675-E497-436D-8E3F-CF9F744E458C}|SendDocumentJob\\SendDocumentJob.csproj|solutionrelative:senddocumentjob\\settings.job||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\service\\dailyjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\service\\dailyjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\controllers\\documentocaducarcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\controllers\\documentocaducarcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|c:\\projects\\smartpowerelectricapi\\smartpowerelectricapi\\controllers\\tipomaterialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28501D60-FEDF-4FFE-A3EB-03D6E3CA64A1}|SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj|solutionrelative:smartpowerelectricapi\\controllers\\tipomaterialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Settings.job",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SendDocumentJob\\Settings.job",
-              "RelativeDocumentMoniker": "SendDocumentJob\\Settings.job",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SendDocumentJob\\Settings.job",
-              "RelativeToolTip": "SendDocumentJob\\Settings.job",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-02-28T18:29:43.368Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DocumentoCaducarController.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\DocumentoCaducarController.cs",
-              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Controllers\\DocumentoCaducarController.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\DocumentoCaducarController.cs",
-              "RelativeToolTip": "SmartPowerElectricAPI\\Controllers\\DocumentoCaducarController.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAkwL4AAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T18:06:25.512Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DailyJobService.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Service\\DailyJobService.cs",
-              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Service\\DailyJobService.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Service\\DailyJobService.cs",
-              "RelativeToolTip": "SmartPowerElectricAPI\\Service\\DailyJobService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T18:03:17.919Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SendDocumentJob\\Program.cs",
-              "RelativeDocumentMoniker": "SendDocumentJob\\Program.cs",
-              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SendDocumentJob\\Program.cs",
-              "RelativeToolTip": "SendDocumentJob\\Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAIAAAAAAAAAA==",
+              "Title": "TipoMaterialController.cs",
+              "DocumentMoniker": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\TipoMaterialController.cs",
+              "RelativeDocumentMoniker": "SmartPowerElectricAPI\\Controllers\\TipoMaterialController.cs",
+              "ToolTip": "C:\\Projects\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\Controllers\\TipoMaterialController.cs",
+              "RelativeToolTip": "SmartPowerElectricAPI\\Controllers\\TipoMaterialController.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAA3wHsAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T17:57:14.926Z",
+              "WhenOpened": "2025-02-28T21:33:57.092Z",
               "EditorCaption": ""
             }
           ]

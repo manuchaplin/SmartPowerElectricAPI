@@ -47,17 +47,19 @@ namespace SmartPowerElectricAPI.Controllers
                 Trabajador trabajadorSearch = _trabajadorRepository.Get(where).FirstOrDefault();
 
                 if (trabajadorSearch != null)
-                {
+                {                    
+                    
                     List<Expression<Func<Nomina, bool>>> whereNomina = new List<Expression<Func<Nomina, bool>>>();
-                    whereNomina.Add(x => x.NoSemana== nominaDTO.NoSemana && x.IdTrabajador==idTrabajador);
+                    whereNomina.Add(x => x.NoSemana== nominaDTO.NoSemana && x.Anyo== nominaDTO.Anyo && x.IdTrabajador==idTrabajador);
+                   
                     Nomina nominaSearch = _nominaRepository.Get(whereNomina).FirstOrDefault();
+                    
                     if (nominaSearch==null)
                     {
                         Nomina nomina = nominaDTO.ToEntity();
                         nomina.IdTrabajador = idTrabajador;
                         nomina.SalarioEstandar = nomina.horasTrabajadas * trabajadorSearch.CobroxHora;
-                        nomina.FechaCreacion = DateTime.Now;
-                        nomina.Anyo = (int)nomina.FinSemana?.Year;
+                        nomina.FechaCreacion = DateTime.Now;                      
                         _nominaRepository.Insert(nomina);
                         return Ok();
                     }
@@ -340,8 +342,8 @@ namespace SmartPowerElectricAPI.Controllers
                 TrabajadorDTO trabajadorDTO = TrabajadorDTO.FromEntity(trabajador);
 
                 // Datos del correo
-                string MailTo = "manuchaplin@gmail.com";
-                //string MailTo = trabajadorDTO.Email;
+                
+                string MailTo = trabajadorDTO.Email;
                 string Topic = " PayStub No. " + trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + " " + nominaDTO.Anyo + nominaDTO.NoSemana;
                 string Body = "<div>";
                 Body += "<p>Dear " + trabajadorDTO.Nombre + " " + trabajadorDTO.Apellido + "</p>";

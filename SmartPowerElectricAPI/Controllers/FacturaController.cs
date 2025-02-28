@@ -214,8 +214,7 @@ namespace SmartPowerElectricAPI.Controllers
                 ClienteDTO clienteDTO = ClienteDTO.FromEntity(orden.Proyecto.Cliente);
 
                 // Datos del correo
-                string MailTo = "manuchaplin@gmail.com";
-                //string MailTo = orden.Proyecto.Cliente.Email;
+                string MailTo = orden.Proyecto.Cliente.Email;
                 string Topic = " Invoice No. " + facturaDTO.NumeroFactura+" - Project "+ ordenDTO.NombreProyecto;
                 string Body = "<div>";
                 Body += "<p>Dear "+ orden.Proyecto.Cliente.Nombre + "</p>";

@@ -55,6 +55,7 @@ public class NominaDTO
             SalarioPlus = this.SalarioPlus ?? 0,
             FechaPago = string.IsNullOrWhiteSpace(this.FechaPago) ? null : DateTime.ParseExact(this.FechaPago, "yyyy-MM-dd", null),
             NoSemana = this.NoSemana ?? 0,
+            Anyo = this.Anyo ?? 0,
             InicioSemana = string.IsNullOrWhiteSpace(this.InicioSemana) ? null : DateTime.ParseExact(this.InicioSemana, "yyyy-MM-dd", null),
             FinSemana = string.IsNullOrWhiteSpace(this.FinSemana) ? null: DateTime.ParseExact(this.FinSemana, "yyyy-MM-dd", null),
             FechaCreacion = string.IsNullOrWhiteSpace(this.FechaCreacion)? null: DateTime.ParseExact(this.FechaCreacion, "yyyy-MM-dd", null),           
