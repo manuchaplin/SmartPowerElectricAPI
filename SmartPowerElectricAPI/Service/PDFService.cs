@@ -22,7 +22,8 @@ namespace SmartPowerElectricAPI.Service
             _configuration = configuration;
             _env = env;
         }
-        public void GenerarFacturaPdf(string filePath, FacturaDTO facturaDTO,OrdenDTO ordenDTO, ProyectoDTO proyectoDTO, ClienteDTO clienteDTO)
+
+        public void GenerarFacturaPdf(string filePath, FacturaDTO facturaDTO, OrdenDTO ordenDTO, ProyectoDTO proyectoDTO, ClienteDTO clienteDTO)
         {
             // Crear un nuevo documento PDF
             PdfDocument document = new PdfDocument();
@@ -43,7 +44,6 @@ namespace SmartPowerElectricAPI.Service
 
             // Encabezado
             gfx.DrawString("INVOICE", new XFont("Arial", 16, XFontStyle.Bold), XBrushes.Black, new XPoint(250, 50));
-     
 
             // Información de la empresa
             gfx.DrawString("SMART POWER ELECTRIC", boldFont, XBrushes.Black, new XPoint(350, 90));
@@ -55,7 +55,6 @@ namespace SmartPowerElectricAPI.Service
             gfx.DrawString("Invoice Number: " + facturaDTO.NumeroFactura, font, XBrushes.Black, new XPoint(350, 190));
             gfx.DrawString("Invoice Date: " + facturaDTO.FechaCreacionEng, font, XBrushes.Black, new XPoint(350, 210));
 
-
             gfx.DrawString("BILL TO", boldFont, XBrushes.Black, new XPoint(50, 230));
             gfx.DrawString("Name: " + clienteDTO.Nombre, font, XBrushes.Black, new XPoint(50, 250));
             gfx.DrawString("Address: " + clienteDTO.Direccion, font, XBrushes.Black, new XPoint(50, 270));
@@ -63,19 +62,38 @@ namespace SmartPowerElectricAPI.Service
             gfx.DrawString("Email: " + clienteDTO.Email, font, XBrushes.Black, new XPoint(50, 310));
             gfx.DrawString("Project Name: " + ordenDTO.NombreProyecto, font, XBrushes.Black, new XPoint(50, 330));
 
-
             // Datos de la factura
             // Tabla de precios
             int tableStartY = 450;
             gfx.DrawString("Description", boldFont, XBrushes.Black, new XPoint(50, tableStartY));
-            gfx.DrawString("Invoice Price", boldFont, XBrushes.Black, new XPoint(450, tableStartY));         
+            gfx.DrawString("Invoice Price", boldFont, XBrushes.Black, new XPoint(450, tableStartY));
 
-            //gfx.DrawString(facturaDTO.Descripcion, font, XBrushes.Black, new XPoint(50, tableStartY + 20));
-            XRect rect = new XRect(50, tableStartY + 20, 400, 100);
-            tf.DrawString(facturaDTO.Descripcion ?? "", font, XBrushes.Black, rect, XStringFormats.TopLeft);
+            // Ajustar la posición y el tamaño del área de texto para la descripción
+            string descripcion = facturaDTO.Descripcion ?? "";
+            XRect rect = new XRect(50, tableStartY + 20, 400, 600); // Área de texto inicial
+            int lineHeight = 15; // Altura de una línea de texto
+            int maxLines = 40; // Número máximo de líneas por página (ajustar según necesidad)
+            int totalHeight = maxLines * lineHeight; // Altura máxima de texto por página
+
+            // Dividir la descripción en bloques y agregar nuevas páginas si es necesario
+            for (int i = 0; i < descripcion.Length; i += maxLines * lineHeight)
+            {
+                string chunk = descripcion.Substring(i, Math.Min(maxLines * lineHeight, descripcion.Length - i));
+
+                // Dibujar el fragmento de texto
+                tf.DrawString(chunk, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+
+                // Si el texto no cabe en la página, agregar una nueva página
+                if (i + maxLines * lineHeight < descripcion.Length)
+                {
+                    page = document.AddPage(); // Agregar una nueva página
+                    gfx = XGraphics.FromPdfPage(page); // Dibujar en la nueva página
+                    rect = new XRect(50, 20, 400, 600); // Nueva área de texto para la siguiente página
+                }
+            }
+
+            // Precio de la factura
             gfx.DrawString(facturaDTO.MontoACobrar?.ToString("C", new System.Globalization.CultureInfo("en-US")), font, XBrushes.Black, new XPoint(450, tableStartY + 20));
-        
-          
 
             // Guardar el documento en el archivo especificado
             document.Save(filePath);
