@@ -22,30 +22,22 @@ namespace SmartPowerElectricAPI.Service
             _configuration = configuration;
             _env = env;
         }
-        public void GenerarFacturaPdf(string filePath, FacturaDTO facturaDTO,OrdenDTO ordenDTO, ProyectoDTO proyectoDTO, ClienteDTO clienteDTO)
+
+        public void GenerarFacturaPdf(string filePath, FacturaDTO facturaDTO, OrdenDTO ordenDTO, ProyectoDTO proyectoDTO, ClienteDTO clienteDTO)
         {
-            // Crear un nuevo documento PDF
             PdfDocument document = new PdfDocument();
-            // Crear una página en el documento
             PdfPage page = document.AddPage();
-            // Crear un objeto para dibujar sobre la página
             XGraphics gfx = XGraphics.FromPdfPage(page);
-            // Definir una fuente para el texto
             XFont font = new XFont("Arial", 12);
             XFont boldFont = new XFont("Arial", 12, XFontStyle.Bold);
-            XStringFormat formatRight = new XStringFormat { Alignment = XStringAlignment.Far };
             XTextFormatter tf = new XTextFormatter(gfx);
 
-            // Dibujar el logo            
             string logoPath = System.IO.Path.Combine(_env.ContentRootPath, "Assets", "Img", "Logo.png");
             XImage logo = XImage.FromFile(logoPath);
             gfx.DrawImage(logo, 20, 60, 150, 50);
 
-            // Encabezado
             gfx.DrawString("INVOICE", new XFont("Arial", 16, XFontStyle.Bold), XBrushes.Black, new XPoint(250, 50));
-     
 
-            // Información de la empresa
             gfx.DrawString("SMART POWER ELECTRIC", boldFont, XBrushes.Black, new XPoint(350, 90));
             gfx.DrawString("786-925-7180 (Spanish)", font, XBrushes.Black, new XPoint(350, 110));
             gfx.DrawString("786-816-2891 (English)", font, XBrushes.Black, new XPoint(350, 130));
@@ -55,7 +47,6 @@ namespace SmartPowerElectricAPI.Service
             gfx.DrawString("Invoice Number: " + facturaDTO.NumeroFactura, font, XBrushes.Black, new XPoint(350, 190));
             gfx.DrawString("Invoice Date: " + facturaDTO.FechaCreacionEng, font, XBrushes.Black, new XPoint(350, 210));
 
-
             gfx.DrawString("BILL TO", boldFont, XBrushes.Black, new XPoint(50, 230));
             gfx.DrawString("Name: " + clienteDTO.Nombre, font, XBrushes.Black, new XPoint(50, 250));
             gfx.DrawString("Address: " + clienteDTO.Direccion, font, XBrushes.Black, new XPoint(50, 270));
@@ -63,21 +54,66 @@ namespace SmartPowerElectricAPI.Service
             gfx.DrawString("Email: " + clienteDTO.Email, font, XBrushes.Black, new XPoint(50, 310));
             gfx.DrawString("Project Name: " + ordenDTO.NombreProyecto, font, XBrushes.Black, new XPoint(50, 330));
 
+            gfx.DrawString("Invoice Price: " + facturaDTO.MontoACobrar?.ToString("C", new System.Globalization.CultureInfo("en-US")), boldFont, XBrushes.Black, new XPoint(50, 400));
 
-            // Datos de la factura
-            // Tabla de precios
-            int tableStartY = 450;
-            gfx.DrawString("Description", boldFont, XBrushes.Black, new XPoint(50, tableStartY));
-            gfx.DrawString("Invoice Price", boldFont, XBrushes.Black, new XPoint(450, tableStartY));         
+            gfx.DrawString("Description", boldFont, XBrushes.Black, new XPoint(50, 450));
 
-            //gfx.DrawString(facturaDTO.Descripcion, font, XBrushes.Black, new XPoint(50, tableStartY + 20));
-            XRect rect = new XRect(50, tableStartY + 20, 400, 100);
-            tf.DrawString(facturaDTO.Descripcion ?? "", font, XBrushes.Black, rect, XStringFormats.TopLeft);
-            gfx.DrawString(facturaDTO.MontoACobrar?.ToString("C", new System.Globalization.CultureInfo("en-US")), font, XBrushes.Black, new XPoint(450, tableStartY + 20));
-        
-          
+            string descripcion = facturaDTO.Descripcion ?? "";
+            int margenIzquierdo = 50;
+            int margenDerecho = (int)page.Width - 50;
+            int anchoTexto = margenDerecho - margenIzquierdo;
+            int lineHeight = 15;
+            int currentY = 470;
+            int maxY = (int)page.Height - 50;
 
-            // Guardar el documento en el archivo especificado
+            string[] lines = descripcion.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+
+            foreach (var line in lines)
+            {
+                string[] words = line.Split(' ');
+                string currentLine = "";
+
+                foreach (var word in words)
+                {
+                    string testLine = string.IsNullOrEmpty(currentLine) ? word : currentLine + " " + word;
+                    XSize size = gfx.MeasureString(testLine, font);
+
+                    if (size.Width > anchoTexto)
+                    {
+                        XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
+                        tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+                        currentY += lineHeight;
+                        currentLine = word;
+                    }
+                    else
+                    {
+                        currentLine = testLine;
+                    }
+
+                    if (currentY + lineHeight >= maxY)
+                    {
+                        if (!string.IsNullOrEmpty(currentLine))
+                        {
+                            XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
+                            tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+                        }
+
+                        page = document.AddPage();
+                        gfx = XGraphics.FromPdfPage(page);
+                        tf = new XTextFormatter(gfx);
+                        currentY = 50;
+                        currentLine = "";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(currentLine))
+                {
+                    XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
+                    tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+                    currentY += lineHeight;
+                }
+            }
+
             document.Save(filePath);
             document.Close();
         }
