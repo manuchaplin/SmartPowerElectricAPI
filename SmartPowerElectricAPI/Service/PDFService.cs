@@ -54,7 +54,7 @@ namespace SmartPowerElectricAPI.Service
             gfx.DrawString("Email: " + clienteDTO.Email, font, XBrushes.Black, new XPoint(50, 310));
             gfx.DrawString("Project Name: " + ordenDTO.NombreProyecto, font, XBrushes.Black, new XPoint(50, 330));
 
-            gfx.DrawString("Invoice Price: " + facturaDTO.MontoACobrar?.ToString("C", new System.Globalization.CultureInfo("en-US")), font, XBrushes.Black, new XPoint(50, 400));
+            gfx.DrawString("Invoice Price: " + facturaDTO.MontoACobrar?.ToString("C", new System.Globalization.CultureInfo("en-US")), boldFont, XBrushes.Black, new XPoint(50, 400));
 
             gfx.DrawString("Description", boldFont, XBrushes.Black, new XPoint(50, 450));
 
@@ -66,47 +66,57 @@ namespace SmartPowerElectricAPI.Service
             int currentY = 470;
             int maxY = (int)page.Height - 50;
 
-            string[] words = descripcion.Split(' ');
-            string currentLine = "";
+            string[] lines = descripcion.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
 
-            foreach (var word in words)
+            foreach (var line in lines)
             {
-                string testLine = string.IsNullOrEmpty(currentLine) ? word : currentLine + " " + word;
-                XSize size = gfx.MeasureString(testLine, font);
+                string[] words = line.Split(' ');
+                string currentLine = "";
 
-                if (size.Width > anchoTexto)
+                foreach (var word in words)
+                {
+                    string testLine = string.IsNullOrEmpty(currentLine) ? word : currentLine + " " + word;
+                    XSize size = gfx.MeasureString(testLine, font);
+
+                    if (size.Width > anchoTexto)
+                    {
+                        XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
+                        tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+                        currentY += lineHeight;
+                        currentLine = word;
+                    }
+                    else
+                    {
+                        currentLine = testLine;
+                    }
+
+                    if (currentY + lineHeight >= maxY)
+                    {
+                        if (!string.IsNullOrEmpty(currentLine))
+                        {
+                            XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
+                            tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+                        }
+
+                        page = document.AddPage();
+                        gfx = XGraphics.FromPdfPage(page);
+                        tf = new XTextFormatter(gfx);
+                        currentY = 50;
+                        currentLine = "";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(currentLine))
                 {
                     XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
                     tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
                     currentY += lineHeight;
-                    currentLine = word;
                 }
-                else
-                {
-                    currentLine = testLine;
-                }
-
-                if (currentY >= maxY)
-                {
-                    page = document.AddPage();
-                    gfx = XGraphics.FromPdfPage(page);
-                    tf = new XTextFormatter(gfx);
-                    currentY = 50;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(currentLine))
-            {
-                XRect rect = new XRect(margenIzquierdo, currentY, anchoTexto, lineHeight);
-                tf.DrawString(currentLine, font, XBrushes.Black, rect, XStringFormats.TopLeft);
             }
 
             document.Save(filePath);
             document.Close();
         }
-
-
-
 
         public void GenerarNominaPdf(string filePath, NominaDTO nominaDTO, TrabajadorDTO trabajadorDTO, double YTD)
         {
