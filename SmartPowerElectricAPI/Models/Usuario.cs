@@ -28,5 +28,6 @@ public class Usuario
     public bool? Eliminado { get; set; }
 
     public bool? Protegido { get; set; }
+    public DateTime? FechaLanzamiento { get; set; }
   
 }

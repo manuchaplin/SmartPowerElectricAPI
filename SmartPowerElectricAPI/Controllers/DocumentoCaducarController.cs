@@ -4,6 +4,7 @@ using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
 using SmartPowerElectricAPI.Service;
+using SmartPowerElectricAPI.Utilities;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Net.Mail;
@@ -19,12 +20,14 @@ namespace SmartPowerElectricAPI.Controllers
     {
         private IDocumentoCaducarRepository _documentoCaducarRepository;
         private ITrabajadorRepository _trabajadorRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
         private EmailService _emailService;
         private SmartPowerElectricContext _context;
-        public DocumentoCaducarController(IDocumentoCaducarRepository documentoCaducarRepository, ITrabajadorRepository trabajadorRepository, EmailService emailService, SmartPowerElectricContext context)
+        public DocumentoCaducarController(IDocumentoCaducarRepository documentoCaducarRepository, ITrabajadorRepository trabajadorRepository, IUsuarioRepository usuarioRepository, EmailService emailService, SmartPowerElectricContext context)
         {
             _documentoCaducarRepository = documentoCaducarRepository;
             _trabajadorRepository = trabajadorRepository;
+            _usuarioRepository = usuarioRepository;
             _emailService = emailService;
             _context = context;
         }
@@ -148,58 +151,78 @@ namespace SmartPowerElectricAPI.Controllers
 
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("sendEmailDocumentExpiration")]
         public async Task<IActionResult> sendEmailDocumentExpiration()
         {
             try
             {
-                DateTime dateTime15Early= DateTime.Now.AddDays(15);
-                DateTime dateTime30Early= DateTime.Now.AddDays(30);
-                List<Trabajador> trabajadors = new List<Trabajador>();
-                List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
-                where.Add(x => x.DocumentoCaducars.Any(y=>y.FechaExpiracion.HasValue && (y.FechaExpiracion.Value.Date == dateTime15Early.Date || y.FechaExpiracion.Value.Date == dateTime30Early.Date)));
-                trabajadors=_trabajadorRepository.Get(where, "DocumentoCaducars").ToList();
+                List<Expression<Func<Usuario, bool>>> whereUser = new List<Expression<Func<Usuario, bool>>>();
+                whereUser.Add(x => x.Id == 3);//mayda
+                whereUser.Add(x => x.Eliminado != true && x.FechaEliminado == null);
+                Usuario usuario = _usuarioRepository.Get(whereUser).FirstOrDefault();
 
-                if (trabajadors.Count()>0)
-                {                   
-                    foreach (var trabajador in trabajadors)
+                if (usuario.FechaLanzamiento?.Date != DateTime.Now.Date)
+                {
+                    try
                     {
-                        
-                        string MailTo = trabajador.Email;
-                        string Topic = "Documentation about to expire";
-                        string Body = "<div>";
-                        Body += "<p>Dear " + trabajador.Nombre + " " + trabajador.Apellido + "</p>";
-                        Body += "<p>The following documentation is soon to expire.</p>";
-                      
-                        Body += "</br>";
-                        Body += "<div>";
-                        foreach (var documento in trabajador.DocumentoCaducars)
+                        DateTime dateTime15Early = DateTime.Now.AddDays(15);
+                        DateTime dateTime30Early = DateTime.Now.AddDays(30);
+                        DateTime dateTime31Early = DateTime.Now.AddDays(31);
+                        List<Trabajador> trabajadors = new List<Trabajador>();
+                        List<Expression<Func<Trabajador, bool>>> where = new List<Expression<Func<Trabajador, bool>>>();
+                        where.Add(x => x.DocumentoCaducars.Any(y => y.FechaExpiracion.HasValue && ((y.FechaExpiracion.Value.Date <= dateTime31Early.Date && y.FechaExpiracion.Value.Date >= dateTime30Early.Date) || y.FechaExpiracion.Value.Date <= dateTime30Early.Date)));
+                        trabajadors = _trabajadorRepository.Get(where, "DocumentoCaducars").ToList();
+
+                        if (trabajadors.Count() > 0)
                         {
-                            if (documento.FechaExpiracion.Value.Date == dateTime15Early.Date || documento.FechaExpiracion.Value.Date == dateTime30Early.Date)
+                            foreach (var trabajador in trabajadors)
                             {
-                                Body += "<p>Name: "+documento.Nombre+ " Expiration Date: "+documento.FechaExpiracion?.ToString("yyyy - dd - MM")+" </p>";                            
+
+                                string MailTo = trabajador.Email;
+                                string Topic = "Documentation about to expire";
+                                string Body = "<div>";
+                                Body += "<p>Dear " + trabajador.Nombre + " " + trabajador.Apellido + "</p>";
+                                Body += "<p>The following documentation is soon to expire.</p>";
+
+                                Body += "</br>";
+                                Body += "<div>";
+                                foreach (var documento in trabajador.DocumentoCaducars)
+                                {
+                                    //if (documento.FechaExpiracion.Value.Date == dateTime15Early.Date || documento.FechaExpiracion.Value.Date == dateTime30Early.Date)
+                                    if ((documento.FechaExpiracion.Value.Date <= dateTime31Early.Date && documento.FechaExpiracion.Value.Date >= dateTime30Early.Date) || documento.FechaExpiracion.Value.Date <= dateTime30Early.Date)
+                                    {
+                                        Body += "<p>Name: " + documento.Nombre + " Expiration Date: " + documento.FechaExpiracion?.ToString("yyyy - dd - MM") + " </p>";
+                                    }
+                                }
+                                Body += "</div>";
+                                Body += "<p>We remain at your disposal for any further clarification.</p>";
+                                Body += "</br>";
+                                Body += "<p>Atentamente,</p>";
+                                Body += "<p><bold>Smart Power Electric.</bold></p>";
+
+                                Body += "</div>";
+                                await _emailService.SendMailAsync(MailTo, Topic, Body);
+                                Body = "";
                             }
+
                         }
-                        Body += "</div>";
-                        Body += "<p>We remain at your disposal for any further clarification.</p>";
-                        Body += "</br>";
-                        Body += "<p>Atentamente,</p>";
-                        Body += "<p><bold>Smart Power Electric.</bold></p>";
+                        usuario.FechaLanzamiento=DateTime.Now;
+                        _usuarioRepository.Update(usuario);
 
-                        Body += "</div>";
-                        await _emailService.SendMailAsync(MailTo, Topic, Body);
-                        Body = "";
                     }
-
-                }
-
-                return Ok("Mensaje enviado correctamente.");
+                    catch (Exception ex)
+                    {
+                        return BadRequest(new { message = ex.Message });
+                    }
+                }                               
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
+
+            return Ok();
         }
 
         [HttpGet]

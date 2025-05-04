@@ -6,6 +6,7 @@ using SmartPowerElectricAPI.DTO;
 using SmartPowerElectricAPI.Migrations;
 using SmartPowerElectricAPI.Models;
 using SmartPowerElectricAPI.Repository;
+using SmartPowerElectricAPI.Service;
 using SmartPowerElectricAPI.Utilities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
@@ -26,7 +27,7 @@ namespace SmartPowerElectricAPI.Controllers
         public UsuarioController (IUsuarioRepository usuarioRepository, IConfiguration configuration)
         {
             _usuarioRepository = usuarioRepository;
-            _configuration = configuration;
+            _configuration = configuration;        
         }
 
 
@@ -60,6 +61,7 @@ namespace SmartPowerElectricAPI.Controllers
             if (usuario!=null)
             {
                 var token = GenerarTokenJWT(request.Username,usuario.Nombre,usuario.Apellido);
+                //sendEmailDocumentExpiration();
                 return Ok(new { Token = token });
             }
             else
@@ -68,6 +70,7 @@ namespace SmartPowerElectricAPI.Controllers
             }          
           
         }
+            
 
         private string GenerarTokenJWT(string username,string nombre,string apellido)
         {
