@@ -158,7 +158,7 @@ namespace SmartPowerElectricAPI.Controllers
             try
             {
                 List<Expression<Func<Usuario, bool>>> whereUser = new List<Expression<Func<Usuario, bool>>>();
-                whereUser.Add(x => x.Id == 3);//mayda
+                whereUser.Add(x => x.Id == 3);//3mayda
                 whereUser.Add(x => x.Eliminado != true && x.FechaEliminado == null);
                 Usuario usuario = _usuarioRepository.Get(whereUser).FirstOrDefault();
 
