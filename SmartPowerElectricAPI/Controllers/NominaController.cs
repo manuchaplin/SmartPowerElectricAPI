@@ -350,7 +350,7 @@ namespace SmartPowerElectricAPI.Controllers
                 Body += "<p>Attached to this email, you will find the paystub corresponding to the number " + nominaDTO.NoSemana + "/" + nominaDTO.Anyo + ".</p>";
                 Body += "<p>We remain at your disposal for any further clarification.</p>";
                 Body += "</br>";
-                Body += "<p>Atentamente,</p>";
+                Body += "<p>Best Regards,</p>";
                 Body += "<p><bold>Smart Power Electric.</bold></p>";
 
                 Body += "</div>";

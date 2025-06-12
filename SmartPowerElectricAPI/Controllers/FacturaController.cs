@@ -218,10 +218,11 @@ namespace SmartPowerElectricAPI.Controllers
                 string Topic = " Invoice No. " + facturaDTO.NumeroFactura+" - Project "+ ordenDTO.NombreProyecto;
                 string Body = "<div>";
                 Body += "<p>Dear "+ orden.Proyecto.Cliente.Nombre + "</p>";
-                Body += "<p>Attached to this email, you will find the invoice corresponding to the "+ordenDTO.NombreProyecto+", with the invoice number "+ facturaDTO.NumeroFactura + ".</p>";
-                Body += "<p>We remain at your disposal for any further clarification.</p>";
+                Body += "<p>I hope you are doing well. Please find attached the invoice corresponding to "+ordenDTO.NombreProyecto+", with the invoice number "+ facturaDTO.NumeroFactura + ".</p>";
+                Body += "<p>Please let me know if you need any additional information or documentation. If you have already made the payment or if this invoice has been processed, please disregard this message and accept my thanks.</p>";
+                Body += "<p>Thank you for you business. Don´t hesitate to reach out if you have any questions.</p>";
                 Body += "</br>";
-                Body += "<p>Atentamente,</p>";
+                Body += "<p>Best Regards,</p>";
                 Body += "<p><bold>Smart Power Electric.</bold></p>";
 
                 Body += "</div>";
