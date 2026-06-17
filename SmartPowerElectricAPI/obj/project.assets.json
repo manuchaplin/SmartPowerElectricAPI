@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net8.0": {
       "Azure.Core/1.38.0": {
@@ -8845,23 +8845,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\": {},
+    "C:\\Users\\manuel.mon\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+      "projectUniqueName": "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
       "projectName": "SmartPowerElectricAPI",
-      "projectPath": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
-      "packagesPath": "C:\\Users\\ManuelAlejandroMonSa\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\SmartPowerElectricApi\\SmartPowerElectricAPI\\obj\\",
+      "projectPath": "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+      "packagesPath": "C:\\Users\\manuel.mon\\.nuget\\packages\\",
+      "outputPath": "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ManuelAlejandroMonSa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\manuel.mon\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8874,6 +8874,7 @@
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "projectReferences": {}
         }
@@ -8888,10 +8889,11 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net8.0": {
+        "framework": "net8.0",
         "targetAlias": "net8.0",
         "dependencies": {
           "EntityFramework": {
@@ -8970,7 +8972,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "ty1zlxKCCii3N78Q5S+CTBGE4enjhK1loW0ueZRepEQ=",
-  "Source": "SmartPowerElectricAPI",
-  "BasePath": "_content/SmartPowerElectricAPI",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"jrrD15Tf2n+Qq2uzp65deCAfFujaG3gecEcCZNOnQlQ=","Source":"SmartPowerElectricAPI","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
