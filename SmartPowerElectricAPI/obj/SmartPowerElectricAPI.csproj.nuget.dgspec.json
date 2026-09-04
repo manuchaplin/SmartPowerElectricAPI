@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {}
+    "C:\\Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {}
   },
   "projects": {
-    "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {
+    "C:\\Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+        "projectUniqueName": "C:\\Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
         "projectName": "SmartPowerElectricAPI",
-        "projectPath": "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
-        "packagesPath": "C:\\Users\\manuel.mon\\.nuget\\packages\\",
-        "outputPath": "C:\\Mis Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\obj\\",
+        "projectPath": "C:\\Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\SmartPowerElectricAPI.csproj",
+        "packagesPath": "C:\\Users\\manuc\\.nuget\\packages\\",
+        "outputPath": "C:\\Proyectos\\SmartPowerElectricAPI\\SmartPowerElectricAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\manuel.mon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\manuc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +46,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net8.0": {
@@ -128,7 +129,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
